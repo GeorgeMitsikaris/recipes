@@ -3,26 +3,38 @@ import axios from 'axios';
 
 function Search() {
 	const [recipe, setRecipe] = useState('');
+	const [debouncedRecipe, setDebouncedRecipe] = useState('');
   const [recipes, setRecipes] = useState([]);
-  let searchTerm = '';
-
-  const getRecipes = (inputRecipe) => {
-    axios
-			.get(
-				`https://api.spoonacular.com/recipes/findByIngredients?apiKey=fdde02e0fc0b4987bd9b175b0f55f263`, {
-          params: {
-            ingredients: recipe
-          }
-        }
-			)
-			.then((result) => {
-				setRecipes(result.data);
-			});
-  }
 
   useEffect(() => {
-    getRecipes(searchTerm);
-  }, [searchTerm])
+    const timerId = setTimeout(() => {
+      setDebouncedRecipe(recipe)
+    }, 1000);
+
+    return () => {
+      clearTimeout(timerId);
+    }
+
+  }, [recipe]);
+
+  useEffect(() => {
+		const search = async () => {
+			const { data } = await axios.get(
+				`https://api.spoonacular.com/recipes/complexSearch?apiKey=fdde02e0fc0b4987bd9b175b0f55f263`,
+				{
+					params: {
+						query: debouncedRecipe,
+						instructionsRequired: true,
+					},
+				}
+			);
+      console.log(data.results);
+			setRecipes(data.results);
+		};
+    if(debouncedRecipe)
+      search();
+
+	}, [debouncedRecipe]);
 
   const renderRecipes = recipes.map(recipe => {
     return <div key={recipe.id}>{recipe.title}</div>
@@ -33,16 +45,13 @@ function Search() {
 			<h3>Search for recipes</h3>
 			<input
 				value={recipe}
+        placeholder="Search for recipes..."
 				onChange={e => {
-          e.preventDefault();
           setRecipe(e.target.value)
           }
         }
 			/>
-      <button onClick={() => {
-        searchTerm = recipe;
-        getRecipes(searchTerm)}
-      }>Search for recipes</button>
+      
       {renderRecipes}
 		</div>
 	);
