@@ -1,0 +1,10 @@
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-recipe {
+  flex: 0 0 30%;
+  border: 1px solid black;
+  margin: 0 auto;
+}
