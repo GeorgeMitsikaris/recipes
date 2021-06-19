@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Recipes.css';
+import Recipe from './Recipe/Recipe';
 
-function Search() {
+const Recipes = () => {
 	const [recipe, setRecipe] = useState('');
 	const [debouncedRecipe, setDebouncedRecipe] = useState('');
 	const [recipes, setRecipes] = useState([]);
@@ -20,16 +21,16 @@ function Search() {
 	useEffect(() => {
 		const search = async () => {
 			const { data } = await axios.get(
-				`https://api.spoonacular.com/recipes/complexSearch?apiKey=fdde02e0fc0b4987bd9b175b0f55f263`,
+				`https://api.spoonacular.com/recipes/findByIngredients?apiKey=fdde02e0fc0b4987bd9b175b0f55f263`,
 				{
 					params: {
-						query: debouncedRecipe,
+						ingredients: debouncedRecipe,
 						instructionsRequired: true,
 					},
 				}
 			);
-			console.log(data.results);
-			setRecipes(data.results);
+			console.log(data);
+			setRecipes(data);
 		};
 		if (debouncedRecipe) search();
 	}, [debouncedRecipe]);
@@ -37,7 +38,7 @@ function Search() {
 	const renderRecipes = recipes.map((recipe) => {
 		return (
 			<div className='search-recipe' key={recipe.id}>
-				{recipe.title}
+				<Recipe title={recipe.title} missedIngredients={recipe.missedIngredients} />
 			</div>
 		);
 	});
@@ -52,10 +53,11 @@ function Search() {
 					setRecipe(e.target.value);
 				}}
 			/>
-
-			<div className='search-container'>{renderRecipes}</div>
+			<div className='search-container'>
+			  {renderRecipes}
+      </div>
 		</div>
 	);
 }
 
-export default Search;
+export default Recipes;
