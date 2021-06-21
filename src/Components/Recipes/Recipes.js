@@ -21,7 +21,7 @@ const Recipes = () => {
 	useEffect(() => {
 		const search = async () => {
 			const { data } = await axios.get(
-				`https://api.spoonacular.com/recipes/findByIngredients?apiKey=fdde02e0fc0b4987bd9b175b0f55f263`,
+				`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${process.env.REACT_APP_SPOONACULAR}`,
 				{
 					params: {
 						ingredients: debouncedRecipe,
@@ -38,7 +38,7 @@ const Recipes = () => {
 	const renderRecipes = recipes.map((recipe) => {
 		return (
 			<div className='search-recipe' key={recipe.id}>
-				<Recipe title={recipe.title} missedIngredients={recipe.missedIngredients} />
+				<Recipe recipeId={recipe.id} title={recipe.title} missedIngredients={recipe.missedIngredients} />
 			</div>
 		);
 	});
