@@ -26,6 +26,7 @@ const Recipes = () => {
 					params: {
 						ingredients: debouncedRecipe,
 						instructionsRequired: true,
+						number: 40,
 					},
 				}
 			);
@@ -35,10 +36,14 @@ const Recipes = () => {
 		if (debouncedRecipe) search();
 	}, [debouncedRecipe]);
 
-	const renderRecipes = recipes.map((recipe) => {
+	const renderRecipes = recipes.map((recipe, i) => {
 		return (
-			<div className='search-recipe' key={recipe.id}>
-				<Recipe recipeId={recipe.id} title={recipe.title} missedIngredients={recipe.missedIngredients} />
+			<div className='search__recipe' key={recipe.id}>
+				<Recipe
+					recipeId={recipe.id}
+					title={recipe.title}
+					missedIngredients={recipe.missedIngredients}
+				/>
 			</div>
 		);
 	});
@@ -53,11 +58,9 @@ const Recipes = () => {
 					setRecipe(e.target.value);
 				}}
 			/>
-			<div className='search-container'>
-			  {renderRecipes}
-      </div>
+			<div className='search__container'>{renderRecipes}</div>
 		</div>
 	);
-}
+};
 
 export default Recipes;

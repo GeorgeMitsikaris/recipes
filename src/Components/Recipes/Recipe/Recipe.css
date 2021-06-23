@@ -1,0 +1,13 @@
+.recipe__title {
+  margin-left: auto;
+}
+
+.recipe__arrow {
+  padding: 6px 6px 0 0;
+  margin-left: auto;
+}
+
+.recipe__header {
+  display: flex;
+  align-items: center;
+}
