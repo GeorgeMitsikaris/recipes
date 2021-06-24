@@ -10,4 +10,13 @@
 .recipe__header {
   display: flex;
   align-items: center;
+  border: 1px solid #000;
+}
+
+.recipe__content {
+  display: none;
+}
+
+.show-content {
+  display: block;
 }
