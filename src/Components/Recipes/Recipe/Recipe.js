@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons';
 
 import './Recipe.css';
 
 const Recipe = ({ title, missedIngredients, recipeId }) => {
-  let steps = [];
-  const [rotateIcon, setRotateIcon] = useState(0);
-  const [showContent, setShowContent] = useState(false)
+	let steps = [];
 
 	const getInstructions = async () => {
 		const { data } = await axios.get(
@@ -19,27 +15,28 @@ const Recipe = ({ title, missedIngredients, recipeId }) => {
 		console.log(steps);
 	};
 
-  const toggleRecipeContent = () => {
-    setShowContent(content => content=!content);
-    setRotateIcon(rotateIcon => rotateIcon === 0 ? rotateIcon = 180 : rotateIcon = 0);
-  }
-
 	const renderIngredients = missedIngredients.map((missedIngredient) => {
-		return <div key={uuid()}>{missedIngredient.name}</div>;
+		return (
+			<span className='recipe__ingredients' key={uuid()}>
+				{missedIngredient.name} <span className='recipe__dash'>-</span>
+			</span>
+		);
 	});
 
 	return (
-		<div className = 'recipe'>
-			<div className = 'recipe__header' onClick = {toggleRecipeContent}>
-				<div className = 'recipe__title'>{title}</div>
-				<FontAwesomeIcon className="recipe__arrow" icon={faChevronCircleDown} rotation={rotateIcon} />
+		<>
+			<div className='recipe__header'>
+				<strong>Name:</strong>
+				{title}
 			</div>
-			{/* <hr></hr> */}
-			<div className={`recipe__content ${showContent ? 'show-content' : ''}`}>
-				{showContent?renderIngredients:null}
+			<div className={`recipe__content`}>
+				<div className='recipe__wrap'>
+					<strong>Ingredients:</strong>
+					{renderIngredients}
+				</div>
 				<button onClick={() => getInstructions()}>Get Instructions</button>
 			</div>
-		</div>
+		</>
 	);
 };
 

@@ -50,7 +50,7 @@ const Recipes = () => {
 
 	return (
 		<div className='search'>
-			<h3>Search for recipes</h3>
+			<h1>Search for recipes</h1>
 			<input
 				value={recipe}
 				placeholder='Search for recipes...'
