@@ -15,12 +15,27 @@
 .recipe__content {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 }
 
 .recipe__content button {
   width: 200px;
   height: 40px;
   font-size: 16px;
+  background-color: #c38d9e; 
+  border-radius: 100px;
+  border: 0;
+  transition: all 0.2s;
+}
+
+.recipe__content button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 3px rgb(95, 121, 128);
+}
+
+.recipe__content button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 1px rgb(95, 121, 128);
 }
 
 .recipe__ingredients {
@@ -33,4 +48,16 @@
 
 .recipe__ingredients:last-child span {
   display: none;
+}
+
+.recipe__wrap {
+  width: 80%;
+}
+
+.recipe__unused {
+  padding: 20px;
+}
+
+.recipe__unused strong {
+  margin-right: 20px;
 }

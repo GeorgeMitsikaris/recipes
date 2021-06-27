@@ -43,6 +43,8 @@ const Recipes = () => {
 					recipeId={recipe.id}
 					title={recipe.title}
 					missedIngredients={recipe.missedIngredients}
+					usedIngredients={recipe.usedIngredients}
+					unusedIngredients={recipe.unusedIngredients}
 				/>
 			</div>
 		);

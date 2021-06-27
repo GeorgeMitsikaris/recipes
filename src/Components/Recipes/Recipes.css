@@ -1,5 +1,6 @@
 .search h1  {
   text-align: center;
+  color: #85dcb1;
 }
 
 .search input {
@@ -9,7 +10,7 @@
   height: 30px;
   border-radius: 100px;
   padding: 10px 30px;
-  background-color: #ddd;
+  background-color: #e27d60;
   border: none;
   outline: 1px solid #777;
   font-size: 18px;
@@ -28,4 +29,5 @@
   box-shadow: 0 3px 3px rgba(0, 0, 0, .3);
   width: 80%;
   max-width: 1285px;
+  background-color: #e8a87c;
 }
