@@ -22,10 +22,13 @@ const Recipe = ({
 	};
 
 	const renderMissedIngredients = missedIngredients.map((missedIngredient) => {
+    // console.log(missedIngredient)
 		return (
-			<span className='recipe__ingredients' key={uuid()}>
-				{missedIngredient.name} <span className='recipe__dash'>-</span>
-			</span>
+			<tr key={uuid()}>
+				<td>{missedIngredient.name}</td>
+				<td>{missedIngredient.amount}</td>
+				<td>{missedIngredient.unit}</td>
+			</tr>
 		);
 	});
 
@@ -37,10 +40,16 @@ const Recipe = ({
   })
 
 	const renderUsedIngredients = usedIngredients.map((usedIngredient) => {
+    // console.log(usedIngredient.unit)
+    // console.log(usedIngredient.amount)
+    // console.log(usedIngredient.name)
+    // console.log('--------------------');
 		return (
-			<span className='recipe__ingredients' key={uuid()}>
-				{usedIngredient.name} <span className='recipe__dash'>-</span>
-			</span>
+      <tr key={uuid()}>
+        <td>{usedIngredient.name}</td>
+        <td>{usedIngredient.amount}</td>
+        <td>{usedIngredient.unit}</td>
+      </tr>
 		);
 	});
 
@@ -58,18 +67,22 @@ const Recipe = ({
 				<strong>Name:</strong>
 				{title}
 			</div>
-			<div className = 'recipe__content'>
+			{/* <div className = 'recipe__content'>
 				<div className = 'recipe__wrap'>
 					<strong>Ingredients:</strong>
           {renderUsedIngredients}
 					{renderMissedIngredients}
 				</div>
-				<button onClick = {() => getInstructions()}>Get Instructions</button>
-			</div>
+			</div> */}
+      <table>
+        {renderUsedIngredients}
+        {renderMissedIngredients}
+      </table>
       <div className = 'recipe__unused'>
         <strong>Unused Ingredients:</strong>
         {renderUnusedIngredients}
       </div>
+      <button onClick = {() => getInstructions()}>Get Instructions</button>
       {renderSteps}
 		</>
 	);
