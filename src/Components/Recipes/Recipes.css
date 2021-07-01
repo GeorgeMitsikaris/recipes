@@ -17,11 +17,6 @@
   margin-bottom: 40px;
 }
 
-.search__container {
-  /* display: flex;
-  flex-wrap: wrap; */
-}
-
 .search__recipe {
   margin: 30px auto;
   border: 1px solid #000;
@@ -30,4 +25,11 @@
   width: 80%;
   max-width: 1285px;
   background-color: #e8a87c;
+  display: flex;
+  flex-direction: column;
+}
+
+.search__recipe table {
+  margin: 0 auto;
+  width: 80%; 
 }

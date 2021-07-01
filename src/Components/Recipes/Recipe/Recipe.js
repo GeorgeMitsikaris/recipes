@@ -11,7 +11,7 @@ const Recipe = ({
 	unusedIngredients,
 	recipeId,
 }) => {
-  const [steps, setSteps] = useState([]);
+	const [steps, setSteps] = useState([]);
 
 	const getInstructions = async () => {
 		const { data } = await axios.get(
@@ -22,7 +22,6 @@ const Recipe = ({
 	};
 
 	const renderMissedIngredients = missedIngredients.map((missedIngredient) => {
-    // console.log(missedIngredient)
 		return (
 			<tr key={uuid()}>
 				<td>{missedIngredient.name}</td>
@@ -32,24 +31,23 @@ const Recipe = ({
 		);
 	});
 
-  const renderSteps = steps.map(step => {
-    console.log(step);
-    return (
-      <div><p>{step.number}</p>{step.step}</div>
-    )
-  })
+	const renderSteps = steps.map((step) => {
+		console.log(step);
+		return (
+			<div>
+				<p>{step.number}</p>
+				{step.step}
+			</div>
+		);
+	});
 
 	const renderUsedIngredients = usedIngredients.map((usedIngredient) => {
-    // console.log(usedIngredient.unit)
-    // console.log(usedIngredient.amount)
-    // console.log(usedIngredient.name)
-    // console.log('--------------------');
 		return (
-      <tr key={uuid()}>
-        <td>{usedIngredient.name}</td>
-        <td>{usedIngredient.amount}</td>
-        <td>{usedIngredient.unit}</td>
-      </tr>
+			<tr key={uuid()}>
+				<td>{usedIngredient.name}</td>
+				<td>{usedIngredient.amount}</td>
+				<td>{usedIngredient.unit}</td>
+			</tr>
 		);
 	});
 
@@ -63,27 +61,28 @@ const Recipe = ({
 
 	return (
 		<>
-			<div className = 'recipe__header'>
-				<strong>Name:</strong>
+			<div className='recipe__header'>
 				{title}
 			</div>
-			{/* <div className = 'recipe__content'>
-				<div className = 'recipe__wrap'>
-					<strong>Ingredients:</strong>
-          {renderUsedIngredients}
+			<table className="recipe__table">
+				<thead>
+          <tr className="recipe__table--header">
+            <th>Ingredients</th>
+            <th>Amount</th>
+            <th>Unit</th>
+          </tr>
+				</thead>
+				<tbody>
+					{renderUsedIngredients}
 					{renderMissedIngredients}
-				</div>
-			</div> */}
-      <table>
-        {renderUsedIngredients}
-        {renderMissedIngredients}
-      </table>
-      <div className = 'recipe__unused'>
-        <strong>Unused Ingredients:</strong>
-        {renderUnusedIngredients}
-      </div>
-      <button onClick = {() => getInstructions()}>Get Instructions</button>
-      {renderSteps}
+				</tbody>
+			</table>
+			<div className='recipe__unused'>
+				<strong>Unused Ingredients:</strong>
+				{renderUnusedIngredients}
+			</div>
+      <button className="recipe__button" onClick={() => getInstructions()}>Get Instructions</button>
+			{renderSteps}
 		</>
 	);
 };
