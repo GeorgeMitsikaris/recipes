@@ -35,6 +35,7 @@
 .recipe__button:hover {
   transform: translateY(-3px);
   box-shadow: 0 3px 3px rgb(95, 121, 128);
+  cursor: pointer;
 }
 
 .recipe__button:active {

@@ -11,9 +11,9 @@ function App(props) {
   const renderSteps = steps && steps.map(step => {
     console.log(step)
     return (
-      <div key={step.number}>
-        <div>Step {step.number}</div>
-        <p>{step.step}</p> 
+      <div key={step.number} className="modal-steps">
+        <span>{step.number}. </span>
+        {step.step}
       </div>
     )
   })
@@ -24,10 +24,11 @@ function App(props) {
 				isOpen={props.isModalOpen}
 				closeTimeoutMS={500}
 				onRequestClose={() => props.closeModal()}
+        className="modal-content"
 			>
 				<h1>Instructions</h1>
 				{renderSteps}
-				<button onClick={() => props.closeModal()}>Close</button>
+				<button className="recipe__close" onClick={() => props.closeModal()}>Close</button>
 			</Modal>
 			<Search />
 		</div>
