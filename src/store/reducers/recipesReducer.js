@@ -1,7 +1,14 @@
 const initialState = {
-  steps: []
+  steps: [],
+  isModalOpen: false
 }
 
 export const recipesReducer = (state = initialState, action) => {
-  return state;
+  switch(action.type) {
+    case 'GET_STEPS':
+      return {...state, steps: [action.payload], isModalOpen: true}
+    case 'CLOSE_MODAL':
+      return {...state, isModalOpen: false}
+    default: return state;
+  }
 }

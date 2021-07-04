@@ -30,7 +30,6 @@ const Recipes = () => {
 					},
 				}
 			);
-			console.log(data);
 			setRecipes(data);
 		};
 		if (debouncedRecipe) search();

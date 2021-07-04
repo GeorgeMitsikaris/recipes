@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { v4 as uuid } from 'uuid';
-import axios from 'axios';
+// import axios from 'axios';
+import { connect } from 'react-redux';
+
+import { fetchSteps } from '../../../store/actions/recipesActions';
 
 import './Recipe.css';
 
@@ -10,15 +13,17 @@ const Recipe = ({
 	usedIngredients,
 	unusedIngredients,
 	recipeId,
+	fetchSteps,
 }) => {
-	const [steps, setSteps] = useState([]);
+	// const [steps, setSteps] = useState([]);
 
 	const getInstructions = async () => {
-		const { data } = await axios.get(
-			`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${process.env.REACT_APP_SPOONACULAR}`
-		);
-		setSteps(data[0].steps);
-		console.log(steps);
+		// const { data } = await axios.get(
+		// 	`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${process.env.REACT_APP_SPOONACULAR}`
+		// );
+    fetchSteps(recipeId);
+		// setSteps(data[0].steps);
+		// console.log(steps);
 	};
 
 	const renderMissedIngredients = missedIngredients.map((missedIngredient) => {
@@ -31,15 +36,15 @@ const Recipe = ({
 		);
 	});
 
-	const renderSteps = steps.map((step) => {
-		console.log(step);
-		return (
-			<div>
-				<p>{step.number}</p>
-				{step.step}
-			</div>
-		);
-	});
+	// const renderSteps = steps.map((step) => {
+	// 	console.log(step);
+	// 	return (
+	// 		<div>
+	// 			<p>{step.number}</p>
+	// 			{step.step}
+	// 		</div>
+	// 	);
+	// });
 
 	const renderUsedIngredients = usedIngredients.map((usedIngredient) => {
 		return (
@@ -61,16 +66,14 @@ const Recipe = ({
 
 	return (
 		<>
-			<div className='recipe__header'>
-				{title}
-			</div>
-			<table className="recipe__table">
+			<div className='recipe__header'>{title}</div>
+			<table className='recipe__table'>
 				<thead>
-          <tr className="recipe__table--header">
-            <th>Ingredients</th>
-            <th>Amount</th>
-            <th>Unit</th>
-          </tr>
+					<tr className='recipe__table--header'>
+						<th>Ingredients</th>
+						<th>Amount</th>
+						<th>Unit</th>
+					</tr>
 				</thead>
 				<tbody>
 					{renderUsedIngredients}
@@ -81,10 +84,18 @@ const Recipe = ({
 				<strong>Unused Ingredients:</strong>
 				{renderUnusedIngredients}
 			</div>
-      <button className="recipe__button" onClick={() => getInstructions()}>Get Instructions</button>
-			{renderSteps}
+			<button className='recipe__button' onClick={() => getInstructions()}>
+				Get Instructions
+			</button>
+			{/* {renderSteps} */}
 		</>
 	);
 };
 
-export default Recipe;
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchSteps: recipeId => dispatch(fetchSteps(recipeId))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Recipe);
