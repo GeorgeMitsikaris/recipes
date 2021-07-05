@@ -6,29 +6,38 @@ import { closeModal } from './store/actions/recipesActions';
 import Search from './Components/Recipes/Recipes';
 
 Modal.setAppElement('#root');
-function App(props) {
-  const steps = props.steps[0];
-  const renderSteps = steps && steps.map(step => {
-    console.log(step)
-    return (
-      <div key={step.number} className="modal-steps">
-        <span>{step.number}. </span>
-        {step.step}
-      </div>
-    )
-  })
+function App({isModalOpen, selectedRecipe, closeModal}) {
+  // const steps = props.steps;
+  // const renderSteps = steps && steps.map(step => {
+  //   console.log(step)
+  //   return (
+  //     <div key={step.number} className="modal-steps">
+  //       <span>{step.number}. </span>
+  //       {step.step}
+  //     </div>
+  //   )
+  // })
+  const renderSteps = selectedRecipe.analyzedInstructions && selectedRecipe.analyzedInstructions[0].steps.map((step) => {
+		console.log(step);
+		  return (
+		    <div key={step.number} className="modal-steps">
+		      <span>{step.number}. </span>
+		      {step.step}
+		    </div>
+		  )
+	})
 
   return (
 		<div className='App'>
 			<Modal
-				isOpen={props.isModalOpen}
+				isOpen={isModalOpen}
 				closeTimeoutMS={500}
-				onRequestClose={() => props.closeModal()}
+				onRequestClose={() => closeModal()}
         className="modal-content"
 			>
 				<h1>Instructions</h1>
 				{renderSteps}
-				<button className="recipe__close" onClick={() => props.closeModal()}>Close</button>
+				<button className="recipe__close" onClick={() => closeModal()}>Close</button>
 			</Modal>
 			<Search />
 		</div>
@@ -37,8 +46,9 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    steps: state.steps,
-    isModalOpen: state.isModalOpen
+    // steps: state.steps,
+    isModalOpen: state.isModalOpen,
+    selectedRecipe: state.selectedRecipe
   }
 }
 

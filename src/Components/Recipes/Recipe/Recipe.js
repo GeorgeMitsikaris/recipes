@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 // import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { fetchSteps } from '../../../store/actions/recipesActions';
+import { fetchRecipe } from '../../../store/actions/recipesActions';
 
 import './Recipe.css';
 
@@ -13,17 +13,13 @@ const Recipe = ({
 	usedIngredients,
 	unusedIngredients,
 	recipeId,
-	fetchSteps,
+	// fetchSteps,
+  fetchRecipe
 }) => {
-	// const [steps, setSteps] = useState([]);
 
 	const getInstructions = async () => {
-		// const { data } = await axios.get(
-		// 	`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${process.env.REACT_APP_SPOONACULAR}`
-		// );
-    fetchSteps(recipeId);
-		// setSteps(data[0].steps);
-		// console.log(steps);
+    // fetchSteps(recipeId);
+    fetchRecipe(recipeId);
 	};
 
 	const renderMissedIngredients = missedIngredients.map((missedIngredient) => {
@@ -35,16 +31,6 @@ const Recipe = ({
 			</tr>
 		);
 	});
-
-	// const renderSteps = steps.map((step) => {
-	// 	console.log(step);
-	// 	return (
-	// 		<div>
-	// 			<p>{step.number}</p>
-	// 			{step.step}
-	// 		</div>
-	// 	);
-	// });
 
 	const renderUsedIngredients = usedIngredients.map((usedIngredient) => {
 		return (
@@ -87,14 +73,14 @@ const Recipe = ({
 			<button className='recipe__button' onClick={() => getInstructions()}>
 				Get Instructions
 			</button>
-			{/* {renderSteps} */}
 		</>
 	);
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSteps: recipeId => dispatch(fetchSteps(recipeId))
+    fetchRecipe: recipeId => dispatch(fetchRecipe(recipeId)),
+    // fetchSteps: recipeId => dispatch(fetchSteps(recipeId)),
   }
 }
 
