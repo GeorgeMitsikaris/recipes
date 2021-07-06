@@ -9,7 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 import App from './App';
 import { recipesReducer } from './store/reducers/recipesReducer';
-
+import './firebase/firebase';
 
 const store = createStore(
 	recipesReducer,

@@ -1,6 +1,5 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
-// import axios from 'axios';
 import { connect } from 'react-redux';
 
 import { fetchRecipe } from '../../../store/actions/recipesActions';
@@ -13,12 +12,10 @@ const Recipe = ({
 	usedIngredients,
 	unusedIngredients,
 	recipeId,
-	// fetchSteps,
   fetchRecipe
 }) => {
 
 	const getInstructions = async () => {
-    // fetchSteps(recipeId);
     fetchRecipe(recipeId);
 	};
 
@@ -80,7 +77,6 @@ const Recipe = ({
 const mapDispatchToProps = dispatch => {
   return {
     fetchRecipe: recipeId => dispatch(fetchRecipe(recipeId)),
-    // fetchSteps: recipeId => dispatch(fetchSteps(recipeId)),
   }
 }
 
