@@ -2,12 +2,13 @@ import './App.css';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { closeModal } from './store/actions/recipesActions';
+import { storeRecipe } from './store/actions/firebaseActions';
 
 import Search from './Components/Recipes/Recipes';
-import './firebase/firebase';
+import './firebase/firebase'; 
 
 Modal.setAppElement('#root');
-function App({isModalOpen, selectedRecipe, closeModal}) {
+function App({isModalOpen, selectedRecipe, closeModal, storeRecipe}) {
   const renderSteps = selectedRecipe.analyzedInstructions && selectedRecipe.analyzedInstructions[0].steps.map((step) => {
 		  return (
 		    <div key={step.number} className="modal-steps">
@@ -36,6 +37,9 @@ function App({isModalOpen, selectedRecipe, closeModal}) {
 				<button className='recipe__close' onClick={() => closeModal()}>
 					Close
 				</button>
+        <button className='recipe__save' onClick={() => storeRecipe()}>
+          Save Recipe
+        </button>
 			</Modal>
 			<Search />
 		</div>
@@ -44,14 +48,15 @@ function App({isModalOpen, selectedRecipe, closeModal}) {
 
 const mapStateToProps = state => {
   return {
-    isModalOpen: state.isModalOpen,
-    selectedRecipe: state.selectedRecipe
+    isModalOpen: state.recipes.isModalOpen,
+    selectedRecipe: state.recipes.selectedRecipe
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    closeModal: () => dispatch(closeModal(false))
+    closeModal: () => dispatch(closeModal(false)),
+    storeRecipe: () => dispatch(storeRecipe())
   }
 }
 
