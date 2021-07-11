@@ -2,7 +2,7 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { connect } from 'react-redux';
 
-import { fetchRecipe } from '../../../store/actions/recipesActions';
+import { fetchRecipe } from '../../../store/actions/recipeActions';
 
 import './Recipe.css';
 

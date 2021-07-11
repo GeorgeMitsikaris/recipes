@@ -9,11 +9,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 import App from './App';
 import { recipesReducer } from './store/reducers/recipesReducer';
-import { firebaseReducer } from './store/reducers/firebaseReducer';
 
 const rootReducer = combineReducers({
   recipes: recipesReducer,
-  firebase: firebaseReducer
 });
 
 const store = createStore(

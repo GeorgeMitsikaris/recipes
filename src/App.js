@@ -1,11 +1,11 @@
 import './App.css';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
-import { closeModal } from './store/actions/recipesActions';
-import { storeRecipe } from './store/actions/firebaseActions';
+import { closeModal, storeRecipe } from './store/actions/recipeActions';
 
 import Search from './Components/Recipes/Recipes';
 import './firebase/firebase'; 
+import Navigation from './Components/NavigationBar/Navigation';
 
 Modal.setAppElement('#root');
 function App({isModalOpen, selectedRecipe, closeModal, storeRecipe}) {
@@ -41,6 +41,7 @@ function App({isModalOpen, selectedRecipe, closeModal, storeRecipe}) {
           Save Recipe
         </button>
 			</Modal>
+      <Navigation />
 			<Search />
 		</div>
 	);

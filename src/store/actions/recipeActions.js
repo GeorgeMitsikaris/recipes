@@ -1,5 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
+import database from '../../firebase/firebase';
+import { STORE_RECIPE } from './actionTypes';
 
 import { GET_RECIPE, CLOSE_MODAL } from './actionTypes';
 
@@ -16,3 +18,12 @@ export const closeModal = () => {
     type: CLOSE_MODAL, 
   }
 }
+
+export const storeRecipe = () => async (dispatch, getState) => {
+	database
+		.ref('recipes')
+		.push(getState().recipes.selectedRecipe)
+		.then((ref) => {
+			dispatch({ type: STORE_RECIPE });
+		});
+};
