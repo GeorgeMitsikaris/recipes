@@ -21,3 +21,15 @@
 .nav-register {
   background-color: rgb(187, 36, 94);
 }
+
+.modal-container {
+  background-color: #a2ed60;
+  inset: 230px;
+  position: absolute;
+  border: 1px solid rgb(204, 204, 204);
+  overflow: auto;
+  border-radius: 6px;
+  outline: currentcolor none medium;
+  padding: 20px 40px;
+  font-size: 22px;
+}

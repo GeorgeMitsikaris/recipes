@@ -6,6 +6,7 @@ import { closeModal, storeRecipe } from './store/actions/recipeActions';
 import Search from './Components/Recipes/Recipes';
 import './firebase/firebase'; 
 import Navigation from './Components/NavigationBar/Navigation';
+import { firebase } from './firebase/firebase';
 
 Modal.setAppElement('#root');
 function App({isModalOpen, selectedRecipe, closeModal, storeRecipe}) {
@@ -17,6 +18,10 @@ function App({isModalOpen, selectedRecipe, closeModal, storeRecipe}) {
 		    </div>
 		  )
 	})
+  firebase.auth().onAuthStateChanged((user) => {
+		if (user) console.log('Logged In');
+		else console.log('Not logged in');
+	});
 
   return (
 		<div className='App'>

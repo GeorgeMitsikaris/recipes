@@ -9,7 +9,13 @@ export const fetchRecipe = (recipeId) => async dispatch => {
 	const { data } = await axios.get(
 		`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${process.env.REACT_APP_SPOONACULAR}`
 	);
-  const recipeData = _.pick(data, ['extendedIngredients', 'title', 'id', 'analyzedInstructions']);
+  const recipeData = _.pick(data, [
+		'extendedIngredients',
+		'title',
+		'id',
+		'analyzedInstructions',
+		'readyInMinutes',
+	]);
   dispatch({type: GET_RECIPE, payload: recipeData});
 };
 
