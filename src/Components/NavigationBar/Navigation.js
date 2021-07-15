@@ -21,10 +21,10 @@ function Navigation({
 		setIsOpen((isOpen) => !isOpen);
 	};
 
-  const registration = () => {
-    startRegister();
-    toggleModal();
-  }
+	const registration = () => {
+		startRegister();
+		toggleModal();
+	};
 
 	const modalHtml = (
 		<div className='modal'>
@@ -38,7 +38,11 @@ function Navigation({
 					<label>Password</label>
 					<input type='text' />
 				</div>
-				<button className='modal-button-action' onClick={() => registration()}>Register</button>
+			</div>
+			<div className='modal-buttons'>
+				<button className='modal-button-action' onClick={() => registration()}>
+					Register
+				</button>
 				<button className='modal-button-cancel' onClick={toggleModal}>
 					Cancel
 				</button>
@@ -84,7 +88,7 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(startLoginEmail(userName, password)),
 		startSignOut: () => dispatch(startSignOut()),
 		startRegister: (userName, password) =>
-			dispatch(startRegister(userName, password))
+			dispatch(startRegister(userName, password)),
 	};
 };
 
