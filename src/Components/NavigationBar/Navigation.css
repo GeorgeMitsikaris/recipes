@@ -24,7 +24,6 @@
 
 .modal-container {
   background-color: #a2ed60;
-  inset: 230px;
   position: absolute;
   border: 1px solid rgb(204, 204, 204);
   overflow: auto;
@@ -32,6 +31,10 @@
   outline: currentcolor none medium;
   padding: 20px 40px;
   font-size: 22px;
+  top: 230px;
+  bottom: 230px;
+  left: 350px;
+  right: 350px;
 }
 
 .modal h2 {
@@ -47,26 +50,32 @@
   justify-content: space-evenly;
   letter-spacing: 1px;
   height: 200px;
+  padding-right: 8%;
 }
 
 .modal-input-wrap {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: baseline;
   width: 100%;
 }
 
 .modal-input-wrap input {
-  width: 50%;
+  width: 60%;
   height: 30px;
   border: 0;
   border-radius: 5px;
   margin-left: 30px;
+  padding-left: 15px;
+  outline: none;
+  font-size: 18px;
+  letter-spacing: 2px;
 }
 
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
+  margin-top: 60px;
 }
 
 .modal-buttons button {

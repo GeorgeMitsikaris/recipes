@@ -38,6 +38,10 @@ function Navigation({
 					<label>Password</label>
 					<input type='text' />
 				</div>
+				<div className='modal-input-wrap'>
+					<label>Confirm Password</label>
+					<input type='text' />
+				</div>
 			</div>
 			<div className='modal-buttons'>
 				<button className='modal-button-action' onClick={() => registration()}>
