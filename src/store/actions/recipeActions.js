@@ -26,10 +26,11 @@ export const closeModal = () => {
 }
 
 export const storeRecipe = () => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
 	database
-		.ref('recipes')
+		.ref(userId)
 		.push(getState().recipes.selectedRecipe)
-		.then((ref) => {
+		.then(() => {
 			dispatch({ type: STORE_RECIPE });
 		});
 };

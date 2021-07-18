@@ -9,9 +9,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 import App from './App';
 import { recipesReducer } from './store/reducers/recipesReducer';
+import { authReducer } from './store/reducers/authReducer';
 
 const rootReducer = combineReducers({
   recipes: recipesReducer,
+  auth: authReducer
 });
 
 const store = createStore(

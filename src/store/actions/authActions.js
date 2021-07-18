@@ -1,10 +1,10 @@
 import { firebase, googleAuthProvider } from '../../firebase/firebase';
+import { GET_USER_ID } from '../actions/actionTypes';
 
-export const startRegister = (userName, password) => {
-	return () => {
-		console.log(userName, password);
-		return firebase.auth().createUserWithEmailAndPassword(userName, password);
-	};
+export const startRegister = (userName, password) => async dispatch  => {
+  const data = await firebase.auth().createUserWithEmailAndPassword(userName, password);
+  console.log(data);
+	dispatch({type: GET_USER_ID, payload: data.user.uid})
 };
 
 export const startLoginGoogle = () => {
