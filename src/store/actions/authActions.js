@@ -1,22 +1,20 @@
 import { firebase, googleAuthProvider } from '../../firebase/firebase';
-import { GET_USER_ID } from '../actions/actionTypes';
+import { GET_USER_ID, TOGGLE_LOGIN_MODAL, TOGGLE_REGISTER_MODAL } from '../actions/actionTypes';
 
 export const startRegister = (userName, password) => async dispatch  => {
   const data = await firebase.auth().createUserWithEmailAndPassword(userName, password);
-  console.log(data);
 	dispatch({type: GET_USER_ID, payload: data.user.uid})
 };
 
-export const startLoginGoogle = () => {
-	return () => {
-		return firebase.auth().signInWithPopup(googleAuthProvider);
-	};
+export const startLoginGoogle = () => async dispatch => {
+  const data = await firebase.auth().signInWithPopup(googleAuthProvider);
+	dispatch({ type: GET_USER_ID, payload: data.user.uid });
 };
 
-export const startLoginEmail = (userName, password) => {
-	return () => {
-		return firebase.auth().signInWithEmailAndPassword(userName, password);
-	};
+export const startLoginEmail = (userName, password) => async dispatch => { 
+  const data = await firebase.auth().signInWithEmailAndPassword(userName, password);
+  console.log(data);
+  dispatch({type: GET_USER_ID, payload: data.user.uid})
 };
 
 export const startSignOut = () => {
@@ -24,3 +22,15 @@ export const startSignOut = () => {
     return firebase.auth().signOut()
   }
 }
+
+export const toggleLoginModal = () => {
+  return {
+		type: TOGGLE_LOGIN_MODAL,
+	};
+}
+
+export const toggleRegisterModal = () => {
+	return {
+		type: TOGGLE_REGISTER_MODAL,
+	};
+};

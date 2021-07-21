@@ -10,7 +10,7 @@ export const recipesReducer = (state = initialState, action) => {
 		case GET_RECIPE:
 			return { ...state, selectedRecipe: action.payload, isModalOpen: true };
 		case STORE_RECIPE:
-			return state;
+			return { ...state, isModalOpen: false };
 		case CLOSE_MODAL:
 			return { ...state, isModalOpen: false };
 		default:

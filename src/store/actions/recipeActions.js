@@ -29,7 +29,7 @@ export const storeRecipe = () => async (dispatch, getState) => {
   const userId = getState().auth.userId;
 	database
 		.ref(userId)
-		.push(getState().recipes.selectedRecipe)
+		.child(getState().recipes.selectedRecipe.title).set(getState().recipes.selectedRecipe)
 		.then(() => {
 			dispatch({ type: STORE_RECIPE });
 		});

@@ -5,3 +5,5 @@ export const STORE_RECIPE = 'STORE_RECIPE';
 
 // Firebase action types
 export const GET_USER_ID = 'GET_USER_ID';
+export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL';
+export const TOGGLE_REGISTER_MODAL = 'TOGGLE_REGISTER_MODAL';
