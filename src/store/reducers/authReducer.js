@@ -1,9 +1,10 @@
-import { GET_USER_ID, TOGGLE_LOGIN_MODAL, TOGGLE_REGISTER_MODAL } from '../actions/actionTypes';
+import { GET_USER_ID, TOGGLE_LOGIN_MODAL, TOGGLE_REGISTER_MODAL, SET_ERROR_MESSAGE } from '../actions/actionTypes';
 
 const initialState = {
   userId: '',
   isLoginModalOpen: false,
   isRegisterModalOpen: false,
+  errorMessage: ''
 }
 
 export const authReducer = (state=initialState, action) => {
@@ -14,6 +15,7 @@ export const authReducer = (state=initialState, action) => {
 			...state,
 			isRegisterModalOpen: !state.isRegisterModalOpen,
 		};
+    case SET_ERROR_MESSAGE: return {...state, errorMessage: action.payload}
     default: return state;
   }
 }

@@ -1,43 +1,63 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import Modal from 'react-modal';
+import './LoginModal.css';
 
-import { startLoginEmail, toggleLoginModal } from '../../../store/actions/authActions';
+import {
+	startLoginEmail,
+	toggleLoginModal,
+	setErrorMessage,
+} from '../../../store/actions/authActions';
 
-function LoginModal({ startLoginEmail, toggleLoginModal, isLoginModalOpen }) {
+function LoginModal({
+	startLoginEmail,
+	toggleLoginModal,
+	isLoginModalOpen,
+	errorMessage,
+	setErrorMessage,
+}) {
+	let schema = yup.object().shape({
+		username: yup.string().email('Username must be an email').required('Username is required'),
+		password: yup
+			.string()
+			.min(6, 'Password must be at least 6 characters')
+			.required('Password is required'),
+	});
 
 	const {
 		register,
 		handleSubmit,
 		reset,
 		formState: { errors },
-	} = useForm();
+	} = useForm({
+		resolver: yupResolver(schema),
+		mode: 'onChange',
+	});
 
 	const onSubmitLogin = (data) => {
-		// e.preventDefault();
 		startLoginEmail(data.username, data.password);
-		toggleLoginModal();
 		reset();
 	};
 
 	const renderLoginForm = (
-		<div className='modal'>
-			<h2>Sign in</h2>
-			<form onSubmit={handleSubmit(onSubmitLogin)}> 
+		<div className='modal' onClick={() => setErrorMessage('')}>
+			<h2>Log in</h2>
+			<form onSubmit={handleSubmit(onSubmitLogin)}>
 				<div className='modal-form'>
 					<div className='modal-input-wrap'>
 						<label>Username</label>
-						<input type='text' {...register('username', { required: true })} />
-						{errors.username && <span>Username is required</span>}
+						<input type='text' name='username' {...register('username')} />
+						<span>{errors.username?.message}</span>
 					</div>
 					<div className='modal-input-wrap'>
 						<label>Password</label>
-						<input
-							type='password'
-							{...register('password', { required: true })}
-						/>
-						{errors.password && <span>Password is required</span>}
+						<input type='password' name='password' {...register('password')} />
+						<span>{errors.password?.message}</span>
+						<span>{errorMessage}</span>
 					</div>
 				</div>
 				<div className='modal-buttons'>
@@ -54,11 +74,6 @@ function LoginModal({ startLoginEmail, toggleLoginModal, isLoginModalOpen }) {
 
 	return (
 		<Modal
-			style={{
-				content: {
-					inset: '230px',
-				},
-			}}
 			isOpen={isLoginModalOpen}
 			closeTimeoutMS={500}
 			onRequestClose={() => toggleLoginModal()}
@@ -69,18 +84,20 @@ function LoginModal({ startLoginEmail, toggleLoginModal, isLoginModalOpen }) {
 	);
 }
 
-const mapStateToProps = state => {
-  return {
-    isLoginModalOpen: state.auth.isLoginModalOpen
-  }
-}
+const mapStateToProps = (state) => {
+	return {
+		isLoginModalOpen: state.auth.isLoginModalOpen,
+		errorMessage: state.auth.errorMessage,
+	};
+};
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = (dispatch) => {
+	return {
 		toggleLoginModal: () => dispatch(toggleLoginModal()),
 		startLoginEmail: (username, password) =>
 			dispatch(startLoginEmail(username, password)),
+		setErrorMessage: (message) => dispatch(setErrorMessage(message)),
 	};
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

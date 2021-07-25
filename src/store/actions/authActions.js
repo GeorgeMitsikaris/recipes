@@ -1,9 +1,17 @@
 import { firebase, googleAuthProvider } from '../../firebase/firebase';
-import { GET_USER_ID, TOGGLE_LOGIN_MODAL, TOGGLE_REGISTER_MODAL } from '../actions/actionTypes';
+import { GET_USER_ID, TOGGLE_LOGIN_MODAL, TOGGLE_REGISTER_MODAL, SET_ERROR_MESSAGE } from '../actions/actionTypes';
 
 export const startRegister = (userName, password) => async dispatch  => {
-  const data = await firebase.auth().createUserWithEmailAndPassword(userName, password);
-	dispatch({type: GET_USER_ID, payload: data.user.uid})
+  try {
+    const data = await firebase.auth().createUserWithEmailAndPassword(userName, password);
+    dispatch({type: GET_USER_ID, payload: data.user.uid})
+  } catch (error) {
+    dispatch(
+			setErrorMessage(
+				error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
+			)
+		);
+  }
 };
 
 export const startLoginGoogle = () => async dispatch => {
@@ -12,9 +20,18 @@ export const startLoginGoogle = () => async dispatch => {
 };
 
 export const startLoginEmail = (userName, password) => async dispatch => { 
-  const data = await firebase.auth().signInWithEmailAndPassword(userName, password);
-  console.log(data);
-  dispatch({type: GET_USER_ID, payload: data.user.uid})
+  try {
+    const data = await firebase.auth().signInWithEmailAndPassword(userName, password);
+    dispatch({type: GET_USER_ID, payload: data.user.uid})
+    dispatch({type: TOGGLE_LOGIN_MODAL})
+  } catch (error) {
+    // dispatch({type: SET_ERROR_MESSAGE, payload: error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')}); 
+    dispatch(
+			setErrorMessage(
+				error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
+			)
+		);
+  }
 };
 
 export const startSignOut = () => {
@@ -34,3 +51,10 @@ export const toggleRegisterModal = () => {
 		type: TOGGLE_REGISTER_MODAL,
 	};
 };
+
+export const setErrorMessage = (message) => {
+  return {
+    type: SET_ERROR_MESSAGE,
+    payload: message
+  }
+}
