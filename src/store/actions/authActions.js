@@ -1,50 +1,62 @@
 import { firebase, googleAuthProvider } from '../../firebase/firebase';
-import { GET_USER_ID, TOGGLE_LOGIN_MODAL, TOGGLE_REGISTER_MODAL, SET_ERROR_MESSAGE } from '../actions/actionTypes';
+import {
+	GET_USER_ID,
+	TOGGLE_LOGIN_MODAL,
+	TOGGLE_REGISTER_MODAL,
+	SET_ERROR_MESSAGE,
+	SIGN_OUT,
+} from '../actions/actionTypes';
 
-export const startRegister = (userName, password) => async dispatch  => {
-  try {
-    const data = await firebase.auth().createUserWithEmailAndPassword(userName, password);
-    dispatch({type: GET_USER_ID, payload: data.user.uid})
-  } catch (error) {
-    dispatch(
+export const startRegister = (userName, password) => async (dispatch) => {
+	try {
+		const data = await firebase
+			.auth()
+			.createUserWithEmailAndPassword(userName, password);
+		dispatch({ type: GET_USER_ID, payload: data.user.uid });
+	} catch (error) {
+		dispatch(
 			setErrorMessage(
 				error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
 			)
 		);
-  }
+	}
 };
 
-export const startLoginGoogle = () => async dispatch => {
-  const data = await firebase.auth().signInWithPopup(googleAuthProvider);
+export const startLoginGoogle = () => async (dispatch) => {
+	const data = await firebase.auth().signInWithPopup(googleAuthProvider);
 	dispatch({ type: GET_USER_ID, payload: data.user.uid });
 };
 
-export const startLoginEmail = (userName, password) => async dispatch => { 
-  try {
-    const data = await firebase.auth().signInWithEmailAndPassword(userName, password);
-    dispatch({type: GET_USER_ID, payload: data.user.uid})
-    dispatch({type: TOGGLE_LOGIN_MODAL})
-  } catch (error) {
-    // dispatch({type: SET_ERROR_MESSAGE, payload: error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')}); 
-    dispatch(
+export const startLoginEmail = (userName, password) => async (dispatch) => {
+	try {
+		const data = await firebase
+			.auth()
+			.signInWithEmailAndPassword(userName, password);
+		dispatch({ type: GET_USER_ID, payload: data.user.uid });
+		dispatch({ type: TOGGLE_LOGIN_MODAL });
+	} catch (error) {
+		dispatch(
 			setErrorMessage(
 				error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
 			)
 		);
+	}
+};
+
+export const startSignOut = () => async dispatch =>{
+  try{
+		await firebase.auth().signOut();
+    dispatch({type: SIGN_OUT})
+  } catch (error) {
+
   }
 };
 
-export const startSignOut = () => {
-  return () => {
-    return firebase.auth().signOut()
-  }
-}
-
 export const toggleLoginModal = () => {
-  return {
+	return {
 		type: TOGGLE_LOGIN_MODAL,
 	};
-}
+};
 
 export const toggleRegisterModal = () => {
 	return {
@@ -53,8 +65,8 @@ export const toggleRegisterModal = () => {
 };
 
 export const setErrorMessage = (message) => {
-  return {
-    type: SET_ERROR_MESSAGE,
-    payload: message
-  }
-}
+	return {
+		type: SET_ERROR_MESSAGE,
+		payload: message,
+	};
+};

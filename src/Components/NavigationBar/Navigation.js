@@ -16,26 +16,42 @@ function Navigation({
 	startSignOut,
   toggleLoginModal,
   toggleRegisterModal,
+  isSignedIn
 }) {
 
 	return (
 		<div className='nav'>
-			<button className='nav-login' onClick={toggleRegisterModal}>
-				Register
-			</button>
-			<button className='nav-login' onClick={toggleLoginModal}>
-				Login with Email
-			</button>
-			<button className='nav-login' onClick={startLoginGoogle}>
-				Login with Google
-			</button>
-			<button className='nav-register' onClick={startSignOut}>
-				Sign out
-			</button>
+			{ 
+        !isSignedIn && <div className='nav-login' onClick={toggleRegisterModal}>
+          Register
+        </div>
+      }
+      {
+        !isSignedIn && <div className='nav-login' onClick={toggleLoginModal}>
+          Login with Email
+        </div>
+      }
+			{
+        !isSignedIn && <div className='nav-login' onClick={startLoginGoogle}>
+          Login with Google
+        </div>
+      }
+			{
+        isSignedIn && <div className='nav-logout' onClick={startSignOut}>
+          Sign out
+        </div>
+      }
+		
 			<RegisterModal />
 			<LoginModal />
 		</div>
 	);
+}
+
+const mapStateToProps = state => {
+  return {
+    isSignedIn: state.auth.userId
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -49,4 +65,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(null, mapDispatchToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

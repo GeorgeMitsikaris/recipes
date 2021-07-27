@@ -35,7 +35,6 @@ function RegisterModal({
 	const {
 		register,
 		handleSubmit,
-		// getValues,
 		reset,
 		formState: { errors },
 	} = useForm({
@@ -45,7 +44,6 @@ function RegisterModal({
 
 	const onSubmitRegister = (data) => {
 		startRegister(data.username, data.password);
-		toggleRegisterModal();
 		reset();
 	};
 
