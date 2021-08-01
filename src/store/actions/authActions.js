@@ -12,7 +12,7 @@ export const startRegister = (userName, password) => async (dispatch) => {
 		const data = await firebase
 			.auth()
 			.createUserWithEmailAndPassword(userName, password);
-		dispatch({ type: GET_USER_ID, payload: data.user.uid });
+		dispatch(getUserIdAndEmail(data.user.uid, data.user.email));
 	} catch (error) {
 		dispatch(
 			setErrorMessage(
@@ -24,32 +24,37 @@ export const startRegister = (userName, password) => async (dispatch) => {
 
 export const startLoginGoogle = () => async (dispatch) => {
 	const data = await firebase.auth().signInWithPopup(googleAuthProvider);
-	dispatch({ type: GET_USER_ID, payload: data.user.uid });
+	dispatch(getUserIdAndEmail(data.user.uid, data.user.email));
 };
 
 export const startLoginEmail = (userName, password) => async (dispatch) => {
 	try {
 		const data = await firebase
 			.auth()
-			.signInWithEmailAndPassword(userName, password);
-		dispatch({ type: GET_USER_ID, payload: data.user.uid });
+			.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+			.then(() => {
+				return firebase.auth().signInWithEmailAndPassword(userName, password);
+			});
+		console.log(data.user.providerData[0]);
+		dispatch(getUserIdAndEmail(data.user.uid, data.user.email));
 		dispatch({ type: TOGGLE_LOGIN_MODAL });
 	} catch (error) {
-		dispatch(
-			setErrorMessage(
-				error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
-			)
-		);
+		if (error.code) {
+			dispatch(
+				setErrorMessage(
+					error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
+				)
+			);
+		}
+    console.log(error);
 	}
 };
 
-export const startSignOut = () => async dispatch =>{
-  try{
+export const startSignOut = () => async (dispatch) => {
+	try {
 		await firebase.auth().signOut();
-    dispatch({type: SIGN_OUT})
-  } catch (error) {
-
-  }
+		dispatch({ type: SIGN_OUT });
+	} catch (error) {}
 };
 
 export const toggleLoginModal = () => {
@@ -68,5 +73,14 @@ export const setErrorMessage = (message) => {
 	return {
 		type: SET_ERROR_MESSAGE,
 		payload: message,
+	};
+};
+
+export const getUserIdAndEmail = (uid, email) => {
+	return {
+		type: GET_USER_ID,
+		payload: {
+      uid, email
+    }
 	};
 };

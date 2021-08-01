@@ -1,17 +1,19 @@
-import './App.css';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { closeModal, storeRecipe } from './store/actions/recipeActions';
 import {
-	toggleRegisterModal,
+  toggleRegisterModal,
 	toggleLoginModal,
 	startLoginGoogle,
+	getUserIdAndEmail,
 } from './store/actions/authActions';
 
-import Search from './Components/Recipes/Recipes';
+import styles from './App.module.css';
+import Search from './Components/FindRecipes/FindRecipes';
 import './firebase/firebase';
-import Navigation from './Components/NavigationBar/Navigation';
+import Navigation from './Components/Navigation/Navigation';
 import { firebase } from './firebase/firebase';
+import MyRecipes from './Components/MyRecipes/MyRecipes';
 
 Modal.setAppElement('#root');
 function App({
@@ -23,12 +25,13 @@ function App({
 	toggleRegisterModal,
 	toggleLoginModal,
 	startLoginGoogle,
+	getUserIdAndEmail,
 }) {
 	const renderSteps =
 		selectedRecipe.analyzedInstructions &&
 		selectedRecipe.analyzedInstructions[0].steps.map((step) => {
 			return (
-				<div key={step.number} className='modal-steps'>
+				<div key={step.number} className={styles['modal-steps']}>
 					<span>{step.number}. </span>
 					{step.step}
 				</div>
@@ -37,23 +40,23 @@ function App({
 
 	const renderButtons = (
 		<>
-			<button className='recipe__close' onClick={() => closeModal()}>
+			<button className={styles['recipe__close']} onClick={() => closeModal()}>
 				Close
 			</button>
 			{userId ? (
-				<button className='recipe__save' onClick={() => storeRecipe()}>
+				<button className={styles['recipe__save']} onClick={() => storeRecipe()}>
 					Save Recipe
 				</button>
 			) : (
 				<>
-					<button className='recipe__save' onClick={toggleRegisterModal}>
+					<button className={styles['recipe__save']} onClick={toggleRegisterModal}>
 						Register
 					</button>
-					<button className='recipe__save' onClick={toggleLoginModal}>
+					<button className={styles['recipe__save']} onClick={toggleLoginModal}>
 						Login
 					</button>
-					<button className='recipe__save' onClick={startLoginGoogle}>
-						Google Login 
+					<button className={styles['recipe__save']} onClick={startLoginGoogle}>
+						Google Login
 					</button>
 				</>
 			)}
@@ -61,19 +64,23 @@ function App({
 	);
 
 	firebase.auth().onAuthStateChanged((user) => {
-		if (user) console.log('Logged In');
-		else console.log('Not logged in');
+		if (user) {
+			getUserIdAndEmail(user.uid, user.email);
+		} else {
+			console.log('Not logged in');
+		}
 	});
 
 	return (
 		<div className='App'>
+      <MyRecipes />
 			<Modal
 				isOpen={isModalOpen}
 				closeTimeoutMS={500}
 				onRequestClose={() => closeModal()}
-				className='modal-content'
+				className={styles['modal-content']}
 			>
-				<div className='modal-header'>
+				<div className={styles['modal-header']}>
 					<h1>
 						Instructions for {selectedRecipe.servings}{' '}
 						{selectedRecipe.servings === 1 ? 'serving' : 'servings'}
@@ -104,6 +111,7 @@ const mapDispatchToProps = (dispatch) => {
 		toggleLoginModal: () => dispatch(toggleLoginModal()),
 		toggleRegisterModal: () => dispatch(toggleRegisterModal()),
 		startLoginGoogle: () => dispatch(startLoginGoogle()),
+		getUserIdAndEmail: (uid, email) => dispatch(getUserIdAndEmail(uid, email)),
 	};
 };
 

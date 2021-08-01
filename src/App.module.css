@@ -1,18 +1,17 @@
 .App {
-  /* text-align: center; */
   box-sizing: border-box;
 }
 
-.ReactModal__Overlay {
+:global(.ReactModal__Overlay) {
     opacity: 0;
     transition: opacity 500ms ease-in-out;
 }
 
-.ReactModal__Overlay--after-open{
+:global(.ReactModal__Overlay--after-open){
     opacity: 1;
 }
 
-.ReactModal__Overlay--before-close{
+:global(.ReactModal__Overlay--before-close){
     opacity: 0;
 }
 
