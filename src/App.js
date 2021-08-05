@@ -1,19 +1,20 @@
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import { closeModal, storeRecipe } from './store/actions/recipeActions';
 import {
-  toggleRegisterModal,
+	toggleRegisterModal,
 	toggleLoginModal,
 	startLoginGoogle,
 	getUserIdAndEmail,
 } from './store/actions/authActions';
-
-import styles from './App.module.css';
 import Search from './Components/FindRecipes/FindRecipes';
 import './firebase/firebase';
 import Navigation from './Components/Navigation/Navigation';
 import { firebase } from './firebase/firebase';
 import MyRecipes from './Components/MyRecipes/MyRecipes';
+import styles from './App.module.css';
 
 Modal.setAppElement('#root');
 function App({
@@ -44,12 +45,18 @@ function App({
 				Close
 			</button>
 			{userId ? (
-				<button className={styles['recipe__save']} onClick={() => storeRecipe()}>
+				<button
+					className={styles['recipe__save']}
+					onClick={() => storeRecipe()}
+				>
 					Save Recipe
 				</button>
 			) : (
 				<>
-					<button className={styles['recipe__save']} onClick={toggleRegisterModal}>
+					<button
+						className={styles['recipe__save']}
+						onClick={toggleRegisterModal}
+					>
 						Register
 					</button>
 					<button className={styles['recipe__save']} onClick={toggleLoginModal}>
@@ -73,7 +80,6 @@ function App({
 
 	return (
 		<div className='App'>
-      <MyRecipes />
 			<Modal
 				isOpen={isModalOpen}
 				closeTimeoutMS={500}
@@ -90,8 +96,13 @@ function App({
 				{renderSteps}
 				{renderButtons}
 			</Modal>
-			<Navigation />
-			<Search />
+			<BrowserRouter>
+				<Navigation />
+				<Switch>
+					<Route path='/' exact component={Search} />
+					<Route path='/myRecipes' component={MyRecipes} />
+				</Switch>
+			</BrowserRouter>
 		</div>
 	);
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 import styles from './Navigation.module.css';
 import {
 	startLoginGoogle,
@@ -23,27 +25,34 @@ function Navigation({
 	return (
 		<div className={styles.nav}>
 			{!isSignedIn && (
-        <>
-          <div className={styles['nav-login']} onClick={toggleRegisterModal}>
-            Register
-          </div>			
-          <div className={styles['nav-login']} onClick={toggleLoginModal}>
-            Login with Email
-          </div>			
-          <div className={styles['nav-login']} onClick={startLoginGoogle}>
-            Login with Google
-          </div>
-        </>
-      )}
+				<>
+					<div className={styles['nav-login']} onClick={toggleRegisterModal}>
+						Register
+					</div>
+					<div className={styles['nav-login']} onClick={toggleLoginModal}>
+						Login with Email
+					</div>
+					<div className={styles['nav-login']} onClick={startLoginGoogle}>
+						Login with Google
+					</div>
+				</>
+			)}
 			{isSignedIn && (
-        <>
-          <div className={styles['nav-hello']}>Hello {userEmail}</div>
-          <div className={styles['nav-login']} >My Recipes</div>
-          <div className={styles['nav-logout']} onClick={startSignOut}>
-					Sign out
-				  </div>
-        </>
-      )}
+				<>
+					<div className={styles['nav-hello']}>Hello {userEmail}</div>
+					{/* <div className={styles['nav-login']} > */}
+					<NavLink className={styles['nav-search']} to='/'>
+						Search for recipes
+					</NavLink>
+					<NavLink to='/myRecipes' className={styles['nav-search']}>
+						My recipes
+					</NavLink>
+					{/* </div> */}
+					<div className={styles['nav-logout']} onClick={startSignOut}>
+						Sign out
+					</div>
+				</>
+			)}
 
 			<RegisterModal />
 			<LoginModal />

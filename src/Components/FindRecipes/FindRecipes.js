@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Recipes.css';
 import Recipe from './FindRecipe/FindRecipe';
 
-const Recipes = () => {
+const FindRecipes = () => {
 	const [recipe, setRecipe] = useState('');
 	const [debouncedRecipe, setDebouncedRecipe] = useState('');
 	const [recipes, setRecipes] = useState([]);
@@ -64,4 +64,4 @@ const Recipes = () => {
 	);
 };
 
-export default Recipes;
+export default FindRecipes;

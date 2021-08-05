@@ -1,0 +1,44 @@
+.recipes {
+	margin: 30px auto;
+	width: 80%;
+	max-width: 1285px;
+	display: flex;
+	flex-direction: column;
+}
+
+.recipeContainer {
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  background-color: #e8a87c;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3); 
+}
+
+.recipeHeader {
+  padding: 20px 10px;
+  font-size: 25px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #000;
+}
+
+.titleButton {
+  width: 120px;
+}
+
+.titleText {
+  color: #000000;
+}
+
+.table {
+  margin: 20px auto;
+  width: 80%;
+}
+
+.tableHeader {
+  text-align: left;
+}
+
+.tableHeader th{
+  width: 45%;
+}
