@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,17 +9,14 @@ import './RegisterModal.css';
 
 import {
 	startRegister,
-	toggleRegisterModal,
 	setErrorMessage,
+	toggleRegisterModal,
 } from '../../../store/actions/authActions';
 
-function RegisterModal({
-	startRegister,
-	toggleRegisterModal,
-	isRegisterModalOpen,
-	errorMessage,
-	setErrorMessage,
-}) {
+function RegisterModal() {
+  const dispatch = useDispatch();
+  const	isRegisterModalOpen = useSelector(state => state.auth.isRegisterModalOpen);
+	const	errorMessage = useSelector(state => state.auth.errorMessage);
 
   let schema = yup.object().shape({
 		username: yup.string().email('Username must be an email').required('Username is required'),
@@ -43,12 +40,12 @@ function RegisterModal({
   });
 
 	const onSubmitRegister = (data) => {
-		startRegister(data.username, data.password);
+		dispatch(startRegister(data.username, data.password));
 		reset();
 	};
 
 	const renderRegisterForm = (
-		<div className='modal' onClick={() => setErrorMessage('')}>
+		<div className='modal' onClick={() => dispatch(setErrorMessage(''))}>
 			<h2>Register</h2>
 			<form onSubmit={handleSubmit(onSubmitRegister)}>
 				<div className='modal-form'>
@@ -77,11 +74,14 @@ function RegisterModal({
 					<button
 						type='submit'
 						className='modal-button-action'
-						onClick={toggleRegisterModal}
+						onClick={() => dispatch(toggleRegisterModal())}
 					>
 						Sign up
 					</button>
-					<button className='modal-button-cancel' onClick={toggleRegisterModal}>
+					<button
+						className='modal-button-cancel'
+						onClick={() => dispatch(toggleRegisterModal())}
+					>
 						Cancel
 					</button>
 				</div>
@@ -92,7 +92,7 @@ function RegisterModal({
 		<Modal
 			isOpen={isRegisterModalOpen}
 			closeTimeoutMS={500}
-			onRequestClose={() => toggleRegisterModal()}
+			onRequestClose={() => dispatch(toggleRegisterModal())}
 			className='modal-container'
 		>
 			{renderRegisterForm}
@@ -100,20 +100,4 @@ function RegisterModal({
 	);
 }
 
-const mapStateToProps = (state) => {
-	return {
-		isRegisterModalOpen: state.auth.isRegisterModalOpen,
-		errorMessage: state.auth.errorMessage,
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		toggleRegisterModal: () => dispatch(toggleRegisterModal()),
-		startRegister: (username, password) =>
-			dispatch(startRegister(username, password)),
-		setErrorMessage: (message) => dispatch(setErrorMessage(message)),
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal);
+export default RegisterModal;

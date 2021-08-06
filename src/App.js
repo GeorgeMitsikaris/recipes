@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { closeModal, storeRecipe } from './store/actions/recipeActions';
@@ -17,17 +17,12 @@ import MyRecipes from './Components/MyRecipes/MyRecipes';
 import styles from './App.module.css';
 
 Modal.setAppElement('#root');
-function App({
-	isModalOpen,
-	selectedRecipe,
-	closeModal,
-	storeRecipe,
-	userId,
-	toggleRegisterModal,
-	toggleLoginModal,
-	startLoginGoogle,
-	getUserIdAndEmail,
-}) {
+function App() {
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector(state => state.recipes.isModalOpen)
+  const selectedRecipe = useSelector(state => state.recipes.selectedRecipe)
+	const	userId = useSelector(state =>  state.auth.userId)
+
 	const renderSteps =
 		selectedRecipe.analyzedInstructions &&
 		selectedRecipe.analyzedInstructions[0].steps.map((step) => {
@@ -41,13 +36,13 @@ function App({
 
 	const renderButtons = (
 		<>
-			<button className={styles['recipe__close']} onClick={() => closeModal()}>
+			<button className={styles['recipe__close']} onClick={() => dispatch(closeModal())}>
 				Close
 			</button>
 			{userId ? (
 				<button
 					className={styles['recipe__save']}
-					onClick={() => storeRecipe()}
+					onClick={() => dispatch(storeRecipe())}
 				>
 					Save Recipe
 				</button>
@@ -55,14 +50,14 @@ function App({
 				<>
 					<button
 						className={styles['recipe__save']}
-						onClick={toggleRegisterModal}
+						onClick={dispatch(toggleRegisterModal)}
 					>
 						Register
 					</button>
-					<button className={styles['recipe__save']} onClick={toggleLoginModal}>
+					<button className={styles['recipe__save']} onClick={dispatch(toggleLoginModal)}>
 						Login
 					</button>
-					<button className={styles['recipe__save']} onClick={startLoginGoogle}>
+					<button className={styles['recipe__save']} onClick={dispatch(startLoginGoogle)}>
 						Google Login
 					</button>
 				</>
@@ -72,7 +67,7 @@ function App({
 
 	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {
-			getUserIdAndEmail(user.uid, user.email);
+			dispatch(getUserIdAndEmail(user.uid, user.email));
 		} else {
 			console.log('Not logged in');
 		}
@@ -83,7 +78,7 @@ function App({
 			<Modal
 				isOpen={isModalOpen}
 				closeTimeoutMS={500}
-				onRequestClose={() => closeModal()}
+				onRequestClose={() => dispatch(closeModal())} 
 				className={styles['modal-content']}
 			>
 				<div className={styles['modal-header']}>
@@ -107,23 +102,4 @@ function App({
 	);
 }
 
-const mapStateToProps = (state) => {
-	return {
-		isModalOpen: state.recipes.isModalOpen,
-		selectedRecipe: state.recipes.selectedRecipe,
-		userId: state.auth.userId,
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		closeModal: () => dispatch(closeModal(false)),
-		storeRecipe: () => dispatch(storeRecipe()),
-		toggleLoginModal: () => dispatch(toggleLoginModal()),
-		toggleRegisterModal: () => dispatch(toggleRegisterModal()),
-		startLoginGoogle: () => dispatch(startLoginGoogle()),
-		getUserIdAndEmail: (uid, email) => dispatch(getUserIdAndEmail(uid, email)),
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

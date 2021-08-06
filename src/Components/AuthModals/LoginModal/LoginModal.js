@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,13 +13,11 @@ import {
 	setErrorMessage,
 } from '../../../store/actions/authActions';
 
-function LoginModal({
-	startLoginEmail,
-	toggleLoginModal,
-	isLoginModalOpen,
-	errorMessage,
-	setErrorMessage,
-}) {
+function LoginModal() {
+  const dispatch = useDispatch();
+  const isLoginModalOpen = useSelector(state => state.auth.isLoginModalOpen);
+  const errorMessage = useSelector(state => state.auth.errorMessage);
+
 	let schema = yup.object().shape({
 		username: yup.string().email('Username must be an email').required('Username is required'),
 		password: yup
@@ -39,12 +37,12 @@ function LoginModal({
 	});
 
 	const onSubmitLogin = (data) => {
-		startLoginEmail(data.username, data.password);
+		dispatch(startLoginEmail(data.username, data.password));
 		reset();
 	};
 
 	const renderLoginForm = (
-		<div className='modal' onClick={() => setErrorMessage('')}>
+		<div className='modal' onClick={() => dispatch(setErrorMessage(''))}>
 			<h2>Log in</h2>
 			<form onSubmit={handleSubmit(onSubmitLogin)}>
 				<div className='modal-form'>
@@ -64,7 +62,7 @@ function LoginModal({
 					<button type='submit' className='modal-button-action'>
 						Log in
 					</button>
-					<button className='modal-button-cancel' onClick={toggleLoginModal}>
+					<button className='modal-button-cancel' onClick={() => dispatch(toggleLoginModal())}>
 						Cancel
 					</button>
 				</div>
@@ -76,7 +74,7 @@ function LoginModal({
 		<Modal
 			isOpen={isLoginModalOpen}
 			closeTimeoutMS={500}
-			onRequestClose={() => toggleLoginModal()}
+			onRequestClose={() => dispatch(toggleLoginModal())}
 			className='modal-container'
 		>
 			{renderLoginForm}
@@ -84,20 +82,4 @@ function LoginModal({
 	);
 }
 
-const mapStateToProps = (state) => {
-	return {
-		isLoginModalOpen: state.auth.isLoginModalOpen,
-		errorMessage: state.auth.errorMessage,
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		toggleLoginModal: () => dispatch(toggleLoginModal()),
-		startLoginEmail: (username, password) =>
-			dispatch(startLoginEmail(username, password)),
-		setErrorMessage: (message) => dispatch(setErrorMessage(message)),
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
+export default LoginModal;

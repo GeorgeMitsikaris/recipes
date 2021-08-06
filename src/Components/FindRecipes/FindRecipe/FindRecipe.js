@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { fetchRecipe } from '../../../store/actions/recipeActions';
 
@@ -11,12 +11,12 @@ const Recipe = ({
 	missedIngredients,
 	usedIngredients,
 	unusedIngredients,
-	recipeId,
-  fetchRecipe
+	recipeId
 }) => {
-
+  const dispatch = useDispatch();
+  
 	const getInstructions = async () => {
-    fetchRecipe(recipeId);
+    dispatch(fetchRecipe(recipeId));
 	};
 
 	const renderMissedIngredients = missedIngredients.map((missedIngredient) => {
@@ -74,10 +74,4 @@ const Recipe = ({
 	);
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchRecipe: recipeId => dispatch(fetchRecipe(recipeId)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Recipe);
+export default Recipe;

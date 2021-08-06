@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import styles from './MyRecipes.module.css';
 import database from '../../firebase/firebase';
 
-function MyRecipes({ userId }) {
+function MyRecipes() {
 	const [myRecipes, setMyRecipes] = useState([]);
+  const userId = useSelector(state => state.auth.userId);
+
 	useEffect(() => {
 		if (userId) {
 			database
@@ -76,10 +78,4 @@ function MyRecipes({ userId }) {
 	);
 }
 
-const mapStateToProps = (state) => {
-	return {
-		userId: state.auth.userId,
-	};
-};
-
-export default connect(mapStateToProps)(MyRecipes);
+export default MyRecipes;
