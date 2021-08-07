@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Recipes.css';
+
+import styles from './FindRecipes.module.css';
 import Recipe from './FindRecipe/FindRecipe';
 
 const FindRecipes = () => {
@@ -37,7 +38,7 @@ const FindRecipes = () => {
 
 	const renderRecipes = recipes.map((recipe, i) => {
 		return (
-			<div className='search__recipe' key={recipe.id}>
+			<div className={styles['search__recipe']} key={recipe.id}>
 				<Recipe
 					recipeId={recipe.id}
 					title={recipe.title}
@@ -50,7 +51,7 @@ const FindRecipes = () => {
 	});
 
 	return (
-		<div className='search'>
+		<div className={styles.search}>
 			<h1>Search for recipes</h1>
 			<input
 				value={recipe}
@@ -59,7 +60,7 @@ const FindRecipes = () => {
 					setRecipe(e.target.value);
 				}}
 			/>
-			<div className='search__container'>{renderRecipes}</div>
+			<div className={styles['search__container']}>{renderRecipes}</div>
 		</div>
 	);
 };
