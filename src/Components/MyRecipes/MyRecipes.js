@@ -7,7 +7,7 @@ import database from '../../firebase/firebase';
 
 function MyRecipes() {
 	const [myRecipes, setMyRecipes] = useState([]);
-  const userId = useSelector(state => state.auth.userId);
+	const userId = useSelector((state) => state.auth.userId);
 
 	useEffect(() => {
 		if (userId) {
@@ -19,28 +19,21 @@ function MyRecipes() {
 					snapshot.forEach((snapshotChild) => {
 						recipes.push(snapshotChild.val());
 					});
-					recipes.map((recipe) => {
-						const ings = recipe.extendedIngredients.map((ing) => {
-							return ing.name;
-						});
-						const steps = recipe.analyzedInstructions[0].steps.map((step) => {
-							return step.step;
-						});
+					const rsps = recipes.map((recipe) => {
 						return {
 							title: recipe.title,
-							ingredients: ings,
+							ingredients: recipe.extendedIngredients,
 							readyInMinutes: recipe.readyInMinutes,
-							steps,
+							steps: recipe.analyzedInstructions
 						};
 					});
-					setMyRecipes(recipes);
+					setMyRecipes(rsps);
 				});
 		}
 	}, [userId]);
 
 	const renderMyRecipes = myRecipes.map((recipe) => {
-		console.log(recipe);
-		const ingredients = recipe.extendedIngredients.map((ingredient) => {
+		const ingredients = recipe.ingredients.map((ingredient) => {
 			return (
 				<tr key={uuid()} className={styles.recipeIngredients}>
 					<td className={styles.ingredientName}>{ingredient.name}</td>
@@ -49,12 +42,17 @@ function MyRecipes() {
 				</tr>
 			);
 		});
+		console.log(recipe);
+		const renderInstructions = recipe.steps.map((step) => (
+			<div key={uuid()} className={styles.step}>
+				{step}
+			</div>
+		));
 		return (
 			<div className={styles.recipeContainer} key={uuid()}>
 				<div className={styles.recipeHeader}>
-          <div className={styles.titleText}>{recipe.title}</div>
-          <button className={styles.titleButton} type="button">Edit Title</button>
-        </div>
+					<div className={styles.titleText}>{recipe.title}</div>
+				</div>
 				<table className={styles.table}>
 					<thead>
 						<tr className={styles.tableHeader}>
@@ -63,10 +61,28 @@ function MyRecipes() {
 							<th>Unit</th>
 						</tr>
 					</thead>
-          <tbody>
-					  {ingredients}
-          </tbody>
+					<tbody>{ingredients}</tbody>
 				</table>
+				<div className={styles.steps}>
+					<div className={styles.headerWrap}>
+						<div className={styles.stepsHeaderLeft}>Instructions</div>
+						<div className={styles.stepsHeaderRight}>
+							<em>Ready in {recipe.readyInMinutes} minutes</em>
+						</div>
+					</div>
+					{renderInstructions}
+				</div>
+				<div className={styles.actions}>
+					<button className={styles.titleButton} type='button'>
+						Create a recipe
+					</button>
+					<button className={styles.titleButton} type='button'>
+						Edit this recipe
+					</button>
+					<button className={styles.titleButton} type='button'>
+						Delete this recipe
+					</button>
+				</div>
 			</div>
 		);
 	});

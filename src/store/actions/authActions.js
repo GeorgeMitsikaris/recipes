@@ -35,7 +35,6 @@ export const startLoginEmail = (userName, password) => async (dispatch) => {
 			.then(() => {
 				return firebase.auth().signInWithEmailAndPassword(userName, password);
 			});
-		console.log(data.user.providerData[0]);
 		dispatch(getUserIdAndEmail(data.user.uid, data.user.email));
 		dispatch({ type: TOGGLE_LOGIN_MODAL });
 	} catch (error) {

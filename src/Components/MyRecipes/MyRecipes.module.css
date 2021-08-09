@@ -42,3 +42,32 @@
 .tableHeader th{
   width: 45%;
 }
+
+.steps {
+  margin-top: 30px;
+}
+
+.step {
+  margin: 20px 40px;
+}
+
+.headerWrap {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  align-items: baseline;
+  border-bottom: 1px solid #000; 
+}
+
+.stepsHeaderLeft { 
+  font-size: 28px;
+}
+
+.stepsHeaderRight {
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+}

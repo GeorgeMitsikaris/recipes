@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 
 import { closeModal, storeRecipe } from './store/actions/recipeActions';
 import {
@@ -25,11 +26,11 @@ function App() {
 
 	const renderSteps =
 		selectedRecipe.analyzedInstructions &&
-		selectedRecipe.analyzedInstructions[0].steps.map((step) => {
+		selectedRecipe.analyzedInstructions.map((step, index) => {
 			return (
-				<div key={step.number} className={styles['modal-steps']}>
-					<span>{step.number}. </span>
-					{step.step}
+				<div key={uuid()} className={styles['modal-steps']}>
+					<span>{index + 1}. </span>
+					{step}
 				</div>
 			);
 		});
@@ -42,7 +43,7 @@ function App() {
 			{userId ? (
 				<button
 					className={styles['recipe__save']}
-					onClick={() => dispatch(storeRecipe())}
+					onClick={() => dispatch(storeRecipe())} 
 				>
 					Save Recipe
 				</button>

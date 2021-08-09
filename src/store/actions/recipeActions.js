@@ -5,32 +5,44 @@ import { STORE_RECIPE } from './actionTypes';
 
 import { GET_RECIPE, CLOSE_MODAL } from './actionTypes';
 
-export const fetchRecipe = (recipeId) => async dispatch => {
+export const fetchRecipe = (recipeId) => async (dispatch) => {
 	const { data } = await axios.get(
 		`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${process.env.REACT_APP_SPOONACULAR}`
 	);
-  const recipeData = _.pick(data, [
+
+	const ingredients = _.map(data.extendedIngredients, (ings) => {
+		return { name: ings.name, amount: ings.amount, unit: ings.unit };
+	});
+
+	const instructions = _.map(data.analyzedInstructions[0].steps, (step) => {
+		return step.step;
+	});
+
+	const recipeData = _.pick(data, [
 		'extendedIngredients',
 		'title',
 		'id',
 		'analyzedInstructions',
 		'readyInMinutes',
 	]);
-  dispatch({type: GET_RECIPE, payload: recipeData});
+
+  const recipes = {...recipeData, extendedIngredients: ingredients, analyzedInstructions: instructions}
+	dispatch({ type: GET_RECIPE, payload: recipes });
+};
+
+export const storeRecipe = () => async (dispatch, getState) => {
+	const userId = getState().auth.userId;
+	database
+		.ref(userId)
+		.child(getState().recipes.selectedRecipe.title)
+		.set(getState().recipes.selectedRecipe)
+		.then(() => {
+			dispatch({ type: STORE_RECIPE });
+		});
 };
 
 export const closeModal = () => {
   return {
-    type: CLOSE_MODAL, 
-  }
-}
-
-export const storeRecipe = () => async (dispatch, getState) => {
-  const userId = getState().auth.userId;
-	database
-		.ref(userId)
-		.child(getState().recipes.selectedRecipe.title).set(getState().recipes.selectedRecipe)
-		.then(() => {
-			dispatch({ type: STORE_RECIPE });
-		});
+    type: CLOSE_MODAL,
+  };
 };
