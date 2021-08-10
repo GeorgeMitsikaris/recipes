@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Modal from 'react-modal';
-import './RegisterModal.css';
+import styles from  './RegisterModal.module.css';
 
 import {
 	startRegister,
@@ -36,7 +36,7 @@ function RegisterModal() {
 		formState: { errors },
 	} = useForm({
     resolver: yupResolver(schema),
-    mode: 'onChange'
+    mode: 'onBlur'
   });
 
 	const onSubmitRegister = (data) => {
@@ -45,21 +45,21 @@ function RegisterModal() {
 	};
 
 	const renderRegisterForm = (
-		<div className='modal' onClick={() => dispatch(setErrorMessage(''))}>
+		<div className={styles.modal} onClick={() => dispatch(setErrorMessage(''))}>
 			<h2>Register</h2>
 			<form onSubmit={handleSubmit(onSubmitRegister)}>
-				<div className='modal-form'>
-					<div className='modal-input-wrap'>
+				<div className={styles.modalForm}>
+					<div className={styles.modalInputWrap}>
 						<label>Username</label>
 						<input type='text' name='username' {...register('username')} />
 						<span>{errors.username?.message}</span>
 					</div>
-					<div className='modal-input-wrap'>
+					<div className={styles.modalInputWrap}>
 						<label>Password</label>
 						<input type='password' name='password' {...register('password')} />
 						<span>{errors.password?.message}</span>
 					</div>
-					<div className='modal-input-wrap'>
+					<div className={styles.modalInputWrap}>
 						<label>Confirm Password</label>
 						<input
 							type='password'
@@ -70,16 +70,16 @@ function RegisterModal() {
 						<span>{errorMessage}</span>
 					</div>
 				</div>
-				<div className='modal-buttons'>
+				<div className={styles.modalButtons}>
 					<button
 						type='submit'
-						className='modal-button-action'
+						className={styles.modalButtonAction}
 						onClick={() => dispatch(toggleRegisterModal())}
 					>
 						Sign up
 					</button>
 					<button
-						className='modal-button-cancel'
+						className={styles.modalButtonCancel}
 						onClick={() => dispatch(toggleRegisterModal())}
 					>
 						Cancel
@@ -93,7 +93,7 @@ function RegisterModal() {
 			isOpen={isRegisterModalOpen}
 			closeTimeoutMS={500}
 			onRequestClose={() => dispatch(toggleRegisterModal())}
-			className='modal-container'
+			className={styles.modalContainer}
 		>
 			{renderRegisterForm}
 		</Modal>

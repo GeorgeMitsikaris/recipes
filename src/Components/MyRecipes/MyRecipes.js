@@ -42,7 +42,6 @@ function MyRecipes() {
 				</tr>
 			);
 		});
-		console.log(recipe);
 		const renderInstructions = recipe.steps.map((step) => (
 			<div key={uuid()} className={styles.step}>
 				{step}
@@ -73,14 +72,11 @@ function MyRecipes() {
 					{renderInstructions}
 				</div>
 				<div className={styles.actions}>
-					<button className={styles.titleButton} type='button'>
-						Create a recipe
+					<button className={styles.editButton} type='button'>
+						Edit recipe
 					</button>
-					<button className={styles.titleButton} type='button'>
-						Edit this recipe
-					</button>
-					<button className={styles.titleButton} type='button'>
-						Delete this recipe
+					<button className={styles.deleteButton} type='button'>
+						Delete recipe
 					</button>
 				</div>
 			</div>

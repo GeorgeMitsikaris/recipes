@@ -1,4 +1,4 @@
-.modal-container {
+.modalContainer {
   background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);;
   position: absolute;
   border: 1px solid rgb(204, 204, 204);
@@ -19,7 +19,7 @@
   margin-bottom: 0;
 }
 
-.modal-form {
+.modalCorm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,13 +29,13 @@
   padding: 0 150px;
 }
 
-.modal-input-wrap {
+.modalInputWrap {
   display: flex;
   flex-direction: column; 
   width: 100%; 
 }
 
-.modal-input-wrap input {
+.modalInputWrap input {
   width: 100%;
   height: 30px;
   border: 0;
@@ -45,42 +45,42 @@
   letter-spacing: 2px;
 }
 
-.modal-input-wrap span {
+.modalInputWrap span {
   color:#ff2530;
   font-size:14px;
 }
 
-.modal-buttons {
+.modalButtons {
   display: flex;
   justify-content: flex-end;
   margin-top: 60px;
 }
 
-.modal-buttons button {
+.modalButtons button {
   padding: 10px 35px;
   font-size: 22px;
   letter-spacing: 1px;
   transition: all 0.3s;
 }
 
-.modal-buttons button:hover {
+.modalButtons button:hover {
   transform: translateY(-5px);
   box-shadow: 1px 4px 5px #555;
 }
 
-.modal-buttons button:active {
+.modalButtons button:active {
   transform: translateY(-2px);
   box-shadow: 0px 2px 2px #555;
 }
 
-.modal-button-action {
+.modalButtonAction {
   margin-right: 30px;
   background-color: #fff;
   border: 0;
   border-radius: 5px;
 }
 
-.modal-button-cancel {
+.modalButtonCancel {
   background-color: dimgray;
   border: 0;
   border-radius: 5px;

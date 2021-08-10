@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Modal from 'react-modal';
-import './LoginModal.css';
+import styles from './LoginModal.module.css';
 
 import {
 	startLoginEmail,
@@ -33,7 +33,7 @@ function LoginModal() {
 		formState: { errors },
 	} = useForm({
 		resolver: yupResolver(schema),
-		mode: 'onChange',
+		mode: 'onBlur',
 	});
 
 	const onSubmitLogin = (data) => {
@@ -42,27 +42,30 @@ function LoginModal() {
 	};
 
 	const renderLoginForm = (
-		<div className='modal' onClick={() => dispatch(setErrorMessage(''))}>
+		<div className={styles.modal} onClick={() => dispatch(setErrorMessage(''))}>
 			<h2>Log in</h2>
 			<form onSubmit={handleSubmit(onSubmitLogin)}>
-				<div className='modal-form'>
-					<div className='modal-input-wrap'>
+				<div className={styles.modalForm}>
+					<div className={styles.modalInputWrap}>
 						<label>Username</label>
 						<input type='text' name='username' {...register('username')} />
 						<span>{errors.username?.message}</span>
 					</div>
-					<div className='modal-input-wrap'>
+					<div className={styles.modalInputWrap}>
 						<label>Password</label>
 						<input type='password' name='password' {...register('password')} />
 						<span>{errors.password?.message}</span>
 						<span>{errorMessage}</span>
 					</div>
 				</div>
-				<div className='modal-buttons'>
-					<button type='submit' className='modal-button-action'>
+				<div className={styles.modalButtons}>
+					<button type='submit' className={styles.modalButtonAction}>
 						Log in
 					</button>
-					<button className='modal-button-cancel' onClick={() => dispatch(toggleLoginModal())}>
+					<button
+						className={styles.modalButtonCancel}
+						onClick={() => dispatch(toggleLoginModal())}
+					>
 						Cancel
 					</button>
 				</div>
@@ -75,7 +78,7 @@ function LoginModal() {
 			isOpen={isLoginModalOpen}
 			closeTimeoutMS={500}
 			onRequestClose={() => dispatch(toggleLoginModal())}
-			className='modal-container'
+			className={styles.modalContainer}
 		>
 			{renderLoginForm}
 		</Modal>

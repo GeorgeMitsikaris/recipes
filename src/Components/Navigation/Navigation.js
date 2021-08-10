@@ -20,13 +20,22 @@ function Navigation() {
 		<div className={styles.nav}>
 			{!isSignedIn && (
 				<>
-					<div className={styles['nav-login']} onClick={() => dispatch(toggleRegisterModal())}>
+					<div
+						className={styles['nav-login']}
+						onClick={() => dispatch(toggleRegisterModal())}
+					>
 						Register
 					</div>
-					<div className={styles['nav-login']} onClick={() => dispatch(toggleLoginModal())}>
+					<div
+						className={styles['nav-login']}
+						onClick={() => dispatch(toggleLoginModal())}
+					>
 						Login with Email
 					</div>
-					<div className={styles['nav-login']} onClick={() => dispatch(startLoginGoogle())}>
+					<div
+						className={styles['nav-login']}
+						onClick={() => dispatch(startLoginGoogle())}
+					>
 						Login with Google
 					</div>
 				</>
@@ -34,13 +43,20 @@ function Navigation() {
 			{isSignedIn && (
 				<>
 					<div className={styles['nav-hello']}>Hello {userEmail}</div>
+					<NavLink className={styles['nav-search']} to='/createRecipe'>
+						Create a recipe
+					</NavLink>
 					<NavLink className={styles['nav-search']} to='/'>
 						Search for recipes
 					</NavLink>
 					<NavLink to='/myRecipes' className={styles['nav-search']}>
 						My recipes
 					</NavLink>
-					<NavLink to='/' className={styles['nav-logout']} onClick={() => dispatch(startSignOut())}>
+					<NavLink
+						to='/'
+						className={styles['nav-logout']}
+						onClick={() => dispatch(startSignOut())}
+					>
 						Sign out
 					</NavLink>
 				</>
