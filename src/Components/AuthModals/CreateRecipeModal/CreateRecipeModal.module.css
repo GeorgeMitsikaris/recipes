@@ -1,0 +1,76 @@
+.modal {
+	padding: 10px 50px 30px 50px;
+	background: linear-gradient(to bottom right, #53e3a6 0%, #50a3a2 100%);
+}
+
+.modal h2 {
+	font-size: 35px;
+	text-align: center;
+}
+
+.modalForm {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+	padding: 20px;
+	background: #ccc;
+}
+
+.modalInputWrap {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+.modalInputWrap label {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.modalInputWrap input {
+	height: 30px;
+	border-radius: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	font-size: 18px;
+	padding: 10px 20px;
+	outline: none;
+}
+
+.ingredientsTable {
+	width: 100%;
+}
+
+.ingredientsTable thead {
+  background-color: #eee;
+}
+
+.ingredientsTable thead button {
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  font-weight: 800;
+  font-size: 15px;
+  background-color: #ace;
+  height: 40px;
+  transition: all 0.3s;
+}
+
+.ingredientsTable thead button:hover {
+  cursor: pointer;
+  transform: translateY(-4px);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.7);
+}
+
+.ingredientsTable thead button:active {
+  transform: translateY(-1px);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.7);
+}
+
+.ingredientsTable th {
+  width: 25%;
+  height: 40px;
+}
+
+.ingredientsTable td {
+  text-align: center;
+}

@@ -26,9 +26,15 @@ export const fetchRecipe = (recipeId) => async (dispatch) => {
 		'readyInMinutes',
 	]);
 
-  const recipes = {...recipeData, extendedIngredients: ingredients, analyzedInstructions: instructions}
-	dispatch({ type: GET_RECIPE, payload: recipes });
+  const recipe = {...recipeData, extendedIngredients: ingredients, analyzedInstructions: instructions}
+	dispatch({ type: GET_RECIPE, payload: recipe });
 };
+
+// export const createRecipe = recipe => {
+//   return {
+//     type: GET_RECIPE, payload: recipe
+//   }
+// }
 
 export const storeRecipe = () => async (dispatch, getState) => {
 	const userId = getState().auth.userId;
