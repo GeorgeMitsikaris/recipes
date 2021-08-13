@@ -1,6 +1,6 @@
 .modal {
 	padding: 10px 50px 30px 50px;
-	background: linear-gradient(to bottom right, #53e3a6 0%, #50a3a2 100%);
+	background: #ccc;
 }
 
 .modal h2 {
@@ -13,7 +13,7 @@
 	border-radius: 5px;
 	box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
 	padding: 20px;
-	background: #ccc;
+	background: #50a3a2;
 }
 
 .modalInputWrap {
@@ -25,6 +25,7 @@
 .modalInputWrap label {
 	font-size: 20px;
 	margin-bottom: 10px;
+  align-self: center;
 }
 
 .modalInputWrap input {
@@ -36,15 +37,27 @@
 	outline: none;
 }
 
-.ingredientsTable {
+.tableWrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.tableWrap label {
+  font-size: 20px;
+  margin-bottom: 10px;
+  align-self: center;
+}
+
+.tableForm {
 	width: 100%;
 }
 
-.ingredientsTable thead {
+.tableForm thead {
   background-color: #eee;
 }
 
-.ingredientsTable thead button {
+.tableForm thead button {
   width: 100%;
   border: none;
   border-radius: 3px;
@@ -55,22 +68,91 @@
   transition: all 0.3s;
 }
 
-.ingredientsTable thead button:hover {
+.tableForm thead button:hover {
   cursor: pointer;
   transform: translateY(-4px);
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.7);
 }
 
-.ingredientsTable thead button:active {
+.tableForm thead button:active {
   transform: translateY(-1px);
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.7);
 }
 
-.ingredientsTable th {
+.tableForm tbody tr {
+  transform: translateX(-1px);
+}
+
+.tableForm th {
   width: 25%;
   height: 40px;
 }
 
-.ingredientsTable td {
+.tableForm td {
   text-align: center;
+}
+
+.tableForm td input {
+  width: 99%;
+  height: 40px;
+  border-radius: 2px;
+  border: 0;
+}
+
+.tableForm tbody button {
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  font-weight: 800;
+  font-size: 15px;
+  background-color: rgb(212, 103, 75);
+  height: 40px;
+  transition: all 0.3s;
+}
+
+.tableForm tbody button:hover {
+  cursor: pointer;
+  transform: translateY(-4px);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.7);
+}
+
+.tableForm tbody button:active {
+  transform: translateY(-1px);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.7);
+}
+
+.tableForm textarea {
+  width: 99.3%;
+}
+
+.firstCell {
+  width: 75% !important;
+}
+
+.formSubmit {
+  width: 180px;
+  padding: 15px 25px;
+  font-size: 18px;
+  background-color: rgb(134, 221, 99);
+  border: 0;
+  border-radius: 50px;
+  margin: 20px 40px;
+  transition: all 0.3s;
+}
+
+.formSubmit:hover {
+	cursor: pointer;
+	transform: translateY(-4px);
+	box-shadow: 1px 4px 3px rgba(0, 0, 0, 0.3);
+}
+
+.formSubmit:active {
+	cursor: pointer;
+	transform: translateY(-1px);
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.formSubmitWrap {
+  display: flex;
+  justify-content: flex-end;
 }

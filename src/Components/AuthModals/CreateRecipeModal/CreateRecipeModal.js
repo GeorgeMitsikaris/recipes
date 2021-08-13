@@ -74,74 +74,98 @@ function CreateRecipeModal() {
 					/>
 					<span>{errors.title?.message}</span>
 				</div>
-				<table className={styles.ingredientsTable}>
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Amount</th>
-							<th>Unit</th>
-							<th>
-								<button type='button' onClick={() => ingredientAppend({})}>
-									Add ingredient
-								</button>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{ingredientFields.map(({ id }, index) => {
-							return (
-								<tr key={id}>
-									<td>
-										<input
-											{...register(`extendedIngredients[${index}].name`)}
-											name={`extendedIngredients[${index}].name`}
-											type='text'
-										/>
-									</td>
-									<td>
-										<input
-											{...register(`extendedIngredients[${index}].amount`)}
-											name={`extendedIngredients[${index}].amount`}
-											type='number'
-										/>
-									</td>
-									<td>
-										<input
-											{...register(`extendedIngredients[${index}].unit`)}
-											name={`extendedIngredients[${index}].unit`}
-											type='text'
-										/>
-									</td>
-									<td>
-										<button
-											type='button'
-											onClick={() => ingredientRemove(index)}
-										>
-											Remove row
-										</button>
-									</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-				{instructionFields.map(({ id }, index) => {
-					return (
-						<div key={id}>
-							<input
-								{...register(`analyzedInstructions[${index}].step`)}
-								name={`analyzedInstructions[${index}].step`}
-								type='text'
-							/>
-							<button type='button' onClick={() => instructionRemove(index)}>
-								Remove step
-							</button>
-						</div>
-					);
-				})}
-				<button type='button' onClick={() => instructionAppend({})}>
-					Append step
-				</button>
+				<div className={styles.tableWrap}>
+					<label>Ingredients</label>
+					<table className={styles.tableForm}>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Amount</th>
+								<th>Unit</th>
+								<th>
+									<button type='button' onClick={() => ingredientAppend({})}>
+										Add ingredient
+									</button>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{ingredientFields.map(({ id }, index) => {
+								return (
+									<tr key={id}>
+										<td>
+											<input
+												{...register(`extendedIngredients[${index}].name`)}
+												name={`extendedIngredients[${index}].name`}
+												type='text'
+											/>
+										</td>
+										<td>
+											<input
+												{...register(`extendedIngredients[${index}].amount`)}
+												name={`extendedIngredients[${index}].amount`}
+												type='number'
+											/>
+										</td>
+										<td>
+											<input
+												{...register(`extendedIngredients[${index}].unit`)}
+												name={`extendedIngredients[${index}].unit`}
+												type='text'
+											/>
+										</td>
+										<td>
+											<button
+												type='button'
+												onClick={() => ingredientRemove(index)}
+											>
+												Remove row
+											</button>
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
+				</div>
+				<div className={styles.tableWrap}>
+					<label>Instructions</label>
+					<table className={styles.tableForm}>
+						<thead>
+							<tr>
+								<th className={styles.firstCell}>Step</th>
+								<th>
+									<button type='button' onClick={() => instructionAppend({})}>
+										Append step
+									</button>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{instructionFields.map(({ id }, index) => {
+								return (
+									<tr key={id}>
+										<td className={styles.firstCell}>
+											<textarea
+												{...register(`analyzedInstructions[${index}].step`)}
+												name={`analyzedInstructions[${index}].step`}
+												type='text'
+											></textarea>
+										</td>
+										<td>
+											<button
+												type='button'
+												onClick={() => instructionRemove(index)}
+											>
+												Remove step
+											</button>
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
+				</div>
 				<div className={styles.modalInputWrap}>
 					<label>Ready in </label>
 					<input
@@ -152,7 +176,11 @@ function CreateRecipeModal() {
 					/>
 					<span>{errors.title?.message}</span>
 				</div>
-				<button type='submit'>Submit</button>
+				<div className={styles.formSubmitWrap}>
+					<button className={styles.formSubmit} type='submit'>
+						Submit
+					</button>
+				</div>
 			</form>
 		</div>
 	);
