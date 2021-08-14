@@ -16,6 +16,17 @@ function CreateRecipeModal() {
 
 	let schema = yup.object().shape({
 		title: yup.string().required('Recipe title is required'),
+		extendedIngredients: yup
+			.array()
+			.of(
+				yup.object().shape({
+					name: yup.string().required('Ingredient must have a name'),
+					amount: yup.number().required('Amount is required'),
+				})
+			)
+			.min(1, 'A recipe must have at least one ingredient'),
+    analyzedInstructions: yup
+      .array().min(1, 'Please add instructions')
 	});
 
 	const {
@@ -23,6 +34,7 @@ function CreateRecipeModal() {
 		control,
 		handleSubmit,
 		reset,
+		clearErrors,
 		formState: { errors },
 	} = useForm({
 		resolver: yupResolver(schema),
@@ -48,6 +60,7 @@ function CreateRecipeModal() {
 	});
 
 	const submitHandler = (data) => {
+		console.log(data);
 		const instructions = data.analyzedInstructions.map((step) => step.step);
 		const recipe = { ...data, analyzedInstructions: instructions };
 		database
@@ -57,8 +70,19 @@ function CreateRecipeModal() {
 			.then(() => {
 				console.log('recipe saved');
 			});
+		reset();
 	};
 
+	const addIngredient = () => {
+		ingredientAppend({});
+		clearErrors('extendedIngredients');
+	};
+
+	const addInstructions = () => {
+		instructionAppend({});
+		clearErrors('analyzedInstructions');
+	};
+	console.log(errors);
 	const renderModal = (
 		<div className={styles.modal}>
 			<h2>Create your recipe</h2>
@@ -72,7 +96,7 @@ function CreateRecipeModal() {
 						name='title'
 						{...register('title')}
 					/>
-					<span>{errors.title?.message}</span>
+					<span className={styles.textError}>{errors.title?.message}</span>
 				</div>
 				<div className={styles.tableWrap}>
 					<label>Ingredients</label>
@@ -83,7 +107,7 @@ function CreateRecipeModal() {
 								<th>Amount</th>
 								<th>Unit</th>
 								<th>
-									<button type='button' onClick={() => ingredientAppend({})}>
+									<button type='button' onClick={addIngredient}>
 										Add ingredient
 									</button>
 								</th>
@@ -99,6 +123,9 @@ function CreateRecipeModal() {
 												name={`extendedIngredients[${index}].name`}
 												type='text'
 											/>
+											<span className={styles.textError}>
+												{errors?.extendedIngredients?.[index]?.name?.message}
+											</span>
 										</td>
 										<td>
 											<input
@@ -106,6 +133,9 @@ function CreateRecipeModal() {
 												name={`extendedIngredients[${index}].amount`}
 												type='number'
 											/>
+											<span className={styles.textError}>
+												{errors?.ingredientFields?.[index]?.amount?.message}
+											</span>
 										</td>
 										<td>
 											<input
@@ -127,6 +157,9 @@ function CreateRecipeModal() {
 							})}
 						</tbody>
 					</table>
+					<span className={styles.textError}>
+						{errors?.extendedIngredients?.message}
+					</span>
 				</div>
 				<div className={styles.tableWrap}>
 					<label>Instructions</label>
@@ -135,8 +168,8 @@ function CreateRecipeModal() {
 							<tr>
 								<th className={styles.firstCell}>Step</th>
 								<th>
-									<button type='button' onClick={() => instructionAppend({})}>
-										Append step
+									<button type='button' onClick={addInstructions}>
+										Add step
 									</button>
 								</th>
 							</tr>
@@ -165,6 +198,9 @@ function CreateRecipeModal() {
 							})}
 						</tbody>
 					</table>
+					<span className={styles.textError}>
+						{errors?.analyzedInstructions?.message}
+					</span>
 				</div>
 				<div className={styles.modalInputWrap}>
 					<label>Ready in </label>
@@ -174,7 +210,7 @@ function CreateRecipeModal() {
 						name='readyInMinutes'
 						{...register('readyInMinutes')}
 					/>
-					<span>{errors.title?.message}</span>
+					{/* <span>{errors.readyInMinutes?.message}</span> */}
 				</div>
 				<div className={styles.formSubmitWrap}>
 					<button className={styles.formSubmit} type='submit'>

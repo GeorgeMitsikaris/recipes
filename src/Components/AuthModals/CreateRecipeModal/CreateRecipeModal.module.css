@@ -37,6 +37,10 @@
 	outline: none;
 }
 
+.textError {
+  color: red;
+}
+
 .tableWrap {
   display: flex;
   flex-direction: column;
@@ -93,10 +97,12 @@
 }
 
 .tableForm td input {
-  width: 99%;
+  width: 99.3%;
   height: 40px;
   border-radius: 2px;
   border: 0;
+  font-size: 15px;
+  text-indent: 10px;
 }
 
 .tableForm tbody button {
@@ -123,6 +129,8 @@
 
 .tableForm textarea {
   width: 99.3%;
+  text-indent: 10px;
+  font-size: 15px;
 }
 
 .firstCell {
