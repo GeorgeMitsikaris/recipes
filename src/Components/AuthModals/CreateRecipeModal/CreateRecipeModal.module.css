@@ -160,6 +160,34 @@
 	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.formCancel {
+  width: 180px;
+  padding: 15px 25px;
+  font-size: 18px;
+  background-color: red;
+  border: 0;
+  border-radius: 50px;
+  margin: 20px 40px;
+  transition: all 0.3s;
+}
+
+.formCancel:hover {
+  cursor: pointer;
+	transform: translateY(-4px);
+	box-shadow: 1px 4px 3px rgba(0, 0, 0, 0.3);
+}
+
+.formCancel:active {
+  cursor: pointer;
+	transform: translateY(-1px);
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.formCancel a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .formSubmitWrap {
   display: flex;
   justify-content: flex-end;

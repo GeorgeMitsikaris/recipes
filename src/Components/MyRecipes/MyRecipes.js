@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 import styles from './MyRecipes.module.css';
 import database from '../../firebase/firebase';
+import { Link } from 'react-router-dom';
 
 function MyRecipes() {
 	const [myRecipes, setMyRecipes] = useState([]);
@@ -32,7 +33,11 @@ function MyRecipes() {
 		}
 	}, [userId]);
 
+  
 	const renderMyRecipes = myRecipes.map((recipe) => {
+    const getMyRecipe = () => {
+      console.log(recipe);
+    }
 		const ingredients = recipe.ingredients.map((ingredient) => {
 			return (
 				<tr key={uuid()} className={styles.recipeIngredients}>
@@ -72,8 +77,14 @@ function MyRecipes() {
 					{renderInstructions}
 				</div>
 				<div className={styles.actions}>
-					<button className={styles.editButton} type='button'>
-						Edit recipe
+					<button className={styles.editButton} type='button' onClick={getMyRecipe}>
+            <Link to={{
+              pathname:'/createRecipe',
+              state: recipe,
+              search: '/myRecipes'
+              }} >
+						  Edit recipe
+            </Link>
 					</button>
 					<button className={styles.deleteButton} type='button'>
 						Delete recipe

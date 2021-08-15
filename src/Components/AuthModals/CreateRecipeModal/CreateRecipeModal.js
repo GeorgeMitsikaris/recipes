@@ -4,6 +4,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 import database from '../../../firebase/firebase';
@@ -13,6 +14,7 @@ import styles from './CreateRecipeModal.module.css';
 function CreateRecipeModal() {
 	const userId = useSelector((state) => state.auth.userId);
 	const [isModalOpen, setIsModalOpen] = useState(true);
+  const { state, search} =  useLocation();
 
 	let schema = yup.object().shape({
 		title: yup.string().required('Recipe title is required'),
@@ -29,6 +31,21 @@ function CreateRecipeModal() {
       .array().min(1, 'Please add instructions')
 	});
 
+  const defaultValues = {
+		title: state?.title ? state.title : '',
+		readyInMinutes: state?.readyInMinutes ? state.readyInMinutes : '',
+		analyzedInstructions:
+			state?.steps &&
+			state.steps.map((step, index) => {
+				return {
+					step,
+				};
+			}),
+		extendedIngredients: state?.ingredients ? state.ingredients : ''
+	};
+
+  console.log(defaultValues); 
+
 	const {
 		register,
 		control,
@@ -39,6 +56,7 @@ function CreateRecipeModal() {
 	} = useForm({
 		resolver: yupResolver(schema),
 		mode: 'onBlur',
+		defaultValues
 	});
 
 	const {
@@ -82,7 +100,6 @@ function CreateRecipeModal() {
 		instructionAppend({});
 		clearErrors('analyzedInstructions');
 	};
-	console.log(errors);
 	const renderModal = (
 		<div className={styles.modal}>
 			<h2>Create your recipe</h2>
@@ -215,6 +232,11 @@ function CreateRecipeModal() {
 				<div className={styles.formSubmitWrap}>
 					<button className={styles.formSubmit} type='submit'>
 						Submit
+					</button>
+					<button className={styles.formCancel} type='submit'>
+            <Link to={search.substring(1)} >
+						  Cancel
+            </Link>
 					</button>
 				</div>
 			</form>
