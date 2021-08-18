@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 import styles from './MyRecipes.module.css';
 import database from '../../firebase/firebase';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function MyRecipes() {
 	const [myRecipes, setMyRecipes] = useState([]);
@@ -25,7 +25,8 @@ function MyRecipes() {
 							title: recipe.title,
 							ingredients: recipe.extendedIngredients,
 							readyInMinutes: recipe.readyInMinutes,
-							steps: recipe.analyzedInstructions
+							steps: recipe.analyzedInstructions,
+							id: recipe.id,
 						};
 					});
 					setMyRecipes(rsps);
@@ -33,11 +34,10 @@ function MyRecipes() {
 		}
 	}, [userId]);
 
-  
 	const renderMyRecipes = myRecipes.map((recipe) => {
-    const getMyRecipe = () => {
-      console.log(recipe);
-    }
+		const getMyRecipe = () => {
+			console.log(recipe);
+		};
 		const ingredients = recipe.ingredients.map((ingredient) => {
 			return (
 				<tr key={uuid()} className={styles.recipeIngredients}>
@@ -77,14 +77,23 @@ function MyRecipes() {
 					{renderInstructions}
 				</div>
 				<div className={styles.actions}>
-					<button className={styles.editButton} type='button' onClick={getMyRecipe}>
-            <Link to={{
-              pathname:'/createRecipe',
-              state: recipe,
-              search: '/myRecipes'
-              }} >
-						  Edit recipe
-            </Link>
+					<button
+						className={styles.editButton}
+						type='button'
+						onClick={getMyRecipe}
+					>
+						<NavLink
+							to={{
+								pathname: '/recipeForm',
+								state: {
+									recipe,
+									previousPath: '/myRecipes',
+									isEditMode: true,
+								},
+							}}
+						>
+							Edit recipe
+						</NavLink>
 					</button>
 					<button className={styles.deleteButton} type='button'>
 						Delete recipe

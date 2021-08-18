@@ -4,17 +4,18 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 import database from '../../../firebase/firebase';
 
-import styles from './CreateRecipeModal.module.css';
+import styles from './RecipeFormModal.module.css';
 
-function CreateRecipeModal() {
+function RecipeFormModal() {
 	const userId = useSelector((state) => state.auth.userId);
 	const [isModalOpen, setIsModalOpen] = useState(true);
-  const { state, search} =  useLocation();
+	const { state } = useLocation();
+	const history = useHistory();
 
 	let schema = yup.object().shape({
 		title: yup.string().required('Recipe title is required'),
@@ -27,25 +28,32 @@ function CreateRecipeModal() {
 				})
 			)
 			.min(1, 'A recipe must have at least one ingredient'),
-    analyzedInstructions: yup
-      .array().min(1, 'Please add instructions')
+		analyzedInstructions: yup.array().min(1, 'Please add instructions'),
 	});
 
-  const defaultValues = {
-		title: state?.title ? state.title : '',
-		readyInMinutes: state?.readyInMinutes ? state.readyInMinutes : '',
-		analyzedInstructions:
-			state?.steps &&
-			state.steps.map((step, index) => {
-				return {
-					step,
-				};
-			}),
-		extendedIngredients: state?.ingredients ? state.ingredients : ''
+	const defaultValues = () => {
+		if (state?.isEditMode) {
+			return {
+				title: state?.recipe?.title,
+				readyInMinutes: state?.recipe?.readyInMinutes,
+				analyzedInstructions: state?.recipe?.steps.map((step, index) => {
+					return {
+						step,
+					};
+				}),
+				extendedIngredients: state?.recipe?.ingredients,
+        id: state?.recipe?.id
+			};
+		} else {
+      return {
+				title: '',
+				readyInMinutes: '',
+				analyzedInstructions: [],
+				extendedIngredients: [],
+			};
+    }
 	};
-
-  console.log(defaultValues); 
-
+ 
 	const {
 		register,
 		control,
@@ -56,7 +64,7 @@ function CreateRecipeModal() {
 	} = useForm({
 		resolver: yupResolver(schema),
 		mode: 'onBlur',
-		defaultValues
+		defaultValues: defaultValues(),
 	});
 
 	const {
@@ -78,17 +86,18 @@ function CreateRecipeModal() {
 	});
 
 	const submitHandler = (data) => {
-		console.log(data);
 		const instructions = data.analyzedInstructions.map((step) => step.step);
 		const recipe = { ...data, analyzedInstructions: instructions };
 		database
 			.ref(userId)
-			.child(recipe.title)
-			.set(recipe)
+			.child(recipe.id)
+			.update(recipe)
 			.then(() => {
-				console.log('recipe saved');
+				console.log('recipe updated');
 			});
 		reset();
+    setIsModalOpen(false);
+    history.push('/');
 	};
 
 	const addIngredient = () => {
@@ -102,7 +111,7 @@ function CreateRecipeModal() {
 	};
 	const renderModal = (
 		<div className={styles.modal}>
-			<h2>Create your recipe</h2>
+			<h2>{state.isEditMode ? 'Edit recipe' : 'Create recipe'}</h2>
 			<form className={styles.modalForm} onSubmit={handleSubmit(submitHandler)}>
 				<input type='hidden' name='id' {...register('id')} value={uuid()} />
 				<div className={styles.modalInputWrap}>
@@ -234,9 +243,7 @@ function CreateRecipeModal() {
 						Submit
 					</button>
 					<button className={styles.formCancel} type='submit'>
-            <Link to={search.substring(1)} >
-						  Cancel
-            </Link>
+						<NavLink to={state?.previousPath}>Cancel</NavLink>
 					</button>
 				</div>
 			</form>
@@ -246,7 +253,10 @@ function CreateRecipeModal() {
 		<Modal
 			isOpen={isModalOpen}
 			closeTimeoutMS={500}
-			onRequestClose={() => setIsModalOpen(false)}
+			onRequestClose={() => {
+				setIsModalOpen(false);
+				history.push('/');
+			}}
 			className=''
 		>
 			{renderModal}
@@ -254,4 +264,4 @@ function CreateRecipeModal() {
 	);
 }
 
-export default CreateRecipeModal;
+export default RecipeFormModal;

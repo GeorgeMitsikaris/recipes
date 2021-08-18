@@ -16,7 +16,7 @@ import Navigation from './Components/Navigation/Navigation';
 import { firebase } from './firebase/firebase';
 import MyRecipes from './Components/MyRecipes/MyRecipes';
 import styles from './App.module.css';
-import CreateRecipeModal from './Components/AuthModals/CreateRecipeModal/CreateRecipeModal';
+import RecipeFormModal from './Components/AuthModals/RecipeFormModal/RecipeFormModal';
 
 Modal.setAppElement('#root');
 function App() {
@@ -98,7 +98,7 @@ function App() {
 				<Switch>
 					<Route path='/' exact component={Search} />
 					<Route path='/myRecipes' component={MyRecipes} />
-					<Route path='/createRecipe' component={CreateRecipeModal} />
+					<Route path='/recipeForm' component={RecipeFormModal} />
 				</Switch>
 			</BrowserRouter>
 		</div>

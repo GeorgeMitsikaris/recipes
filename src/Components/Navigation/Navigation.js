@@ -43,7 +43,13 @@ function Navigation() {
 			{isSignedIn && (
 				<>
 					<div className={styles['nav-hello']}>Hello {userEmail}</div>
-					<NavLink className={styles['nav-search']} to='/createRecipe'>
+					<NavLink className={styles['nav-search']} to={{
+              pathname: '/recipeForm',
+              state: { 
+                previousPath: '/',
+                isEditMode: false
+              }
+            }}>
 						Create a recipe
 					</NavLink>
 					<NavLink className={styles['nav-search']} to='/'>

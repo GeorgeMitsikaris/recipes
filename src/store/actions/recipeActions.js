@@ -30,17 +30,11 @@ export const fetchRecipe = (recipeId) => async (dispatch) => {
 	dispatch({ type: GET_RECIPE, payload: recipe });
 };
 
-// export const createRecipe = recipe => {
-//   return {
-//     type: GET_RECIPE, payload: recipe
-//   }
-// }
-
 export const storeRecipe = () => async (dispatch, getState) => {
 	const userId = getState().auth.userId;
 	database
 		.ref(userId)
-		.child(getState().recipes.selectedRecipe.title)
+		.child(getState().recipes.selectedRecipe.id)
 		.set(getState().recipes.selectedRecipe)
 		.then(() => {
 			dispatch({ type: STORE_RECIPE });
