@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { firebase, googleAuthProvider } from '../../firebase/firebase';
 import {
 	GET_USER_ID,
@@ -11,20 +12,34 @@ export const startRegister = (userName, password) => async (dispatch) => {
 	try {
 		const data = await firebase
 			.auth()
-			.createUserWithEmailAndPassword(userName, password);
+			.createUserWithEmailAndPassword(userName, password)
+      .then(() => {
+        toast.success('You are successfully registered')
+      })
+      .catch(() => {
+        toast.error('There was a problem registering you')
+      })
 		dispatch(getUserIdAndEmail(data.user.uid, data.user.email));
 	} catch (error) {
 		dispatch(
 			setErrorMessage(
-				error.code.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
+				error?.code?.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
 			)
 		);
 	}
 };
 
 export const startLoginGoogle = () => async (dispatch) => {
-	const data = await firebase.auth().signInWithPopup(googleAuthProvider);
-	dispatch(getUserIdAndEmail(data.user.uid, data.user.email));
+	const data = await firebase
+		.auth()
+		.signInWithPopup(googleAuthProvider)
+		.then(() => {
+			toast.success('You are successfully logged in');
+		})
+		.catch(() => {
+			toast.error('There was a problem loging you');
+		});
+	dispatch(getUserIdAndEmail(data?.user.uid, data?.user.email));
 };
 
 export const startLoginEmail = (userName, password) => async (dispatch) => {
@@ -33,11 +48,13 @@ export const startLoginEmail = (userName, password) => async (dispatch) => {
 			.auth()
 			.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 			.then(() => {
+        toast.success('You are successfully logged in');
 				return firebase.auth().signInWithEmailAndPassword(userName, password);
 			});
 		dispatch(getUserIdAndEmail(data.user.uid, data.user.email));
 		dispatch({ type: TOGGLE_LOGIN_MODAL });
 	} catch (error) {
+    toast.error('There was a problem loging you');
 		if (error.code) {
 			dispatch(
 				setErrorMessage(
@@ -51,9 +68,13 @@ export const startLoginEmail = (userName, password) => async (dispatch) => {
 
 export const startSignOut = () => async (dispatch) => {
 	try {
-		await firebase.auth().signOut();
+		await firebase.auth().signOut().then(() => {
+      toast.info('You are signed out')
+    })
 		dispatch({ type: SIGN_OUT });
-	} catch (error) {}
+	} catch (error) {
+    toast.error('There was a problem signing you out');
+  }
 };
 
 export const toggleLoginModal = () => {

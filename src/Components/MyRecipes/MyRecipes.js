@@ -1,43 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import styles from './MyRecipes.module.css';
 import database from '../../firebase/firebase';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function MyRecipes() {
 	const [myRecipes, setMyRecipes] = useState([]);
 	const userId = useSelector((state) => state.auth.userId);
 
+  const fetchRecipes = useCallback((userId) => {
+    database
+      .ref(userId)
+      .once('value')
+      .then((snapshot) => {
+        const recipes = [];
+        snapshot.forEach((snapshotChild) => {
+          recipes.push(snapshotChild.val());
+        });
+        const rsps = recipes.map((recipe) => {
+          return {
+            title: recipe.title,
+            ingredients: recipe.extendedIngredients,
+            readyInMinutes: recipe.readyInMinutes,
+            steps: recipe.analyzedInstructions,
+            id: recipe.id,
+          };
+        });
+        setMyRecipes(rsps);
+        
+      });
+  }, []);
+
+  const deleteRecipe = async (recipeId) => {
+    database.ref(`${userId}/${recipeId}`).remove().then(() => {
+      fetchRecipes(userId);
+      toast.error('Recipe deleted successfully');
+    })
+  }
+
 	useEffect(() => {
 		if (userId) {
-			database
-				.ref(userId)
-				.once('value')
-				.then((snapshot) => {
-					const recipes = [];
-					snapshot.forEach((snapshotChild) => {
-						recipes.push(snapshotChild.val());
-					});
-					const rsps = recipes.map((recipe) => {
-						return {
-							title: recipe.title,
-							ingredients: recipe.extendedIngredients,
-							readyInMinutes: recipe.readyInMinutes,
-							steps: recipe.analyzedInstructions,
-							id: recipe.id,
-						};
-					});
-					setMyRecipes(rsps);
-				});
+      fetchRecipes(userId);
 		}
-	}, [userId]);
+	}, [userId, fetchRecipes]);
 
-	const renderMyRecipes = myRecipes.map((recipe) => {
-		const getMyRecipe = () => {
-			console.log(recipe);
-		};
+	const renderMyRecipes = myRecipes.map((recipe) => {		
 		const ingredients = recipe.ingredients.map((ingredient) => {
 			return (
 				<tr key={uuid()} className={styles.recipeIngredients}>
@@ -80,7 +90,6 @@ function MyRecipes() {
 					<button
 						className={styles.editButton}
 						type='button'
-						onClick={getMyRecipe}
 					>
 						<NavLink
 							to={{
@@ -95,7 +104,7 @@ function MyRecipes() {
 							Edit recipe
 						</NavLink>
 					</button>
-					<button className={styles.deleteButton} type='button'>
+					<button className={styles.deleteButton} type='button' onClick={() => deleteRecipe(recipe.id)}>
 						Delete recipe
 					</button>
 				</div>

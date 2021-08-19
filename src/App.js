@@ -17,6 +17,7 @@ import { firebase } from './firebase/firebase';
 import MyRecipes from './Components/MyRecipes/MyRecipes';
 import styles from './App.module.css';
 import RecipeFormModal from './Components/AuthModals/RecipeFormModal/RecipeFormModal';
+import { ToastContainer } from 'react-toastify';
 
 Modal.setAppElement('#root');
 function App() {
@@ -101,6 +102,7 @@ function App() {
 					<Route path='/recipeForm' component={RecipeFormModal} />
 				</Switch>
 			</BrowserRouter>
+      <ToastContainer />
 		</div>
 	);
 }

@@ -6,6 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import database from '../../../firebase/firebase';
 
@@ -93,8 +95,15 @@ function RecipeFormModal() {
 			.child(recipe.id)
 			.update(recipe)
 			.then(() => {
-				console.log('recipe updated');
-			});
+        if (state.isEditMode) {
+          toast.success('Successfully updated recipe');
+        } else {
+          toast.success('Recipe successfully created');
+        }
+			})
+      .catch(error => {
+        toast.error(error.message);
+      })
 		reset();
     setIsModalOpen(false);
     history.push('/');
@@ -250,17 +259,19 @@ function RecipeFormModal() {
 		</div>
 	);
 	return (
-		<Modal
-			isOpen={isModalOpen}
-			closeTimeoutMS={500}
-			onRequestClose={() => {
-				setIsModalOpen(false);
-				history.push('/');
-			}}
-			className=''
-		>
-			{renderModal}
-		</Modal>
+    <>
+      <Modal
+        isOpen={isModalOpen}
+        closeTimeoutMS={500}
+        onRequestClose={() => {
+          setIsModalOpen(false);
+          history.push('/');
+        }}
+        className=''
+      >
+        {renderModal}
+      </Modal>
+    </>
 	);
 }
 
