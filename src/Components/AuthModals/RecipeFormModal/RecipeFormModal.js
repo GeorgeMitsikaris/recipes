@@ -245,21 +245,20 @@ function RecipeFormModal() {
 						name='readyInMinutes'
 						{...register('readyInMinutes')}
 					/>
-					{/* <span>{errors.readyInMinutes?.message}</span> */}
 				</div>
 				<div className={styles.formSubmitWrap}>
 					<button className={styles.formSubmit} type='submit'>
 						Submit
 					</button>
 					<button className={styles.formCancel} type='submit'>
-						<NavLink to={state?.previousPath}>Cancel</NavLink>
+						<NavLink to={state?.previousPath} onClick={() => setIsModalOpen(false)}>Cancel</NavLink>
 					</button>
 				</div>
 			</form>
 		</div>
 	);
 	return (
-    <>
+    <div className={styles.transition}>
       <Modal
         isOpen={isModalOpen}
         closeTimeoutMS={500}
@@ -271,7 +270,7 @@ function RecipeFormModal() {
       >
         {renderModal}
       </Modal>
-    </>
+    </div>
 	);
 }
 

@@ -113,9 +113,9 @@ function MyRecipes() {
 	});
 
 	return (
-		<>
+		<div className={styles.transition}>
 			<div className={styles.recipes}>{renderMyRecipes}</div>
-		</>
+		</div>
 	);
 }
 

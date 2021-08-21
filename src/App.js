@@ -2,6 +2,9 @@ import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import { firebase } from './firebase/firebase';
+import { ToastContainer } from 'react-toastify';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { closeModal, storeRecipe } from './store/actions/recipeActions';
 import {
@@ -13,18 +16,16 @@ import {
 import Search from './Components/FindRecipes/FindRecipes';
 import './firebase/firebase';
 import Navigation from './Components/Navigation/Navigation';
-import { firebase } from './firebase/firebase';
 import MyRecipes from './Components/MyRecipes/MyRecipes';
 import styles from './App.module.css';
 import RecipeFormModal from './Components/AuthModals/RecipeFormModal/RecipeFormModal';
-import { ToastContainer } from 'react-toastify';
 
 Modal.setAppElement('#root');
 function App() {
-  const dispatch = useDispatch();
-  const isModalOpen = useSelector(state => state.recipes.isModalOpen)
-  const selectedRecipe = useSelector(state => state.recipes.selectedRecipe)
-	const	userId = useSelector(state =>  state.auth.userId)
+	const dispatch = useDispatch();
+	const isModalOpen = useSelector((state) => state.recipes.isModalOpen);
+	const selectedRecipe = useSelector((state) => state.recipes.selectedRecipe);
+	const userId = useSelector((state) => state.auth.userId);
 
 	const renderSteps =
 		selectedRecipe.analyzedInstructions &&
@@ -39,13 +40,16 @@ function App() {
 
 	const renderButtons = (
 		<>
-			<button className={styles['recipe__close']} onClick={() => dispatch(closeModal())}>
+			<button
+				className={styles['recipe__close']}
+				onClick={() => dispatch(closeModal())}
+			>
 				Close
 			</button>
 			{userId ? (
 				<button
 					className={styles['recipe__save']}
-					onClick={() => dispatch(storeRecipe())} 
+					onClick={() => dispatch(storeRecipe())}
 				>
 					Save Recipe
 				</button>
@@ -57,10 +61,16 @@ function App() {
 					>
 						Register
 					</button>
-					<button className={styles['recipe__save']} onClick={dispatch(toggleLoginModal)}>
+					<button
+						className={styles['recipe__save']}
+						onClick={dispatch(toggleLoginModal)}
+					>
 						Login
 					</button>
-					<button className={styles['recipe__save']} onClick={dispatch(startLoginGoogle)}>
+					<button
+						className={styles['recipe__save']}
+						onClick={dispatch(startLoginGoogle)}
+					>
 						Google Login
 					</button>
 				</>
@@ -81,7 +91,7 @@ function App() {
 			<Modal
 				isOpen={isModalOpen}
 				closeTimeoutMS={500}
-				onRequestClose={() => dispatch(closeModal())} 
+				onRequestClose={() => dispatch(closeModal())}
 				className={styles['modal-content']}
 			>
 				<div className={styles['modal-header']}>
@@ -96,13 +106,28 @@ function App() {
 			</Modal>
 			<BrowserRouter>
 				<Navigation />
-				<Switch>
-					<Route path='/' exact component={Search} />
-					<Route path='/myRecipes' component={MyRecipes} />
-					<Route path='/recipeForm' component={RecipeFormModal} />
-				</Switch>
+				<Route
+					render={({ location }) => (
+						<TransitionGroup>
+							<CSSTransition key={location.key} timeout={500} classNames={{
+                enter: styles.fadeEnter,
+                exit: styles.fadeExit,
+                appear: styles.fadeAppear,
+                enterActive: styles.fadeEnterActive,
+                exitActive: styles.fadeExitActive,
+                appearActive: styles.fadeAppearActive
+              }} mountOnEnter unmountOnExit>
+								<Switch location={location}>
+                  <Route path='/' exact component={Search} />
+                  <Route path='/myRecipes' component={MyRecipes} />
+                  <Route path='/recipeForm' component={RecipeFormModal} />
+								</Switch>
+							</CSSTransition>
+						</TransitionGroup>
+					)}
+				/>
 			</BrowserRouter>
-      <ToastContainer />
+			<ToastContainer />
 		</div>
 	);
 }

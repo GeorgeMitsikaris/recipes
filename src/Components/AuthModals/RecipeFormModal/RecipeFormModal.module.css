@@ -192,3 +192,9 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.transition {
+  position: absolute;
+  left: 0;
+  right: 0;
+}

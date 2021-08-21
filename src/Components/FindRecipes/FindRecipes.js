@@ -51,16 +51,18 @@ const FindRecipes = () => {
 	});
 
 	return (
-		<div className={styles.search}>
-			<h1>Search for recipes</h1>
-			<input
-				value={recipe}
-				placeholder='Search for recipes...'
-				onChange={(e) => {
-					setRecipe(e.target.value);
-				}}
-			/>
-			<div className={styles['search__container']}>{renderRecipes}</div>
+		<div className={styles.transition}>
+			<div className={styles.search}>
+				<h1>Search for recipes</h1>
+				<input
+					value={recipe}
+					placeholder='Search for recipes...'
+					onChange={(e) => {
+						setRecipe(e.target.value);
+					}}
+				/>
+				<div className={styles['search__container']}>{renderRecipes}</div>
+			</div>
 		</div>
 	);
 };

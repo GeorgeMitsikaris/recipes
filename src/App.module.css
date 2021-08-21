@@ -73,3 +73,28 @@
   transform: translateY(-1px);
   box-shadow: 0 1px 1px rgb(95, 121, 128);
 }
+
+.transition {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.fadeAppear, .fadeEnter {
+  opacity: 0;
+  /* z-index: 1; */
+}
+
+.fadeAppearActive, .fadeEnter.fadeEnterActive {
+  opacity: 1;
+  transition: opacity 500ms;
+}
+
+.fadeExit {
+  opacity: 1;
+}
+
+.fadeExit.fadeExitActive {
+  opacity: 0;
+  transition: opacity 500ms;
+}

@@ -33,3 +33,9 @@
   margin: 0 auto;
   width: 80%; 
 }
+
+.transition {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
