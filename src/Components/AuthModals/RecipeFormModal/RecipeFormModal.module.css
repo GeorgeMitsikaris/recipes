@@ -131,6 +131,7 @@
   width: 99.3%;
   text-indent: 10px;
   font-size: 15px;
+  font-family: inherit;
 }
 
 .firstCell {
@@ -197,4 +198,8 @@
   position: absolute;
   left: 0;
   right: 0;
+}
+
+@media(max-width: 900px) {
+  
 }

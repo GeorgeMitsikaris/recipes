@@ -109,14 +109,19 @@ function App() {
 				<Route
 					render={({ location }) => (
 						<TransitionGroup>
-							<CSSTransition key={location.key} timeout={500} classNames={{
-                enter: styles.fadeEnter,
-                exit: styles.fadeExit,
-                appear: styles.fadeAppear,
-                enterActive: styles.fadeEnterActive,
-                exitActive: styles.fadeExitActive,
-                appearActive: styles.fadeAppearActive
-              }} mountOnEnter unmountOnExit>
+							<CSSTransition 
+                key={location.key} 
+                timeout={500} 
+                classNames={{
+                  enter: styles.fadeEnter,
+                  exit: styles.fadeExit,
+                  appear: styles.fadeAppear,
+                  enterActive: styles.fadeEnterActive,
+                  exitActive: styles.fadeExitActive,
+                  appearActive: styles.fadeAppearActive
+                }} 
+                mountOnEnter 
+                unmountOnExit>
 								<Switch location={location}>
                   <Route path='/' exact component={Search} />
                   <Route path='/myRecipes' component={MyRecipes} />

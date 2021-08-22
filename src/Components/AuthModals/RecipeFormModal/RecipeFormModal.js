@@ -166,7 +166,7 @@ function RecipeFormModal() {
 											<input
 												{...register(`extendedIngredients[${index}].amount`)}
 												name={`extendedIngredients[${index}].amount`}
-												type='number'
+												type='text'
 											/>
 											<span className={styles.textError}>
 												{errors?.ingredientFields?.[index]?.amount?.message}
