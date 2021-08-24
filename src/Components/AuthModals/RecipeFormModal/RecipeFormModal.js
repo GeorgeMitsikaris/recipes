@@ -8,6 +8,7 @@ import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import database from '../../../firebase/firebase';
 
@@ -44,18 +45,18 @@ function RecipeFormModal() {
 					};
 				}),
 				extendedIngredients: state?.recipe?.ingredients,
-        id: state?.recipe?.id
+				id: state?.recipe?.id,
 			};
 		} else {
-      return {
+			return {
 				title: '',
 				readyInMinutes: '',
 				analyzedInstructions: [],
 				extendedIngredients: [],
 			};
-    }
+		}
 	};
- 
+
 	const {
 		register,
 		control,
@@ -95,18 +96,18 @@ function RecipeFormModal() {
 			.child(recipe.id)
 			.update(recipe)
 			.then(() => {
-        if (state.isEditMode) {
-          toast.success('Successfully updated recipe');
-        } else {
-          toast.success('Recipe successfully created');
-        }
+				if (state.isEditMode) {
+					toast.success('Successfully updated recipe');
+				} else {
+					toast.success('Recipe successfully created');
+				}
 			})
-      .catch(error => {
-        toast.error(error.message);
-      })
+			.catch((error) => {
+				toast.error(error.message);
+			});
 		reset();
-    setIsModalOpen(false);
-    history.push('/');
+		setIsModalOpen(false);
+		history.push('/');
 	};
 
 	const addIngredient = () => {
@@ -133,9 +134,10 @@ function RecipeFormModal() {
 					/>
 					<span className={styles.textError}>{errors.title?.message}</span>
 				</div>
+				<hr />
 				<div className={styles.tableWrap}>
 					<label>Ingredients</label>
-					<table className={styles.tableForm}>
+					<table className={`${styles.tableForm} ${styles.ingredientTable}`}>
 						<thead>
 							<tr>
 								<th>Name</th>
@@ -149,53 +151,135 @@ function RecipeFormModal() {
 							</tr>
 						</thead>
 						<tbody>
-							{ingredientFields.map(({ id }, index) => {
-								return (
-									<tr key={id}>
-										<td>
+							<TransitionGroup component={null}>
+								{ingredientFields.map(({ id }, index) => (
+									<CSSTransition
+										key={id}
+										timeout={500}
+										classNames={{
+											enter: styles.fadeEnter,
+											exit: styles.fadeExit,
+											appear: styles.fadeAppear,
+											enterActive: styles.fadeEnterActive,
+											exitActive: styles.fadeExitActive,
+											appearActive: styles.fadeAppearActive,
+										}}
+										mountOnEnter
+										unmountOnExit
+									>
+										<tr>
+											<td>
+												<input
+													{...register(`extendedIngredients[${index}].name`)}
+													name={`extendedIngredients[${index}].name`}
+													type='text'
+												/>
+												<span className={styles.textError}>
+													{errors?.extendedIngredients?.[index]?.name?.message}
+												</span>
+											</td>
+											<td>
+												<input
+													{...register(`extendedIngredients[${index}].amount`)}
+													name={`extendedIngredients[${index}].amount`}
+													type='text'
+												/>
+												<span className={styles.textError}>
+													{errors?.ingredientFields?.[index]?.amount?.message}
+												</span>
+											</td>
+											<td>
+												<input
+													{...register(`extendedIngredients[${index}].unit`)}
+													name={`extendedIngredients[${index}].unit`}
+													type='text'
+												/>
+											</td>
+											<td>
+												<button
+													type='button'
+													onClick={() => ingredientRemove(index)}
+												>
+													Remove ingredient
+												</button>
+											</td>
+										</tr>
+									</CSSTransition>
+								))}
+							</TransitionGroup>
+						</tbody>
+					</table>
+				</div>
+				<div className={styles.mobileIngredients}>
+					<label className={styles.labelIngredients}>Ingredients</label>
+					<TransitionGroup>
+						{ingredientFields.map(({ id }, index) => (
+							<CSSTransition
+								key={id}
+								timeout={500}
+								classNames={{
+									enter: styles.fadeEnter,
+									exit: styles.fadeExit,
+									appear: styles.fadeAppear,
+									enterActive: styles.fadeEnterActive,
+									exitActive: styles.fadeExitActive,
+									appearActive: styles.fadeAppearActive,
+								}}
+								mountOnEnter
+								unmountOnExit
+							>
+								<div key={id}>
+									<div className={styles.inputContainer}>
+										<div className={styles.mobileInputWrap}>
+											<label>Name</label>
 											<input
 												{...register(`extendedIngredients[${index}].name`)}
 												name={`extendedIngredients[${index}].name`}
 												type='text'
 											/>
-											<span className={styles.textError}>
-												{errors?.extendedIngredients?.[index]?.name?.message}
-											</span>
-										</td>
-										<td>
+										</div>
+										<div className={styles.mobileInputWrap}>
+											<label>Amount</label>
 											<input
 												{...register(`extendedIngredients[${index}].amount`)}
 												name={`extendedIngredients[${index}].amount`}
 												type='text'
 											/>
-											<span className={styles.textError}>
-												{errors?.ingredientFields?.[index]?.amount?.message}
-											</span>
-										</td>
-										<td>
+										</div>
+										<div className={styles.mobileInputWrap}>
+											<label>Unit</label>
 											<input
 												{...register(`extendedIngredients[${index}].unit`)}
 												name={`extendedIngredients[${index}].unit`}
 												type='text'
 											/>
-										</td>
-										<td>
+										</div>
+										<div className={styles.removeButtonWrap}>
 											<button
 												type='button'
+												className={styles.removeButton}
 												onClick={() => ingredientRemove(index)}
 											>
-												Remove row
+												Remove
 											</button>
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
-					<span className={styles.textError}>
-						{errors?.extendedIngredients?.message}
-					</span>
+										</div>
+									</div>
+								</div>
+							</CSSTransition>
+						))}
+					</TransitionGroup>
+					<button
+						type='button'
+						onClick={addIngredient}
+						className={styles.addButton}
+					>
+						Add ingredient
+					</button>
 				</div>
+				<span className={styles.textError}>
+					{errors?.extendedIngredients?.message}
+				</span>
+				<hr />
 				<div className={styles.tableWrap}>
 					<label>Instructions</label>
 					<table className={styles.tableForm}>
@@ -210,33 +294,97 @@ function RecipeFormModal() {
 							</tr>
 						</thead>
 						<tbody>
-							{instructionFields.map(({ id }, index) => {
-								return (
-									<tr key={id}>
-										<td className={styles.firstCell}>
-											<textarea
-												{...register(`analyzedInstructions[${index}].step`)}
-												name={`analyzedInstructions[${index}].step`}
-												type='text'
-											></textarea>
-										</td>
-										<td>
-											<button
-												type='button'
-												onClick={() => instructionRemove(index)}
-											>
-												Remove step
-											</button>
-										</td>
-									</tr>
-								);
-							})}
+							<TransitionGroup component={null}>
+								{instructionFields.map(({ id }, index) => (
+									<CSSTransition
+										key={id}
+										timeout={500}
+										classNames={{
+											enter: styles.fadeEnter,
+											exit: styles.fadeExit,
+											appear: styles.fadeAppear,
+											enterActive: styles.fadeEnterActive,
+											exitActive: styles.fadeExitActive,
+											appearActive: styles.fadeAppearActive,
+										}}
+										mountOnEnter
+										unmountOnExit
+									>
+										<tr key={id}>
+											<td className={styles.firstCell}>
+												<textarea
+													{...register(`analyzedInstructions[${index}].step`)}
+													name={`analyzedInstructions[${index}].step`}
+													type='text'
+												></textarea>
+											</td>
+											<td>
+												<button
+													type='button'
+													onClick={() => instructionRemove(index)}
+												>
+													Remove step
+												</button>
+											</td>
+										</tr>
+									</CSSTransition>
+								))}
+							</TransitionGroup>
 						</tbody>
 					</table>
-					<span className={styles.textError}>
-						{errors?.analyzedInstructions?.message}
-					</span>
 				</div>
+				<div className={styles.mobileIngredients}>
+					<label className={styles.labelIngredients}>Instructions</label>
+					<TransitionGroup>
+						{instructionFields.map(({ id }, index) => (
+							<CSSTransition
+								key={id}
+								timeout={500}
+								classNames={{
+									enter: styles.fadeEnter,
+									exit: styles.fadeExit,
+									appear: styles.fadeAppear,
+									enterActive: styles.fadeEnterActive,
+									exitActive: styles.fadeExitActive,
+									appearActive: styles.fadeAppearActive,
+								}}
+								mountOnEnter
+								unmountOnExit
+							>
+								<div className={styles.inputContainer}>
+									<div className={styles.mobileInputWrap}>
+										<label>Step</label>
+										<textarea
+											{...register(`analyzedInstructions[${index}].step`)}
+											name={`analyzedInstructions[${index}].step`}
+											type='text'
+										></textarea>
+									</div>
+									<div className={styles.removeButtonWrap}>
+										<button
+											type='button'
+											className={styles.removeButton}
+											onClick={() => instructionRemove(index)}
+										>
+											Remove
+										</button>
+									</div>
+								</div>
+							</CSSTransition>
+						))}
+					</TransitionGroup>
+					<button
+						type='button'
+						onClick={addInstructions}
+						className={styles.addButton}
+					>
+						Add step
+					</button>
+				</div>
+				<span className={styles.textError}>
+					{errors?.analyzedInstructions?.message}
+				</span>
+				<hr />
 				<div className={styles.modalInputWrap}>
 					<label>Ready in </label>
 					<input
@@ -251,26 +399,31 @@ function RecipeFormModal() {
 						Submit
 					</button>
 					<button className={styles.formCancel} type='submit'>
-						<NavLink to={state?.previousPath} onClick={() => setIsModalOpen(false)}>Cancel</NavLink>
+						<NavLink
+							to={state?.previousPath}
+							onClick={() => setIsModalOpen(false)}
+						>
+							Cancel
+						</NavLink>
 					</button>
 				</div>
 			</form>
 		</div>
 	);
 	return (
-    <div className={styles.transition}>
-      <Modal
-        isOpen={isModalOpen}
-        closeTimeoutMS={500}
-        onRequestClose={() => {
-          setIsModalOpen(false);
-          history.push('/');
-        }}
-        className=''
-      >
-        {renderModal}
-      </Modal>
-    </div>
+		<div className={styles.transition}>
+			<Modal
+				isOpen={isModalOpen}
+				closeTimeoutMS={500}
+				onRequestClose={() => {
+					setIsModalOpen(false);
+					history.push('/');
+				}}
+				className=''
+			>
+				{renderModal}
+			</Modal>
+		</div>
 	);
 }
 
