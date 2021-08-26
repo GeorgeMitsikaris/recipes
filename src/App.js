@@ -18,7 +18,7 @@ import './firebase/firebase';
 import Navigation from './Components/Navigation/Navigation';
 import MyRecipes from './Components/MyRecipes/MyRecipes';
 import styles from './App.module.css';
-import RecipeFormModal from './Components/AuthModals/RecipeFormModal/RecipeFormModal';
+import RecipeFormModal from './Components/Modals/RecipeFormModal/RecipeFormModal';
 
 Modal.setAppElement('#root');
 function App() {

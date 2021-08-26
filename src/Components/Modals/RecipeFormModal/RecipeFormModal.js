@@ -4,7 +4,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
-import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -268,13 +268,7 @@ function RecipeFormModal() {
 							</CSSTransition>
 						))}
 					</TransitionGroup>
-					<button
-						type='button'
-						onClick={addIngredient}
-						className={styles.addButton}
-					>
-						Add ingredient
-					</button>
+					 
 				</div>
 				<span className={styles.textError}>
 					{errors?.extendedIngredients?.message}
@@ -399,12 +393,12 @@ function RecipeFormModal() {
 						Submit
 					</button>
 					<button className={styles.formCancel} type='submit'>
-						<NavLink
+						<Link
 							to={state?.previousPath}
 							onClick={() => setIsModalOpen(false)}
 						>
 							Cancel
-						</NavLink>
+						</Link>
 					</button>
 				</div>
 			</form>
