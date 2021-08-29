@@ -30,21 +30,21 @@ function BurgeModal({ isSignedIn }) {
 						to={{
 							pathname: '/recipeForm',
 							state: {
-								previousPath: '/',
+								previousPath: '/search',
 								isEditMode: false,
 							},
 						}}
 					>
 						Create a recipe
 					</Link>
-					<Link to='/' exact className={styles.navSearchMobile}>
+					<Link to='/search' exact className={styles.navSearchMobile}>
 						Search for recipes
 					</Link>
 					<Link exact to='/myRecipes' className={styles.navSearchMobile}>
 						My recipes
 					</Link>
 					<Link
-						to='/'
+						to='/search'
 						className={styles.navLogoutMobile}
 						onClick={() => dispatch(startSignOut())}
 					>

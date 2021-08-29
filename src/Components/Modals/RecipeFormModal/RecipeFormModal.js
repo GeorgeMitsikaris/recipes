@@ -107,7 +107,7 @@ function RecipeFormModal() {
 			});
 		reset();
 		setIsModalOpen(false);
-		history.push('/');
+		history.push('/search');
 	};
 
 	const addIngredient = () => {
@@ -417,7 +417,7 @@ function RecipeFormModal() {
 				closeTimeoutMS={500}
 				onRequestClose={() => {
 					setIsModalOpen(false);
-					history.push('/');
+					history.push('/search');
 				}}
 				className={styles.modal}
 			>

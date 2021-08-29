@@ -25,6 +25,9 @@ function Navigation() {
 		<div className={styles.nav}>
 			{!isSignedIn && (
 				<>
+					<nav className={styles.navAbout}>
+						<NavLink to='/search'></NavLink>
+					</nav>
 					<nav className={styles.showNav}>
 						<div
 							className={styles.navLogin}
@@ -57,28 +60,28 @@ function Navigation() {
 			)}
 			{isSignedIn && (
 				<>
-          <div className={styles.navHello}>Hello {userEmail}</div>
+					<div className={styles.navHello}>Hello {userEmail}</div>
 					<nav className={styles.showNav}>
 						<NavLink
 							className={styles.navSearch}
 							to={{
 								pathname: '/recipeForm',
 								state: {
-									previousPath: '/',
+									previousPath: '/search',
 									isEditMode: false,
 								},
 							}}
 						>
 							Create a recipe
 						</NavLink>
-						<NavLink exact className={styles.navSearch} to='/'>
+						<NavLink className={styles.navSearch} to='/search'>
 							Search for recipes
 						</NavLink>
-						<NavLink exact to='/myRecipes' className={styles.navSearch}>
+						<NavLink to='/myRecipes' className={styles.navSearch}>
 							My recipes
 						</NavLink>
 						<Link
-							to='/'
+							to='/search'
 							className={styles.navLogout}
 							onClick={() => dispatch(startSignOut())}
 						>

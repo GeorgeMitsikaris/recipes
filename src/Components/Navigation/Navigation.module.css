@@ -24,6 +24,11 @@
 	background: rgba(77, 74, 74, 0.6);
 }
 
+.navLogin:active,
+.navLogout:active {
+  transform: translateY(-1px);
+} 
+
 .navHello {
 	color: #fff;
 	font-size: 22px;
@@ -49,6 +54,10 @@
 	background: rgba(77, 74, 74, 0.6);
 }
 
+.navSearch:active {
+  transform: translateY(-1px);
+}
+
 .burgerMenu {
 	color: #fff;
 }
@@ -66,6 +75,10 @@
 
 :global(.active) {
 	background-color: #555;
+}
+
+:global(.ReactModal__Overlay) {
+  overflow: scroll;
 }
 
 @media (max-width: 1100px) {
