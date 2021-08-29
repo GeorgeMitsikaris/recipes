@@ -343,4 +343,11 @@
   .formCancel {
     width: 100%;
   }
+
+  .modal {
+    top: 40px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+  }
 }

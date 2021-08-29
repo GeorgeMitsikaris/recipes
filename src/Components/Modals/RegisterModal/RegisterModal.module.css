@@ -37,7 +37,7 @@
 
 .modalInputWrap input {
   width: 100%;
-  height: 30px;
+  height: 45px;
   border: 0;
   border-radius: 5px;
   outline: none;
@@ -75,15 +75,15 @@
 
 .modalButtonAction {
   margin-right: 30px;
-  background-color: #fff;
+  background-color: #ace;
   border: 0;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 
 .modalButtonCancel {
-  background-color: dimgray;
+  background-color: #f76c6c;
   border: 0;
-  border-radius: 5px;
+  border-radius: 50px;
   color: #fff;
 }
 
@@ -91,5 +91,20 @@
 	.modalContainer {
     left: 10px;
     right: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+	.modalButtons {
+    flex-direction: column;
+  }
+
+  .modalButtonAction {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .modalContainer {
+    bottom: 80px;
   }
 }

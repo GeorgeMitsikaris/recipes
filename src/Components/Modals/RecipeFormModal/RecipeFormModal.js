@@ -268,7 +268,13 @@ function RecipeFormModal() {
 							</CSSTransition>
 						))}
 					</TransitionGroup>
-					 
+					<button
+						type='button'
+						onClick={addIngredient}
+						className={styles.addButton}
+					>
+						Add ingredient
+					</button>
 				</div>
 				<span className={styles.textError}>
 					{errors?.extendedIngredients?.message}
@@ -390,7 +396,7 @@ function RecipeFormModal() {
 				</div>
 				<div className={styles.formSubmitWrap}>
 					<button className={styles.formSubmit} type='submit'>
-						Submit
+						Create
 					</button>
 					<button className={styles.formCancel} type='submit'>
 						<Link
@@ -413,7 +419,7 @@ function RecipeFormModal() {
 					setIsModalOpen(false);
 					history.push('/');
 				}}
-				className=''
+				className={styles.modal}
 			>
 				{renderModal}
 			</Modal>

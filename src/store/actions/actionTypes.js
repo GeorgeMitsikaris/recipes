@@ -9,3 +9,6 @@ export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL';
 export const TOGGLE_REGISTER_MODAL = 'TOGGLE_REGISTER_MODAL';
 export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 export const SIGN_OUT = 'SIGN_OUT';
+
+//Modal action types
+export const SET_MODAL_STATE = 'SET_MODAL_STATE';

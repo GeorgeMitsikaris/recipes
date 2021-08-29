@@ -10,10 +10,12 @@ import './index.css';
 import App from './App';
 import { recipesReducer } from './store/reducers/recipesReducer';
 import { authReducer } from './store/reducers/authReducer';
+import { modalReducer } from './store/reducers/modalReducer';
 
 const rootReducer = combineReducers({
   recipes: recipesReducer,
-  auth: authReducer
+  auth: authReducer,
+  modal: modalReducer,
 });
 
 const store = createStore(

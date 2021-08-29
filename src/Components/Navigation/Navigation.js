@@ -13,6 +13,8 @@ import {
 } from '../../store/actions/authActions';
 import LoginModal from '../Modals/LoginModal/LoginModal';
 import RegisterModal from '../Modals/RegisterModal/RegisterModal';
+import BurgerModal from '../Modals/BurgerModal/BurgerModal';
+import { setModalState } from '../../store/actions/modalActions';
 
 function Navigation() {
 	const dispatch = useDispatch();
@@ -48,14 +50,15 @@ function Navigation() {
 							icon={faBars}
 							className={styles.burgerMenu}
 							size='2x'
+							onClick={() => dispatch(setModalState(true))}
 						></FontAwesomeIcon>
-          </div>
+					</div>
 				</>
 			)}
 			{isSignedIn && (
 				<>
+          <div className={styles.navHello}>Hello {userEmail}</div>
 					<nav className={styles.showNav}>
-						<div className={styles.navHello}>Hello {userEmail}</div>
 						<NavLink
 							className={styles.navSearch}
 							to={{
@@ -83,8 +86,8 @@ function Navigation() {
 						</Link>
 					</nav>
 					<div className={styles.showBurger}>
-						<div className={styles.navHello}>Hello {userEmail}</div>
 						<FontAwesomeIcon
+							onClick={() => dispatch(setModalState(true))}
 							icon={faBars}
 							className={styles.burgerMenu}
 							size='2x'
@@ -94,6 +97,7 @@ function Navigation() {
 			)}
 			<RegisterModal />
 			<LoginModal />
+			<BurgerModal isSignedIn={isSignedIn} />
 		</div>
 	);
 }

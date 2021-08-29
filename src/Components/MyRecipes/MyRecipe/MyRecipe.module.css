@@ -117,3 +117,17 @@
 .active {
   color: green;
 }
+
+@media(max-width: 500px) {
+  .table {
+    width: 95%;
+  }
+
+  .stepsHeaderRight {
+    margin-left: auto;
+  }
+
+  .headerWrap {
+    flex-direction: column;
+  }
+}
