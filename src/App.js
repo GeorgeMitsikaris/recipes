@@ -20,6 +20,7 @@ import MyRecipes from './Components/MyRecipes/MyRecipes';
 import styles from './App.module.css';
 import RecipeFormModal from './Components/Modals/RecipeFormModal/RecipeFormModal';
 import InitialPage from './Components/InitialPage/InitialPage';
+import AboutMe from './Components/AboutMe/AboutMe';
 
 Modal.setAppElement('#root');
 function App() {
@@ -128,6 +129,7 @@ function App() {
                   <Route path='/search' exact component={Search} />
                   <Route path='/myRecipes' component={MyRecipes} />
                   <Route path='/recipeForm' component={RecipeFormModal} />
+                  <Route path='/aboutMe' component={AboutMe} />
 								</Switch>
 							</CSSTransition>
 						</TransitionGroup>

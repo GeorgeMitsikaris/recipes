@@ -23,7 +23,7 @@ export const fetchRecipe = (recipeId) => async (dispatch) => {
 		'title',
 		'id',
 		'analyzedInstructions',
-		'readyInMinutes',
+		'readyInMinutes',  
 	]);
 
   const recipe = {...recipeData, extendedIngredients: ingredients, analyzedInstructions: instructions}

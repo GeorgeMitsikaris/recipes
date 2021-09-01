@@ -6,7 +6,7 @@ import { fetchRecipe } from '../../../store/actions/recipeActions';
 
 import './Recipe.css';
 
-const Recipe = ({
+const FindRecipe = ({
 	title,
 	missedIngredients,
 	usedIngredients,
@@ -14,16 +14,13 @@ const Recipe = ({
 	recipeId
 }) => {
   const dispatch = useDispatch();
-  
-	const getInstructions = async () => {
-    dispatch(fetchRecipe(recipeId));
-	};
 
 	const renderMissedIngredients = missedIngredients.map((missedIngredient) => {
+		const amount = Math.round(100 * (missedIngredient.amount + Number.EPSILON)) / 100
 		return (
 			<tr key={uuid()}>
 				<td>{missedIngredient.name}</td>
-				<td>{missedIngredient.amount}</td>
+				<td>{amount}</td>
 				<td>{missedIngredient.unit}</td>
 			</tr>
 		);
@@ -33,7 +30,7 @@ const Recipe = ({
 		return (
 			<tr key={uuid()}>
 				<td>{usedIngredient.name}</td>
-				<td>{usedIngredient.amount}</td>
+				<td>{Math.round(100 * (usedIngredient.amount + Number.EPSILON)) / 100}</td>
 				<td>{usedIngredient.unit}</td>
 			</tr>
 		);
@@ -67,11 +64,11 @@ const Recipe = ({
 				<strong>Unused Ingredients:</strong>
 				{renderUnusedIngredients}
 			</div>
-			<button className='recipe__button' onClick={() => getInstructions()}>
+			<button className='recipe__button' onClick={() => dispatch(fetchRecipe(recipeId))}>
 				Get Instructions
 			</button>
 		</>
 	);
 };
 
-export default Recipe;
+export default FindRecipe;

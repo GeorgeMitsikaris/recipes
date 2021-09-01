@@ -26,8 +26,8 @@ function InitialPage() {
 				an existing one.
 			</p>
 			<p className={styles.paragraph}>
-				The database which is been used for storing the recipes and authenticate
-				the users is Google's realtime{' '}
+				The database used for storing the recipes and authenticate the users is
+				Google's realtime{' '}
 				<span>
 					<a
 						href='https://firebase.google.com/'
@@ -149,7 +149,20 @@ function InitialPage() {
 				</li>
 			</ul>
 			<div className={styles.paragraph}>
-				Finally the github link is{' '}
+				<p>
+					Background photo by &nbsp;
+					<span>
+						<a
+							href='https://unsplash.com/photos/0JFveX0c778'
+							target='_blank'
+							rel='noreferrer'
+							className={styles.link}
+						>
+							Andy Chilton
+						</a>
+					</span>
+				</p>
+				The github link is{' '}
 				<span>
 					<a
 						href='https://github.com/GeorgeMitsikaris/recipes-react'
@@ -164,20 +177,25 @@ function InitialPage() {
 			<h2>Disclaimer</h2>
 			<div className={styles.paragraph}>
 				<p>
-          This app is intended solely for displaying my skills as a React developer to the future employers and not for commercial purposes.          
+					This app is intended solely for displaying my skills as a React
+					developer to the future employers and not for commercial purposes.
 				</p>
-        <p className={styles.paragraph}>
-					Firebase is using cookies for authentication (G_AUTHUSER_H and G_ENABLED_IDPS) and these are the only cookies used.
-        </p>
-        <p className={styles.paragraph}>
-          I am not responsible for any mistakes in the spelling of recipes
-        </p>
+				<p className={styles.paragraph}>
+					Firebase is using cookies for authentication (G_AUTHUSER_H and
+					G_ENABLED_IDPS) and these are the only cookies used.
+				</p>
+				<p className={styles.paragraph}>
+					I am not responsible for any mistakes in the spelling of recipes of Spoonacular api
+				</p>
 			</div>
-      <div className={styles.button} onClick={() => {
-        history.push('/search')
-      }}>
-        Continue
-      </div>
+			<div
+				className={styles.button}
+				onClick={() => {
+					history.push('/search');
+				}}
+			>
+				Continue
+			</div>
 		</div>
 	);
 }

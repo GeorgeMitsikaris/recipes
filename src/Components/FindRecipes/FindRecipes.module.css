@@ -1,9 +1,9 @@
-.search h1  {
+.search h1 {
   text-align: center;
   color: #85dcb1;
 }
 
-.search input { 
+.search input {
   margin: 0 auto;
   width: 500px;
   display: block;
@@ -12,16 +12,16 @@
   padding: 10px 30px;
   background-color: #e27d60;
   border: none;
-  outline: 1px solid #777;
+  outline: none;
   font-size: 18px;
   margin-bottom: 40px;
 }
 
-.search__recipe {
+.searchRecipe {
   margin: 30px auto;
   border: 1px solid #000;
   border-radius: 5px;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, .3);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
   width: 80%;
   max-width: 1285px;
   background-color: #e8a87c;
@@ -29,9 +29,42 @@
   flex-direction: column;
 }
 
-.search__recipe table {
+.subtitle {
+  text-align: center;
+  color: #85dcb1;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
+.searchRecipe table {
   margin: 0 auto;
-  width: 80%; 
+  width: 80%;
+}
+
+.searchButton {
+  margin: 0 auto;
+  padding: 15px 40px;
+	width: auto;
+	color: #000;
+	font-size: 22px;
+	border-radius: 50px;
+  border: none;
+	transition: all 0.3s;
+  background-color: #85dcb1;
+}
+
+.searchButton:hover {
+  cursor: pointer;
+	transform: translateY(-4px);
+	box-shadow: 3px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.searchButton:active {
+  transform: translateY(-1px);
+}
+
+.buttonWrap {
+  display: flex;
 }
 
 .transition {
@@ -41,7 +74,7 @@
 }
 
 @media (max-width: 800px) {
-	.search input {
+  .search input {
     width: 80%;
   }
 }

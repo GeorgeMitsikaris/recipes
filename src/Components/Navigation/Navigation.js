@@ -47,6 +47,12 @@ function Navigation() {
 						>
 							Login with Google
 						</div>
+						<NavLink
+							className={styles.navAboutMe}
+							to='/aboutMe'
+						>
+							About me
+						</NavLink>
 					</nav>
 					<div className={styles.showBurger}>
 						<FontAwesomeIcon
@@ -86,7 +92,13 @@ function Navigation() {
 							onClick={() => dispatch(startSignOut())}
 						>
 							Sign out
-						</Link>
+						</Link>						
+						<NavLink
+							className={styles.navAboutMe}
+							to='/aboutMe'
+						>
+							About me
+						</NavLink>
 					</nav>
 					<div className={styles.showBurger}>
 						<FontAwesomeIcon

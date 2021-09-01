@@ -33,10 +33,10 @@
 	color: #fff;
 	font-size: 22px;
 	margin-right: auto;
-  padding: 20px 0 0 10px;
+  	padding: 20px 0 0 10px;
 }
 
-.navSearch {
+.navSearch, .navAboutMe {
 	margin-right: 20px;
 	color: #fff;
 	font-size: 22px;
@@ -47,15 +47,19 @@
 	transition: all 0.3s;
 }
 
-.navSearch:hover {
+.navSearch:hover, .navAboutMe:hover {
 	cursor: pointer;
 	transform: translateY(-4px);
 	box-shadow: 3px 1px 3px rgba(0, 0, 0, 0.3);
 	background: rgba(77, 74, 74, 0.6);
 }
 
-.navSearch:active {
+.navSearch:active, .navAboutMe:active {
   transform: translateY(-1px);
+}
+
+.navAboutMe {
+	margin-left: auto;
 }
 
 .burgerMenu {
@@ -64,7 +68,7 @@
 
 .showNav {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	padding: 30px;
 	align-items: center;
 }
