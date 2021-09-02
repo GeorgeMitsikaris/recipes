@@ -45,8 +45,8 @@ const pressEnterHandler = e => {
   return (
     <div className={styles.transition}>
       <div className={styles.search}>
-        <h1>Enter comma separated ingredients</h1>
-        <div className={styles.subtitle}>and click button or press Enter</div>
+        <h1>Enter comma separated ingredients and click button or press Enter</h1>
+        <div className={styles.subtitle}></div>
         <input
           value={recipe}
           placeholder="Search for recipes..."

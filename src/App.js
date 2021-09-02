@@ -59,19 +59,19 @@ function App() {
 				<>
 					<button
 						className={styles['recipe__save']}
-						onClick={dispatch(toggleRegisterModal)}
+						onClick={() => dispatch(toggleRegisterModal())}
 					>
 						Register
 					</button>
 					<button
 						className={styles['recipe__save']}
-						onClick={dispatch(toggleLoginModal)}
+						onClick={() => dispatch(toggleLoginModal())}
 					>
 						Login
 					</button>
 					<button
 						className={styles['recipe__save']}
-						onClick={dispatch(startLoginGoogle)}
+						onClick={() => dispatch(startLoginGoogle())}
 					>
 						Google Login
 					</button>

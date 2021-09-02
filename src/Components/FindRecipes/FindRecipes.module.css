@@ -1,3 +1,9 @@
+.search {
+  background-color: #777;
+  margin: 0 30px;
+  padding: 10px 30px 30px 30px;
+}
+
 .search h1 {
   text-align: center;
   color: #85dcb1;
@@ -21,7 +27,7 @@
   margin: 30px auto;
   border: 1px solid #000;
   border-radius: 5px;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 3px 3px 2px rgba(0, 0, 0, 0.3);
   width: 80%;
   max-width: 1285px;
   background-color: #e8a87c;
@@ -43,7 +49,7 @@
 
 .searchButton {
   margin: 0 auto;
-  padding: 15px 40px;
+  padding: 10px 40px;
 	width: auto;
 	color: #000;
 	font-size: 22px;

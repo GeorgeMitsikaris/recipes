@@ -6,10 +6,11 @@ import styles from './MyRecipe.module.css';
 
 function MyRecipe({ recipe, deleteRecipe }) {
 	const ingredients = recipe.ingredients.map((ingredient) => {
+		const amount = Math.round(100 * (ingredient.amount + Number.EPSILON)) / 100
 		return (
 			<tr key={uuid()} className={styles.recipeIngredients}>
 				<td className={styles.ingredientName}>{ingredient.name}</td>
-				<td className={styles.ingredientAmount}>{ingredient.amount}</td>
+				<td className={styles.ingredientAmount}>{amount}</td>
 				<td className={styles.ingredientUnit}>{ingredient.unit}</td>
 			</tr>
 		);
