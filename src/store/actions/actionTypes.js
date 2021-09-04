@@ -11,4 +11,5 @@ export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 export const SIGN_OUT = 'SIGN_OUT';
 
 //Modal action types
-export const SET_MODAL_STATE = 'SET_MODAL_STATE';
+export const SET_BURGER_MODAL_STATE = 'SET_BURGER_MODAL_STATE';
+export const SET_RECIPES_FORM_MODAL_STATE = 'SET_RECIPES_FORM_MODAL_STATE';

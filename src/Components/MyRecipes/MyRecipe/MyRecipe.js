@@ -1,12 +1,15 @@
-import React from 'react';
-import { v4 as uuid } from 'uuid';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { v4 as uuid } from "uuid";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import styles from './MyRecipe.module.css';
+import styles from "./MyRecipe.module.css";
+import { setRecipesFormModalState } from "../../../store/actions/modalActions";
 
 function MyRecipe({ recipe, deleteRecipe }) {
+	const dispatch = useDispatch();
 	const ingredients = recipe.ingredients.map((ingredient) => {
-		const amount = Math.round(100 * (ingredient.amount + Number.EPSILON)) / 100
+		const amount = Math.round(100 * (ingredient.amount + Number.EPSILON)) / 100;
 		return (
 			<tr key={uuid()} className={styles.recipeIngredients}>
 				<td className={styles.ingredientName}>{ingredient.name}</td>
@@ -45,23 +48,24 @@ function MyRecipe({ recipe, deleteRecipe }) {
 				{renderInstructions}
 			</div>
 			<div className={styles.actions}>
-				<button className={styles.editButton} type='button'>
+				<button className={styles.editButton} type="button">
 					<NavLink
 						to={{
-							pathname: '/recipeForm',
+							pathname: "/recipeForm",
 							state: {
 								recipe,
-								previousPath: '/myRecipes',
+								previousPath: "/myRecipes",
 								isEditMode: true,
 							},
 						}}
+						onClick={() => dispatch(setRecipesFormModalState(true))}
 					>
 						Edit recipe
 					</NavLink>
 				</button>
 				<button
 					className={styles.deleteButton}
-					type='button'
+					type="button"
 					onClick={() => deleteRecipe(recipe.id)}
 				>
 					Delete recipe

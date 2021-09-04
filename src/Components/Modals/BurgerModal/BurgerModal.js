@@ -10,18 +10,18 @@ import {
 	toggleLoginModal,
 	toggleRegisterModal,
 } from "../../../store/actions/authActions";
-import { setModalState } from "../../../store/actions/modalActions";
+import { setBurgerModalState, setRecipesFormModalState } from "../../../store/actions/modalActions";
 
-function BurgeModal({ isSignedIn }) {
+function BurgerModal({ isSignedIn }) {
 	const dispatch = useDispatch();
-	const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+	const isBurgerModalOpen = useSelector((state) => state.modal.isBurgerModalOpen);
 
 	if (isSignedIn) {
 		return (
 			<Modal
-				isOpen={isModalOpen}
+				isOpen={isBurgerModalOpen}
 				closeTimeoutMS={500}
-				onRequestClose={() => dispatch(setModalState(false))}
+				onRequestClose={() => dispatch(setBurgerModalState(false))}
 				className={styles.modalContent}
 				overlayClassName={styles.overlay}
 			>
@@ -35,21 +35,24 @@ function BurgeModal({ isSignedIn }) {
 								isEditMode: false,
 							},
 						}}
-						onClick={() => dispatch(setModalState(false))}
+						onClick={() =>{
+							dispatch(setBurgerModalState(false))
+							dispatch(setRecipesFormModalState(true))
+						}}
 					>
 						Create a recipe
 					</Link>
 					<Link
 						to="/search"
 						className={styles.navSearchMobile}
-						onClick={() => dispatch(setModalState(false))}
+						onClick={() => dispatch(setBurgerModalState(false))}
 					>
 						Search for recipes
 					</Link>
 					<Link
 						to="/myRecipes"
 						className={styles.navSearchMobile}
-						onClick={() => dispatch(setModalState(false))}
+						onClick={() => dispatch(setBurgerModalState(false))}
 					>
 						My recipes
 					</Link>
@@ -66,9 +69,9 @@ function BurgeModal({ isSignedIn }) {
 	} else {
 		return (
 			<Modal
-				isOpen={isModalOpen}
+				isOpen={isBurgerModalOpen}
 				closeTimeoutMS={500}
-				onRequestClose={() => dispatch(setModalState(false))}
+				onRequestClose={() => dispatch(setBurgerModalState(false))}
 				className={styles.modalContent}
 			>
 				<nav className={styles.showNavMobile}>
@@ -76,7 +79,7 @@ function BurgeModal({ isSignedIn }) {
 						className={styles.navLoginMobile}
 						onClick={() => {
 							dispatch(toggleRegisterModal());
-							dispatch(setModalState(false));
+							dispatch(setBurgerModalState(false));
 						}}
 					>
 						Register
@@ -85,7 +88,7 @@ function BurgeModal({ isSignedIn }) {
 						className={styles.navLoginMobile}
 						onClick={() => {
 							dispatch(toggleLoginModal());
-							dispatch(setModalState(false));
+							dispatch(setBurgerModalState(false));
 						}}
 					>
 						Login with Email
@@ -102,4 +105,4 @@ function BurgeModal({ isSignedIn }) {
 	}
 }
 
-export default BurgeModal;
+export default BurgerModal;

@@ -14,7 +14,7 @@ import {
 import LoginModal from '../Modals/LoginModal/LoginModal';
 import RegisterModal from '../Modals/RegisterModal/RegisterModal';
 import BurgerModal from '../Modals/BurgerModal/BurgerModal';
-import { setModalState } from '../../store/actions/modalActions';
+import { setBurgerModalState, setRecipesFormModalState } from '../../store/actions/modalActions';
 
 function Navigation() {
 	const dispatch = useDispatch();
@@ -59,7 +59,7 @@ function Navigation() {
 							icon={faBars}
 							className={styles.burgerMenu}
 							size='2x'
-							onClick={() => dispatch(setModalState(true))}
+							onClick={() => dispatch(setBurgerModalState(true))}
 						></FontAwesomeIcon>
 					</div>
 				</>
@@ -102,7 +102,10 @@ function Navigation() {
 					</nav>
 					<div className={styles.showBurger}>
 						<FontAwesomeIcon
-							onClick={() => dispatch(setModalState(true))}
+							onClick={() => {
+								dispatch(setBurgerModalState(true))
+								dispatch(setRecipesFormModalState(false))
+							}}
 							icon={faBars}
 							className={styles.burgerMenu}
 							size='2x'

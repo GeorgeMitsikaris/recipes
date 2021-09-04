@@ -1,8 +1,15 @@
-import { SET_MODAL_STATE } from '../actions/actionTypes';
+import { SET_BURGER_MODAL_STATE, SET_RECIPES_FORM_MODAL_STATE } from '../actions/actionTypes';
 
-export const setModalState = (payload) => {
+export const setBurgerModalState = (payload) => {
   return {
-    type: SET_MODAL_STATE,
+    type: SET_BURGER_MODAL_STATE,
+    payload
+  }
+}
+
+export const setRecipesFormModalState = (payload) => {
+  return {
+    type: SET_RECIPES_FORM_MODAL_STATE,
     payload
   }
 }

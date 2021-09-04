@@ -1,15 +1,22 @@
-import { SET_MODAL_STATE } from '../actions/actionTypes';
+import { SET_BURGER_MODAL_STATE, SET_RECIPES_FORM_MODAL_STATE } from '../actions/actionTypes';
 
 const initialState = {
-  isModalOpen: false
+  isBurgerModalOpen: false,
+  isRecipesFormModalOpen: true,
 }
 
 export const modalReducer = (state=initialState, action) => {
   switch(action.type) {
-    case SET_MODAL_STATE: {
+    case SET_BURGER_MODAL_STATE: {
       return {
         ...state, 
-        isModalOpen: action.payload
+        isBurgerModalOpen: action.payload
+      }
+    }
+    case SET_RECIPES_FORM_MODAL_STATE: {
+      return {
+        ...state, 
+        isRecipesFormModalOpen: action.payload
       }
     }
     default: return state;
