@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { fetchRecipe } from '../../../store/actions/recipeActions';
 
-import './Recipe.css';
+import styles from './FindRecipe.module.css';
 
 const FindRecipe = ({
 	title,
@@ -38,7 +38,7 @@ const FindRecipe = ({
 
 	const renderUnusedIngredients = unusedIngredients.map((unusedIngredient) => {
 		return (
-			<span className='recipe__ingredients' key={uuid()}>
+			<span className={styles.recipeIngredients} key={uuid()}>
 				{unusedIngredient.name} <span className='recipe__dash'>-</span>
 			</span>
 		);
@@ -46,10 +46,10 @@ const FindRecipe = ({
 
 	return (
 		<>
-			<div className='recipe__header'>{title}</div>
-			<table className='recipe__table'>
+			<div className={styles.recipeHeader}>{title}</div>
+			<table className={styles.recipeTable}>
 				<thead>
-					<tr className='recipe__table--header'>
+					<tr className={styles.recipeTableHeader}>
 						<th>Ingredients</th>
 						<th>Amount</th>
 						<th>Unit</th>
@@ -60,11 +60,11 @@ const FindRecipe = ({
 					{renderMissedIngredients}
 				</tbody>
 			</table>
-			<div className='recipe__unused'>
+			<div className={styles.recipeUnused}>
 				<strong>Unused Ingredients:</strong>
 				{renderUnusedIngredients}
 			</div>
-			<button className='recipe__button' onClick={() => dispatch(fetchRecipe(recipeId))}>
+			<button className={styles.recipeButton} onClick={() => dispatch(fetchRecipe(recipeId))}>
 				Get Instructions
 			</button>
 		</>

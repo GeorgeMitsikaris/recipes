@@ -380,8 +380,8 @@ function RecipeFormModal() {
 
   const renderModal = (
     <div className={styles.modal}>
-      <h2>{state.isEditMode ? "Edit recipe" : "Create recipe"}</h2>
       <form className={styles.modalForm} onSubmit={handleSubmit(submitHandler)}>
+        <h2>{state.isEditMode ? "Edit recipe" : "Create recipe"}</h2> 
         <input type="hidden" name="id" {...register("id")} value={uuid()} />
         <div className={styles.modalInputWrap}>
           <label>Title</label>
@@ -408,9 +408,6 @@ function RecipeFormModal() {
           />
         </div>
         <div className={styles.formSubmitWrap}>
-          <button className={styles.formSubmit} type="submit">
-            Create
-          </button>
           <button className={styles.formCancel} type="submit">
             <Link
               to={state?.previousPath}
@@ -418,6 +415,9 @@ function RecipeFormModal() {
             >
               Cancel
             </Link>
+          </button>
+          <button className={styles.formSubmit} type="submit">
+            {state?.isEditMode ? 'Update' : 'Create'}
           </button>
         </div>
       </form>
@@ -433,6 +433,7 @@ function RecipeFormModal() {
           history.push("/search");
         }}
         className={styles.modal}
+        overlayClassName={styles.modalOverlay}
       >
         {renderModal}
       </Modal>

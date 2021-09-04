@@ -4,8 +4,9 @@
 	border: 1px solid #000;
 	border-radius: 5px;
 	margin-bottom: 30px;
-	background-color: #e8a87c;
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+	backdrop-filter: blur(30px);
+	color: white;
 }
 
 .recipeHeader {
@@ -17,7 +18,7 @@
 }
 
 .titleText {
-	color: #000000;
+	color: #fff;
 }
 
 .table {
@@ -66,7 +67,7 @@
 	width: 180px;
 	padding: 15px 25px;
 	font-size: 18px;
-	background-color: #85dcb1;
+	background-color: #acd27e;
 	border: 0;
 	border-radius: 50px;
 	margin-bottom: 30px;
@@ -94,7 +95,7 @@
 	width: 180px;
 	padding: 15px 25px;
 	font-size: 18px;
-	background-color: red;
+	background-color: #98342b;
   color: #fff;
 	border: 0;
 	border-radius: 50px;
@@ -130,4 +131,9 @@
   .headerWrap {
     flex-direction: column;
   }
+
+	.actions {
+		flex-direction: column;
+		align-items: center;
+	}
 }

@@ -1,82 +1,78 @@
 
-.recipe__title {
+.recipeTitle {
   margin-left: 20px;
 }
 
-.recipe__arrow {
+.recipeArrow {
   padding: 6px 6px 0 0;
   margin-left: auto;
 }
 
-.recipe__header {
+.recipeHeader {
   padding: 20px 20px 20px 0;
   margin-left: 10%;
   font-size: 25px;
 }
 
-.recipe__content {
+.recipeContent {
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
 }
 
-.recipe__button {
+.recipeButton {
   width: 200px;
   height: 40px;
-  font-size: 16px;
-  background-color: #c38d9e; 
+  font-size: 18px;
+  background-color: #acd27e; 
   border-radius: 100px;
   border: 0;
   transition: all 0.2s;
   margin: 30px 30px 30px 10%;
 }
 
-.recipe__button:hover {
+.recipeButton:hover {
   transform: translateY(-3px);
   box-shadow: 0 3px 3px rgb(95, 121, 128);
   cursor: pointer;
 }
 
-.recipe__button:active {
+.recipeButton:active {
   transform: translateY(-1px);
   box-shadow: 0 1px 1px rgb(95, 121, 128);
 }
 
-.recipe__ingredients {
+.recipeIngredients {
   margin-right: 5px;
 }
 
-.recipe__header strong, .recipe__content strong {
+.recipeHeader strong, .recipe__content strong {
   margin-right: 20px;
 }
 
-.recipe__ingredients:last-child span {
+.recipeIngredients:last-child span {
   display: none;
 }
-
-/* .recipe__wrap {
-  width: 80%;
-} */
  
-.recipe__unused {
+.recipeUnused {
   padding: 20px;
   padding-left: 10%;
 }
 
-.recipe__unused strong {
+.recipeUnused strong {
   margin-right: 20px;
 }
 
-.recipe__table {
+.recipeTable {
   margin: 0 auto;
   width: 80%;
 }
 
-.recipe__table th {
+.recipeTable th {
   width: 45%;
 }
 
-.recipe__table--header {
+.recipeTableHeader {
   text-align: left;
 }

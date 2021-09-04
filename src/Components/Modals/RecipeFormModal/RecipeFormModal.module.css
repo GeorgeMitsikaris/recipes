@@ -1,6 +1,6 @@
 .modal {
   padding: 10px 50px 30px 50px;
-  background: #ccc;
+  color: #fff;
 }
 
 .modal h2 {
@@ -13,7 +13,11 @@
   border-radius: 5px;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
   padding: 20px;
-  background: #ffb10d;
+  backdrop-filter: blur(30px);
+}
+
+.modalOverlay {
+  background-color: none;
 }
 
 .modalInputWrap {
@@ -66,7 +70,8 @@
   border: none;
   border-radius: 3px;
   font-size: 15px;
-  background-color: #5290ff;
+  background-color: #375f08;
+  color: #acd27e;
   height: 40px;
   transition: all 0.3s;
 }
@@ -89,7 +94,8 @@
 .tableForm th {
   width: 25%;
   height: 40px;
-  background-color: #C4DAFF;
+  background-color: #c8a27b;
+  color: #fff;
 }
 
 .tableForm td {
@@ -110,7 +116,7 @@
   border: none;
   border-radius: 3px;
   font-size: 15px;
-  background-color: #FF5747;
+  background-color: #98342b;
   color: #fff;
   height: 40px;
   transition: all 0.3s;
@@ -142,11 +148,13 @@
   width: 180px;
   padding: 15px 25px;
   font-size: 18px;
-  background-color: #5290ff;
+  background-color: #acd27e;
   border: 0;
   border-radius: 50px;
   margin: 20px 40px;
   transition: all 0.3s;
+  font-weight: 800;
+  color: #375f08;
 }
 
 .formSubmit:hover {
@@ -165,8 +173,7 @@
   width: 180px;
   padding: 15px 25px;
   font-size: 18px;
-  background-color: #FF5747;
-  color: #fff;
+  background-color: #616509;
   border: 0;
   border-radius: 50px;
   margin: 20px 40px;
@@ -187,7 +194,8 @@
 
 .formCancel a {
   text-decoration: none;
-  color: #fff;
+  color: #acd27e;
+  font-weight: 800;
 }
 
 .formSubmitWrap {
@@ -273,7 +281,8 @@
 
   .inputContainer {
     margin-bottom: 15px;
-    background-color: #5290ff;
+    /* background-color: #5290ff; */
+    border: 1px solid #000;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
@@ -285,7 +294,7 @@
     height: 40px;
     font-size: 18px;
     margin: 15px auto;
-    background-color: #C4DAFF;
+    background-color: #c8a27b;
     border-radius: 20px;
     border: 0;
     transition: all 0.3s;
@@ -307,7 +316,7 @@
     height: 40px;
     font-size: 18px;
     margin: 15px auto;
-    background-color: #FF5747;
+    background-color: #98342b;
 	color: #fff;
     border-radius: 20px;
     border: 0;

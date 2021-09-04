@@ -1,16 +1,16 @@
-import React from 'react';
-import Modal from 'react-modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Modal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import styles from './BurgerModal.module.css';
+import styles from "./BurgerModal.module.css";
 import {
 	startLoginGoogle,
 	startSignOut,
 	toggleLoginModal,
 	toggleRegisterModal,
-} from '../../../store/actions/authActions';
-import { setModalState } from '../../../store/actions/modalActions';
+} from "../../../store/actions/authActions";
+import { setModalState } from "../../../store/actions/modalActions";
 
 function BurgeModal({ isSignedIn }) {
 	const dispatch = useDispatch();
@@ -23,28 +23,38 @@ function BurgeModal({ isSignedIn }) {
 				closeTimeoutMS={500}
 				onRequestClose={() => dispatch(setModalState(false))}
 				className={styles.modalContent}
+				overlayClassName={styles.overlay}
 			>
 				<nav className={styles.showNavMobile}>
 					<Link
 						className={styles.navSearchMobile}
 						to={{
-							pathname: '/recipeForm',
+							pathname: "/recipeForm",
 							state: {
-								previousPath: '/search',
+								previousPath: "/search",
 								isEditMode: false,
 							},
 						}}
+						onClick={() => dispatch(setModalState(false))}
 					>
 						Create a recipe
 					</Link>
-					<Link to='/search' exact className={styles.navSearchMobile}>
+					<Link
+						to="/search"
+						className={styles.navSearchMobile}
+						onClick={() => dispatch(setModalState(false))}
+					>
 						Search for recipes
 					</Link>
-					<Link exact to='/myRecipes' className={styles.navSearchMobile}>
+					<Link
+						to="/myRecipes"
+						className={styles.navSearchMobile}
+						onClick={() => dispatch(setModalState(false))}
+					>
 						My recipes
 					</Link>
 					<Link
-						to='/search'
+						to="/search"
 						className={styles.navLogoutMobile}
 						onClick={() => dispatch(startSignOut())}
 					>
