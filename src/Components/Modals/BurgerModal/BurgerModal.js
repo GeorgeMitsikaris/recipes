@@ -27,7 +27,7 @@ function BurgerModal({ isSignedIn }) {
 			>
 				<nav className={styles.showNavMobile}>
 					<Link
-						className={styles.navSearchMobile}
+						className={styles.navMobile}
 						to={{
 							pathname: "/recipeForm",
 							state: {
@@ -44,21 +44,21 @@ function BurgerModal({ isSignedIn }) {
 					</Link>
 					<Link
 						to="/search"
-						className={styles.navSearchMobile}
+						className={styles.navMobile}
 						onClick={() => dispatch(setBurgerModalState(false))}
 					>
 						Search for recipes
 					</Link>
 					<Link
 						to="/myRecipes"
-						className={styles.navSearchMobile}
+						className={styles.navMobile}
 						onClick={() => dispatch(setBurgerModalState(false))}
 					>
 						My recipes
 					</Link>
 					<Link
 						to="/search"
-						className={styles.navLogoutMobile}
+						className={styles.navMobile}
 						onClick={() => dispatch(startSignOut())}
 					>
 						Sign out
@@ -73,10 +73,11 @@ function BurgerModal({ isSignedIn }) {
 				closeTimeoutMS={500}
 				onRequestClose={() => dispatch(setBurgerModalState(false))}
 				className={styles.modalContent}
+				overlayClassName={styles.overlay}
 			>
 				<nav className={styles.showNavMobile}>
 					<div
-						className={styles.navLoginMobile}
+						className={styles.navMobile}
 						onClick={() => {
 							dispatch(toggleRegisterModal());
 							dispatch(setBurgerModalState(false));
@@ -85,7 +86,7 @@ function BurgerModal({ isSignedIn }) {
 						Register
 					</div>
 					<div
-						className={styles.navLoginMobile}
+						className={styles.navMobile}
 						onClick={() => {
 							dispatch(toggleLoginModal());
 							dispatch(setBurgerModalState(false));
@@ -94,7 +95,7 @@ function BurgerModal({ isSignedIn }) {
 						Login with Email
 					</div>
 					<div
-						className={styles.navLoginMobile}
+						className={styles.navMobile}
 						onClick={() => dispatch(startLoginGoogle())}
 					>
 						Login with Google
