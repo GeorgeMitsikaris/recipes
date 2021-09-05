@@ -45,9 +45,9 @@ const FindRecipes = () => {
 	return (
 		<div className={styles.transition}>
 			<div className={styles.search}>
-				<h1>
+				<h2>
 					Enter comma separated ingredients and click button or press Enter
-				</h1>
+				</h2>
 				<div className={styles.subtitle}></div>
 				<input
 					value={recipe}

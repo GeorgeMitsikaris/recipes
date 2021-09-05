@@ -79,6 +79,7 @@ function LoginModal() {
 			closeTimeoutMS={500}
 			onRequestClose={() => dispatch(toggleLoginModal())}
 			className={styles.modalContainer}
+			overlayClassName={styles.overlay}
 		>
 			{renderLoginForm}
 		</Modal>

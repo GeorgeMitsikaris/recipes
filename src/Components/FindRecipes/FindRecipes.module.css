@@ -5,9 +5,10 @@
   border-radius: 60px;
 }
 
-.search h1 {
+.search h2 {
   text-align: center;
   color: #fff;
+  font-weight: 400;
 }
 
 .search input {
@@ -56,8 +57,9 @@
 	font-size: 22px;
 	border-radius: 50px;
   border: none;
-	transition: all 0.3s;
+	transition: all 0.3s;  
   background-color: #acd27e;
+  color: #375f08;
 }
 
 .searchButton:hover {
@@ -89,5 +91,12 @@
 @media (max-width: 500px) {
   .searchRecipe {
     width: 95%;
+  }
+}
+
+@media (max-width: 400px) {
+  .search input  {
+    width: 100%;
+    transform: translateX(-30px);
   }
 }

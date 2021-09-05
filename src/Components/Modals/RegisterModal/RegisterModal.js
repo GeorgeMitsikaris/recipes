@@ -94,6 +94,7 @@ function RegisterModal() {
 			closeTimeoutMS={500}
 			onRequestClose={() => dispatch(toggleRegisterModal())}
 			className={styles.modalContainer}
+			overlayClassName={styles.overlay}
 		>
 			{renderRegisterForm}
 		</Modal>
