@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import styles from "./MyRecipe.module.css";
-import { setRecipesFormModalState } from "../../../store/actions/modalActions";
+import { setRecipesFormModalState, setDeleteRecipeModalState} from "../../../store/actions/modalActions";
+import { getRecipeToDelete } from '../../../store/actions/recipeActions';
+import DeleteRecipeModal from "../../Modals/DeleteRecipeModal/DeleteRecipeModal";
 
 function MyRecipe({ recipe, deleteRecipe }) {
 	const dispatch = useDispatch();
@@ -23,55 +25,62 @@ function MyRecipe({ recipe, deleteRecipe }) {
 			{step}
 		</div>
 	));
+	
 	return (
-		<div className={styles.recipeContainer} key={uuid()}>
-			<div className={styles.recipeHeader}>
-				<div className={styles.titleText}>{recipe.title}</div>
-			</div>
-			<table className={styles.table}>
-				<thead>
-					<tr className={styles.tableHeader}>
-						<th>Ingredients</th>
-						<th>Amount</th>
-						<th>Unit</th>
-					</tr>
-				</thead>
-				<tbody>{ingredients}</tbody>
-			</table>
-			<div className={styles.steps}>
-				<div className={styles.headerWrap}>
-					<div className={styles.stepsHeaderLeft}>Instructions</div>
-					<div className={styles.stepsHeaderRight}>
-						<em>Ready in {recipe.readyInMinutes} minutes</em>
-					</div>
+		<>
+			<div className={styles.recipeContainer} key={uuid()}>
+				<div className={styles.recipeHeader}>
+					<div className={styles.titleText}>{recipe.title}</div>
 				</div>
-				{renderInstructions}
-			</div>
-			<div className={styles.actions}>
-				<button className={styles.editButton} type="button">
-					<NavLink
-						to={{
-							pathname: "/recipeForm",
-							state: {
-								recipe,
-								previousPath: "/myRecipes",
-								isEditMode: true,
-							},
+				<table className={styles.table}>
+					<thead>
+						<tr className={styles.tableHeader}>
+							<th>Ingredients</th>
+							<th>Amount</th>
+							<th>Unit</th>
+						</tr>
+					</thead>
+					<tbody>{ingredients}</tbody>
+				</table>
+				<div className={styles.steps}>
+					<div className={styles.headerWrap}>
+						<div className={styles.stepsHeaderLeft}>Instructions</div>
+						<div className={styles.stepsHeaderRight}>
+							<em>Ready in {recipe.readyInMinutes} minutes</em>
+						</div>
+					</div>
+					{renderInstructions}
+				</div>
+				<div className={styles.actions}>
+					<button className={styles.editButton} type="button">
+						<NavLink
+							to={{
+								pathname: "/recipeForm",
+								state: {
+									recipe,
+									previousPath: "/myRecipes",
+									isEditMode: true,
+								},
+							}}
+							onClick={() => dispatch(setRecipesFormModalState(true))}
+						>
+							Edit recipe
+						</NavLink>
+					</button>
+					<button
+						className={styles.deleteButton}
+						type="button"
+						onClick={() => {
+							dispatch(setDeleteRecipeModalState(true))
+							dispatch(getRecipeToDelete(recipe));
 						}}
-						onClick={() => dispatch(setRecipesFormModalState(true))}
 					>
-						Edit recipe
-					</NavLink>
-				</button>
-				<button
-					className={styles.deleteButton}
-					type="button"
-					onClick={() => deleteRecipe(recipe.id)}
-				>
-					Delete recipe
-				</button>
+						Delete recipe
+					</button>
+				</div>
 			</div>
-		</div>
+			<DeleteRecipeModal deleteRecipe={deleteRecipe} />
+		</>
 	);
 }
 

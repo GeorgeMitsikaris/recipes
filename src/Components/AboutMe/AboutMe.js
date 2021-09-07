@@ -1,10 +1,11 @@
 import React from 'react';
-import photo from '../../images/george-mitsikaris.jpg';
+import { useHistory } from 'react-router-dom';
 
+import photo from '../../images/george-mitsikaris.jpg';
 import styles from './AboutMe.module.css';
 
 function AboutMe() {
-  
+  const history = useHistory();
   return (
 		<div className={styles.container}>
 			<img src={photo} alt='George Mitsikaris' />
@@ -36,6 +37,7 @@ function AboutMe() {
           			I started working on this project since June on my free time and I really enjoyed it. I hope you like it too.
 				</p>
 			</div>
+			<button className={styles.button} onClick={() => history.push('/search')}>Back to search</button>
 		</div>
 	);
 }

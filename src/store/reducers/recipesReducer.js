@@ -1,8 +1,9 @@
-import { GET_RECIPE, CLOSE_MODAL, STORE_RECIPE } from '../actions/actionTypes';
+import { GET_RECIPE, CLOSE_MODAL, STORE_RECIPE, RECIPE_TO_DELETE } from '../actions/actionTypes';
 
 const initialState = {
   selectedRecipe: {},
-  isModalOpen: false
+  isModalOpen: false,
+	recipeToDelete: {},
 }
 
 export const recipesReducer = (state = initialState, action) => {
@@ -13,6 +14,8 @@ export const recipesReducer = (state = initialState, action) => {
 			return { ...state, isModalOpen: false };
 		case CLOSE_MODAL:
 			return { ...state, isModalOpen: false };
+		case RECIPE_TO_DELETE:
+			return {...state, recipeToDelete: action.payload }
 		default:
 			return state;
 	}

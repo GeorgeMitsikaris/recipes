@@ -3,7 +3,7 @@ import _ from 'lodash';
 import database from '../../firebase/firebase';
 import { STORE_RECIPE } from './actionTypes';
 
-import { GET_RECIPE, CLOSE_MODAL } from './actionTypes';
+import { GET_RECIPE, CLOSE_MODAL, RECIPE_TO_DELETE } from './actionTypes';
 
 export const fetchRecipe = (recipeId) => async (dispatch) => {
 	const { data } = await axios.get(
@@ -40,6 +40,13 @@ export const storeRecipe = () => async (dispatch, getState) => {
 			dispatch({ type: STORE_RECIPE });
 		});
 };
+
+export const getRecipeToDelete = (recipe) => {
+	return { 
+		type: RECIPE_TO_DELETE,
+		payload: recipe
+	}
+}
 
 export const closeModal = () => {
   return {

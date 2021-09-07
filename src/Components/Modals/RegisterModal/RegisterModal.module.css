@@ -16,6 +16,10 @@
   color: #fff;
 }
 
+.overlay {
+  z-index: 10;
+}
+
 .modal h2 {
   text-align: center; 
   letter-spacing: 1.75px;

@@ -77,6 +77,7 @@ function Navigation() {
 									isEditMode: false,
 								},
 							}}
+							onClick={() => dispatch(setRecipesFormModalState(true))}
 						>
 							Create a recipe
 						</NavLink>

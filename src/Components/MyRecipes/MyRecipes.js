@@ -51,7 +51,7 @@ function MyRecipes() {
 	}, [userId, fetchRecipes]);
 
 	const renderMyRecipes = myRecipes.map((recipe) => (
-		<MyRecipe key={recipe.id} recipe={recipe} deleteRecipe={deleteRecipe} />
+		<MyRecipe key={recipe.id} recipe={recipe} deleteRecipe={deleteRecipe}/>
 	));
 
 	return (
