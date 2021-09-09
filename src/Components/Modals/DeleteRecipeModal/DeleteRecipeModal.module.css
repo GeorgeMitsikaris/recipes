@@ -1,0 +1,62 @@
+.modalContent {
+  /* backdrop-filter: blur(30px); */
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  background-color: #b18a70;
+  padding: 20px 40px 30px 40px;
+  border-radius: 10px;
+  width: 60%;
+  max-width: 500px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 5px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.message {
+  font-size: 18px; 
+  margin-bottom: 20px;
+}
+
+.message span {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.deleteButton, .cancelButton {
+  width: 200px;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 50px;
+  border: 0;
+}
+
+.deleteButton {
+  background-color: #acd27e;
+}
+
+.cancelButton {
+  background-color: #98342b;
+  color: #fff;
+}
+
+@media(max-width:800px) {
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .deleteButton {
+    margin-bottom: 20px;
+  }
+}

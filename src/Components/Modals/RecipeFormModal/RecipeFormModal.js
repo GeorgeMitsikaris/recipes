@@ -11,16 +11,18 @@ import "react-toastify/dist/ReactToastify.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import database from "../../../firebase/firebase";
-import { setRecipesFormModalState } from '../../../store/actions/modalActions';
+import { setRecipesFormModalState } from "../../../store/actions/modalActions";
 
 import styles from "./RecipeFormModal.module.css";
 
 function RecipeFormModal() {
 	const userId = useSelector((state) => state.auth.userId);
-  const isRecipesFormModalOpen = useSelector((state) => state.modal.isRecipesFormModalOpen);
+	const isRecipesFormModalOpen = useSelector(
+		(state) => state.modal.isRecipesFormModalOpen
+	);
 	const { state } = useLocation();
 	const history = useHistory();
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
 	let schema = yup.object().shape({
 		title: yup.string().required("Recipe title is required"),
@@ -28,12 +30,20 @@ function RecipeFormModal() {
 			.array()
 			.of(
 				yup.object().shape({
-					name: yup.string().required("Ingredient must have a name"),
-					amount: yup.number().required("Amount is required"),
+					name: yup.string().required("Name is required"),
+					amount: yup
+						.number()
+						.transform((value) => (isNaN(value) ? undefined : value))
+						.required("Amount is required"),
 				})
 			)
 			.min(1, "A recipe must have at least one ingredient"),
-		analyzedInstructions: yup.array().min(1, "Please add instructions"),
+		analyzedInstructions: yup
+			.array()
+			.of(
+				yup.object().shape({ step: yup.string().required("Step is required") })
+			)
+			.min(1, "Please add instructions"),
 	});
 
 	const defaultValues = () => {
@@ -129,8 +139,8 @@ function RecipeFormModal() {
 				<table className={`${styles.tableForm} ${styles.ingredientTable}`}>
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Amount</th>
+							<th>Name*</th>
+							<th>Amount*</th>
 							<th>Unit</th>
 							<th>
 								<button type="button" onClick={addIngredient}>
@@ -163,9 +173,11 @@ function RecipeFormModal() {
 												name={`extendedIngredients[${index}].name`}
 												type="text"
 											/>
-											<span className={styles.textError}>
-												{errors?.extendedIngredients?.[index]?.name?.message}
-											</span>
+											<div className={styles.textErrorWrap}>
+												<span className={styles.textError}>
+													{errors?.extendedIngredients?.[index]?.name?.message}
+												</span>
+											</div>
 										</td>
 										<td>
 											<input
@@ -173,9 +185,14 @@ function RecipeFormModal() {
 												name={`extendedIngredients[${index}].amount`}
 												type="text"
 											/>
-											<span className={styles.textError}>
-												{errors?.ingredientFields?.[index]?.amount?.message}
-											</span>
+											<div className={styles.textErrorWrap}>
+												<span className={styles.textError}>
+													{
+														errors?.extendedIngredients?.[index]?.amount
+															?.message
+													}
+												</span>
+											</div>
 										</td>
 										<td>
 											<input
@@ -198,6 +215,9 @@ function RecipeFormModal() {
 						</TransitionGroup>
 					</tbody>
 				</table>
+				<span className={styles.textError}>
+					{errors?.extendedIngredients?.message}
+				</span>
 			</div>
 		) : (
 			<div className={styles.mobileIngredients}>
@@ -221,20 +241,26 @@ function RecipeFormModal() {
 							<div key={id}>
 								<div className={styles.inputContainer}>
 									<div className={styles.mobileInputWrap}>
-										<label>Name</label>
+										<label>Name*</label>
 										<input
 											{...register(`extendedIngredients[${index}].name`)}
 											name={`extendedIngredients[${index}].name`}
 											type="text"
 										/>
+										<span className={styles.textErrorMobile}>
+											{errors?.extendedIngredients?.[index]?.name?.message}
+										</span>
 									</div>
 									<div className={styles.mobileInputWrap}>
-										<label>Amount</label>
+										<label>Amount*</label>
 										<input
 											{...register(`extendedIngredients[${index}].amount`)}
 											name={`extendedIngredients[${index}].amount`}
 											type="text"
 										/>
+										<span className={styles.textErrorMobile}>
+											{errors?.extendedIngredients?.[index]?.amount?.message}
+										</span>
 									</div>
 									<div className={styles.mobileInputWrap}>
 										<label>Unit</label>
@@ -278,7 +304,7 @@ function RecipeFormModal() {
 				<table className={styles.tableForm}>
 					<thead>
 						<tr>
-							<th className={styles.firstCell}>Step</th>
+							<th className={styles.firstCell}>Step*</th>
 							<th>
 								<button type="button" onClick={addInstructions}>
 									Add step
@@ -309,7 +335,13 @@ function RecipeFormModal() {
 												{...register(`analyzedInstructions[${index}].step`)}
 												name={`analyzedInstructions[${index}].step`}
 												type="text"
+												rows='3'
 											></textarea>
+											<div className={styles.textErrorWrap}>
+												<span className={styles.textError}>
+													{errors?.analyzedInstructions?.[index]?.step?.message}
+												</span>
+											</div>
 										</td>
 										<td>
 											<button
@@ -325,6 +357,9 @@ function RecipeFormModal() {
 						</TransitionGroup>
 					</tbody>
 				</table>
+				<span className={styles.textError}>
+					{errors?.analyzedInstructions?.message}
+				</span>
 			</div>
 		) : (
 			<div className={styles.mobileIngredients}>
@@ -347,12 +382,16 @@ function RecipeFormModal() {
 						>
 							<div className={styles.inputContainer}>
 								<div className={styles.mobileInputWrap}>
-									<label>Step</label>
+									<label>Step*</label>
 									<textarea
 										{...register(`analyzedInstructions[${index}].step`)}
 										name={`analyzedInstructions[${index}].step`}
 										type="text"
+										rows='3'
 									></textarea>
+									<span className={styles.textErrorMobile}>
+										{errors?.analyzedInstructions?.[index]?.step?.message}
+									</span>
 								</div>
 								<div className={styles.removeButtonWrap}>
 									<button
@@ -386,7 +425,7 @@ function RecipeFormModal() {
 				<h2>{state.isEditMode ? "Edit recipe" : "Create recipe"}</h2>
 				<input type="hidden" name="id" {...register("id")} value={uuid()} />
 				<div className={styles.modalInputWrap}>
-					<label>Title</label>
+					<label>Title*</label>
 					<input
 						placeholder="Recipe's title"
 						type="text"
@@ -410,7 +449,7 @@ function RecipeFormModal() {
 					/>
 				</div>
 				<div className={styles.formSubmitWrap}>
-					<button className={styles.formCancel} type="submit">
+					<button className={styles.formCancel} type="button">
 						<Link
 							to={state?.previousPath}
 							onClick={() => dispatch(setRecipesFormModalState(false))}
