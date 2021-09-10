@@ -79,7 +79,7 @@ function MyRecipe({ recipe, deleteRecipe }) {
 					</button>
 				</div>
 			</div>
-			<DeleteRecipeModal deleteRecipe={deleteRecipe} />
+			<DeleteRecipeModal />
 		</>
 	);
 }

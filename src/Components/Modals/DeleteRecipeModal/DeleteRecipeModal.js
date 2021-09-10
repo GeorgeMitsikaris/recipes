@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setDeleteRecipeModalState } from "../../../store/actions/modalActions";
+import { DeleteRecipeContext } from '../../../storeContext/DeleteRecipeContext';
 import styles from "./DeleteRecipeModal.module.css";
 
-const DeleteRecipeModal = ({ deleteRecipe }) => {
+const DeleteRecipeModal = () => {
+	const deleteRecipe = useContext(DeleteRecipeContext)
 	const isDeleteModalOpen = useSelector(
 		(state) => state.modal.isDeleteRecipeModalOpen
 	);
@@ -15,6 +17,7 @@ const DeleteRecipeModal = ({ deleteRecipe }) => {
 		deleteRecipe(recipeToDelete.id);
 		dispatch(setDeleteRecipeModalState(false));
 	};
+console.log(deleteRecipe)
 	return (
 		<Modal
 			isOpen={isDeleteModalOpen}

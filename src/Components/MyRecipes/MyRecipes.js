@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector } from 'react-redux';
-import database from '../../firebase/firebase';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect, useCallback } from "react";
+import { useSelector } from "react-redux";
+import database from "../../firebase/firebase";
+import { toast } from "react-toastify";
 
-import styles from './MyRecipes.module.css';
-import MyRecipe from './MyRecipe/MyRecipe';
+import styles from "./MyRecipes.module.css";
+import MyRecipe from "./MyRecipe/MyRecipe";
+import { DeleteRecipeContext } from "../../storeContext/DeleteRecipeContext";
 
 function MyRecipes() {
 	const [myRecipes, setMyRecipes] = useState([]);
@@ -13,7 +14,7 @@ function MyRecipes() {
 	const fetchRecipes = useCallback((userId) => {
 		database
 			.ref(userId)
-			.once('value')
+			.once("value")
 			.then((snapshot) => {
 				const recipes = [];
 				snapshot.forEach((snapshotChild) => {
@@ -37,7 +38,7 @@ function MyRecipes() {
 			.remove()
 			.then(() => {
 				fetchRecipes(userId);
-				toast.info('Recipe deleted successfully');
+				toast.info("Recipe deleted successfully");
 			})
 			.catch((err) => {
 				toast.error("We couldn't delete your recipe. Something went wrong");
@@ -51,13 +52,15 @@ function MyRecipes() {
 	}, [userId, fetchRecipes]);
 
 	const renderMyRecipes = myRecipes.map((recipe) => (
-		<MyRecipe key={recipe.id} recipe={recipe} deleteRecipe={deleteRecipe}/>
+		<MyRecipe key={recipe.id} recipe={recipe} />
 	));
 
 	return (
-		<div className={styles.transition}>
-			<div className={styles.recipes}>{renderMyRecipes}</div>
-		</div>
+		<DeleteRecipeContext.Provider value={deleteRecipe}>
+			<div className={styles.transition}>
+				<div className={styles.recipes}>{renderMyRecipes}</div>
+			</div>
+		</DeleteRecipeContext.Provider>
 	);
 }
 
