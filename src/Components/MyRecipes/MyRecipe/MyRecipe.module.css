@@ -24,6 +24,16 @@
 .table {
 	margin: 20px auto;
 	width: 80%;
+  border-collapse: collapse;
+}
+
+.table td {
+  padding: 10px 0;
+}
+
+.table tr {
+  border-bottom: 1px solid #fff;
+  vertical-align: bottom;
 }
 
 .tableHeader {

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import _ from 'lodash';
 import database from '../../firebase/firebase';
-import { STORE_RECIPE } from './actionTypes';
+import { toast } from "react-toastify";
 
+import { STORE_RECIPE } from './actionTypes';
 import { GET_RECIPE, CLOSE_MODAL, RECIPE_TO_DELETE } from './actionTypes';
 
 export const fetchRecipe = (recipeId) => async (dispatch) => {
@@ -38,7 +39,11 @@ export const storeRecipe = () => async (dispatch, getState) => {
 		.set(getState().recipes.selectedRecipe)
 		.then(() => {
 			dispatch({ type: STORE_RECIPE });
-		});
+			toast.success('Recipe saved successfully');
+		})
+		.catch(() => {
+			toast.error('There was a problem saving recipe')
+		})
 };
 
 export const getRecipeToDelete = (recipe) => {

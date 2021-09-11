@@ -67,6 +67,16 @@
 .recipeTable {
   margin: 0 auto;
   width: 80%;
+  border-collapse: collapse;
+}
+
+.recipeTable td {
+  padding: 10px 0;
+}
+
+.recipeTable tr {
+  border-bottom: 1px solid #fff;
+  vertical-align: bottom;
 }
 
 .recipeTable th {

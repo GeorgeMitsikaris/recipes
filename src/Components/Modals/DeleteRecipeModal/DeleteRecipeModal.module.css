@@ -39,6 +39,17 @@
   padding: 10px;
   border-radius: 50px;
   border: 0;
+  transition: all 0.3s; 
+}
+
+.deleteButton:hover, .cancelButton:hover {
+  cursor: pointer;
+	transform: translateY(-4px);
+	box-shadow: 3px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.deleteButton:active, .cancelButton:active {
+  transform: translateY(-1px);
 }
 
 .deleteButton {
