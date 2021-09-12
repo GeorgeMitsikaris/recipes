@@ -17,7 +17,6 @@ const DeleteRecipeModal = () => {
 		deleteRecipe(recipeToDelete.id);
 		dispatch(setDeleteRecipeModalState(false));
 	};
-console.log(deleteRecipe)
 	return (
 		<Modal
 			isOpen={isDeleteModalOpen}

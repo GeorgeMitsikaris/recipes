@@ -58,6 +58,7 @@ function RecipeFormModal() {
 				}),
 				extendedIngredients: state?.recipe?.ingredients,
 				id: state?.recipe?.id,
+				servings: state?.recipe?.servings,
 			};
 		} else {
 			return {
@@ -65,6 +66,7 @@ function RecipeFormModal() {
 				readyInMinutes: "",
 				analyzedInstructions: [],
 				extendedIngredients: [],
+				servings: "",
 			};
 		}
 	};
@@ -111,7 +113,7 @@ function RecipeFormModal() {
 				if (state.isEditMode) {
 					toast.success("Successfully updated recipe");
 				} else {
-					toast.success("Recipe successfully created");
+					toast.success("Successfully created recipe");
 				}
 			})
 			.catch((error) => {
@@ -335,7 +337,7 @@ function RecipeFormModal() {
 												{...register(`analyzedInstructions[${index}].step`)}
 												name={`analyzedInstructions[${index}].step`}
 												type="text"
-												rows='3'
+												rows="3"
 											></textarea>
 											<div className={styles.textErrorWrap}>
 												<span className={styles.textError}>
@@ -387,7 +389,7 @@ function RecipeFormModal() {
 										{...register(`analyzedInstructions[${index}].step`)}
 										name={`analyzedInstructions[${index}].step`}
 										type="text"
-										rows='3'
+										rows="3"
 									></textarea>
 									<span className={styles.textErrorMobile}>
 										{errors?.analyzedInstructions?.[index]?.step?.message}
@@ -424,7 +426,7 @@ function RecipeFormModal() {
 			<form className={styles.modalForm} onSubmit={handleSubmit(submitHandler)}>
 				<h2>{state.isEditMode ? "Edit recipe" : "Create recipe"}</h2>
 				<input type="hidden" name="id" {...register("id")} value={uuid()} />
-				<div className={styles.modalInputWrap}>
+				<div className={styles.modalInputWrapTitle}>
 					<label>Title*</label>
 					<input
 						placeholder="Recipe's title"
@@ -439,14 +441,25 @@ function RecipeFormModal() {
 				<hr />
 				{renderInstructions}
 				<hr />
-				<div className={styles.modalInputWrap}>
-					<label>Ready in </label>
-					<input
-						placeholder="The required time"
-						type="text"
-						name="readyInMinutes"
-						{...register("readyInMinutes")}
-					/>
+				<div className={styles.timeServingsWrap}>
+					<div className={styles.modalInputWrap}>
+						<label>Ready in </label>
+						<input
+							placeholder="The required time"
+							type="text"
+							name="readyInMinutes"
+							{...register("readyInMinutes")}
+						/>
+					</div>
+					<div className={styles.modalInputWrap}>
+						<label>Servings</label>
+						<input
+							placeholder="Servings"
+							type="text"
+							name="servings"
+							{...register("servings")}
+						/>
+					</div>
 				</div>
 				<div className={styles.formSubmitWrap}>
 					<button className={styles.formCancel} type="button">

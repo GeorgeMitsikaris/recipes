@@ -25,6 +25,7 @@ export const fetchRecipe = (recipeId) => async (dispatch) => {
 		'id',
 		'analyzedInstructions',
 		'readyInMinutes',  
+		'servings'
 	]);
 
   const recipe = {...recipeData, extendedIngredients: ingredients, analyzedInstructions: instructions}

@@ -15,17 +15,17 @@
     opacity: 0;
 }
 
-.modal-header {
+.modalHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.modal-header i {
+.modalHeader i {
   text-decoration: underline;
 }
 
-.modal-content {
+.modalContent {
   backdrop-filter: blur(30px);
   position: absolute;
   inset: 40px;
@@ -36,6 +36,7 @@
   padding: 20px 40px;
   font-size: 22px;
   color: #fff;
+  top: 180px;
 }
 
 .overlay {
@@ -44,11 +45,11 @@
   inset: 0px;
 }
 
-.modal-steps {
+.modalSteps {
   padding-bottom: 20px;
 }
 
-.recipe__close {
+.recipeClose {
   width: 200px;
   height: 40px;
   font-size: 22px;
@@ -60,7 +61,7 @@
   margin: 30px 30px 30px;
 }
 
-.recipe__save {
+.recipeSave {
   width: 200px;
   height: 40px;
   font-size: 22px;
@@ -71,13 +72,13 @@
   margin: 30px 30px 30px;
 }
 
-.recipe__close:hover, .recipe__save:hover {
+.recipeClose:hover, .recipeSave:hover {
   transform: translateY(-3px);
   box-shadow: 0 3px 3px rgb(95, 121, 128);
   cursor: pointer;
 }
 
-.recipe__close:active, .recipe__save:active {
+.recipeClose:active, .recipeSave:active {
   transform: translateY(-1px);
   box-shadow: 0 1px 1px rgb(95, 121, 128);
 }

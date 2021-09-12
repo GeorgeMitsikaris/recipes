@@ -62,7 +62,6 @@ export const startLoginEmail = (userName, password) => async (dispatch) => {
 				)
 			);
 		}
-    console.log(error);
 	}
 };
 

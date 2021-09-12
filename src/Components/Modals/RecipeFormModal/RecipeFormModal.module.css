@@ -22,19 +22,30 @@
 	overflow: hidden;
 }
 
-.modalInputWrap {
+.timeServingsWrap {
+	display: flex;
+}
+
+.modalInputWrap{
+	display: flex;
+	flex-direction: column;
+	margin: 0 1px 20px 1px;
+	width: 50%;
+}
+
+.modalInputWrapTitle {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 20px;
 }
 
-.modalInputWrap label {
+.modalInputWrapTitle label, .modalInputWrap label {
 	font-size: 20px;
 	margin-bottom: 10px;
 	align-self: center;
 }
 
-.modalInputWrap input {
+.modalInputWrapTitle input, .modalInputWrap input {
 	height: 30px;
 	border-radius: 5px;
 	border: 1px solid rgba(0, 0, 0, 0.2);

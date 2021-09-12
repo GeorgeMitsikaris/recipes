@@ -29,28 +29,31 @@ function App() {
 	const selectedRecipe = useSelector((state) => state.recipes.selectedRecipe);
 	const userId = useSelector((state) => state.auth.userId);
 
+	// When we select a recipe by pressing the button 'Get Instructions' we store it in the global state (redux)
+	// and then we render the instructions
 	const renderSteps =
 		selectedRecipe.analyzedInstructions &&
 		selectedRecipe.analyzedInstructions.map((step, index) => {
 			return (
-				<div key={uuid()} className={styles["modal-steps"]}>
+				<div key={uuid()} className={styles.modalSteps}>
 					<span>{index + 1}. </span>
 					{step}
 				</div>
 			);
 		});
 
+	//We render different buttons based on if the user is logged in or not (the close button is common)
 	const renderButtons = (
 		<>
 			<button
-				className={styles["recipe__close"]}
+				className={styles.recipeClose}
 				onClick={() => dispatch(closeModal())}
 			>
 				Close
 			</button>
 			{userId ? (
 				<button
-					className={styles["recipe__save"]}
+					className={styles.recipeSave}
 					onClick={() => dispatch(storeRecipe())}
 				>
 					Save Recipe
@@ -58,19 +61,19 @@ function App() {
 			) : (
 				<>
 					<button
-						className={styles["recipe__save"]}
+						className={styles.recipeSave}
 						onClick={() => dispatch(toggleRegisterModal())}
 					>
 						Register
 					</button>
 					<button
-						className={styles["recipe__save"]}
+						className={styles.recipeSave}
 						onClick={() => dispatch(toggleLoginModal())}
 					>
 						Login
 					</button>
 					<button
-						className={styles["recipe__save"]}
+						className={styles.recipeSave}
 						onClick={() => dispatch(startLoginGoogle())}
 					>
 						Google Login
@@ -80,11 +83,12 @@ function App() {
 		</>
 	);
 
+	//Firebase is configured to remember if the user is logged in. The following code checks that.
 	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {
 			dispatch(getUserIdAndEmail(user.uid, user.email));
 		} else {
-			console.log("Not logged in");
+			// console.log("Not logged in");
 		}
 	});
 
@@ -94,10 +98,10 @@ function App() {
 				isOpen={isModalOpen}
 				closeTimeoutMS={500}
 				onRequestClose={() => dispatch(closeModal())}
-				className={styles["modal-content"]}
+				className={styles.modalContent}
 				overlayClassName={styles.overlay}
 			>
-				<div className={styles["modal-header"]}>
+				<div className={styles.modalHeader}>
 					<h1>
 						Instructions for {selectedRecipe.servings}{" "}
 						{selectedRecipe.servings === 1 ? "serving" : "servings"}

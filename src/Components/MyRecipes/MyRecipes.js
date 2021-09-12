@@ -27,6 +27,7 @@ function MyRecipes() {
 						readyInMinutes: recipe.readyInMinutes,
 						steps: recipe.analyzedInstructions,
 						id: recipe.id,
+						servings: recipe.servings,
 					};
 				});
 				setMyRecipes(rsps);

@@ -8,7 +8,7 @@ import { setRecipesFormModalState, setDeleteRecipeModalState} from "../../../sto
 import { getRecipeToDelete } from '../../../store/actions/recipeActions';
 import DeleteRecipeModal from "../../Modals/DeleteRecipeModal/DeleteRecipeModal";
 
-function MyRecipe({ recipe, deleteRecipe }) {
+function MyRecipe({ recipe }) {
 	const dispatch = useDispatch();
 	const ingredients = recipe.ingredients.map((ingredient) => {
 		const amount = Math.round(100 * (ingredient.amount + Number.EPSILON)) / 100;
@@ -44,7 +44,7 @@ function MyRecipe({ recipe, deleteRecipe }) {
 				</table>
 				<div className={styles.steps}>
 					<div className={styles.headerWrap}>
-						<div className={styles.stepsHeaderLeft}>Instructions</div>
+						<div className={styles.stepsHeaderLeft}>Instructions for {recipe.servings} {recipe.servings === 1 ? "serving" : "servings"}</div>
 						<div className={styles.stepsHeaderRight}>
 							<em>Ready in {recipe.readyInMinutes} minutes</em>
 						</div>
