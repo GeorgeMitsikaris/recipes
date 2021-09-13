@@ -10,6 +10,7 @@ import DeleteRecipeModal from "../../Modals/DeleteRecipeModal/DeleteRecipeModal"
 
 function MyRecipe({ recipe }) {
 	const dispatch = useDispatch();
+	// We render the ingredients
 	const ingredients = recipe.ingredients.map((ingredient) => {
 		const amount = Math.round(100 * (ingredient.amount + Number.EPSILON)) / 100;
 		return (
@@ -20,6 +21,8 @@ function MyRecipe({ recipe }) {
 			</tr>
 		);
 	});
+
+	// We render the instructions
 	const renderInstructions = recipe.steps.map((step) => (
 		<div key={uuid()} className={styles.step}>
 			{step}

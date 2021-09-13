@@ -16,11 +16,14 @@ function BurgerModal({ isSignedIn }) {
 	const dispatch = useDispatch();
 	const isBurgerModalOpen = useSelector((state) => state.modal.isBurgerModalOpen);
 
+	// We render different content based on if the user is signed in
+	// For more info about React Modal check the documentation -> https://reactcommunity.org/react-modal/
 	if (isSignedIn) {
 		return (
 			<Modal
 				isOpen={isBurgerModalOpen}
 				closeTimeoutMS={500}
+				// We use redux to dispatch an action that closes the modal
 				onRequestClose={() => dispatch(setBurgerModalState(false))}
 				className={styles.modalContent}
 				overlayClassName={styles.overlay}
@@ -79,6 +82,7 @@ function BurgerModal({ isSignedIn }) {
 					<div
 						className={styles.navMobile}
 						onClick={() => {
+							// We open the register modal and we close the burger modal
 							dispatch(toggleRegisterModal());
 							dispatch(setBurgerModalState(false));
 						}}
@@ -88,6 +92,7 @@ function BurgerModal({ isSignedIn }) {
 					<div
 						className={styles.navMobile}
 						onClick={() => {
+							// We open the login modal and we close the burger modal
 							dispatch(toggleLoginModal());
 							dispatch(setBurgerModalState(false));
 						}}

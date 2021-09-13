@@ -60,6 +60,7 @@
 .navSearch:hover, .navAboutMe:hover {
 	cursor: pointer;
 	transform: translateY(-4px);
+	background: rgba(77, 74, 74, 0.6);
 }
 
 .navSearch:active, .navAboutMe:active {

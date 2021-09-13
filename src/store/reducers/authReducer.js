@@ -5,12 +5,13 @@ const initialState = {
   userEmail: '',
   isLoginModalOpen: false,
   isRegisterModalOpen: false,
-  errorMessage: ''
+  errorMessage: '',
+  isUserLoggedIn: false,
 }
 
 export const authReducer = (state=initialState, action) => {
   switch (action.type) {
-    case GET_USER_ID: return {...state, userId: action.payload.uid, userEmail: action.payload.email}
+    case GET_USER_ID: return {...state, userId: action.payload.uid, userEmail: action.payload.email, isUserLoggedIn: true}
     case TOGGLE_LOGIN_MODAL: return {...state, isLoginModalOpen: !state.isLoginModalOpen}
     case TOGGLE_REGISTER_MODAL: return {
 			...state,

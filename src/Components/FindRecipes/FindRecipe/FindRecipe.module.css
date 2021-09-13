@@ -14,13 +14,6 @@
   font-size: 25px;
 }
 
-.recipeContent {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
 .recipeButton {
   width: 200px;
   height: 40px;
@@ -47,7 +40,7 @@
   margin-right: 5px;
 }
 
-.recipeHeader strong, .recipe__content strong {
+.recipeHeader strong,{
   margin-right: 20px;
 }
 

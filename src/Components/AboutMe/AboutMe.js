@@ -34,7 +34,7 @@ function AboutMe() {
 			</div>
 			<div className={styles.paragraph}>
 				<p>
-          			I started working on this project since June on my free time and I really enjoyed it. I hope you like it too.
+					I started working on this project since June on my free time and I really enjoyed it. I hope you like it too.
 				</p>
 			</div>
 			<button className={styles.button} onClick={() => history.push('/search')}>Back to search</button>

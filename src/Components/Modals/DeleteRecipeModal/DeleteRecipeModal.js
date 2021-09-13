@@ -7,6 +7,9 @@ import { DeleteRecipeContext } from '../../../storeContext/DeleteRecipeContext';
 import styles from "./DeleteRecipeModal.module.css";
 
 const DeleteRecipeModal = () => {
+	// The reason we are using the React Context api here is because DeleteRecipeModal is the grandchild of MyRecipes component.
+	// In the MyRecipes component we are fetching the recipes we have stored in firebase. So the delete method must be declared there,
+	// in order to use the method which fetches the recipes after the deletion. The easiest way to avoid props drilling is the Context api.
 	const deleteRecipe = useContext(DeleteRecipeContext)
 	const isDeleteModalOpen = useSelector(
 		(state) => state.modal.isDeleteRecipeModalOpen

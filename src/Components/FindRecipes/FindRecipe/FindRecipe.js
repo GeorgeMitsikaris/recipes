@@ -14,8 +14,9 @@ const FindRecipe = ({
 	recipeId
 }) => {
   const dispatch = useDispatch();
-
+	// Missed ingredients are the ingredients that the recipe has but the user didn't type.
 	const renderMissedIngredients = missedIngredients.map((missedIngredient) => {
+		// We don't use the toFixed(2) method because this will be applied to all amounts and we want two decimals only to the amounts that have more than two.
 		const amount = Math.round(100 * (missedIngredient.amount + Number.EPSILON)) / 100
 		return (
 			<tr key={uuid()}>
@@ -25,7 +26,8 @@ const FindRecipe = ({
 			</tr>
 		);
 	});
-
+	
+	// Used ingredients are the ingredients that the user typed and the recipe has.
 	const renderUsedIngredients = usedIngredients.map((usedIngredient) => {
 		return (
 			<tr key={uuid()}>
@@ -35,11 +37,12 @@ const FindRecipe = ({
 			</tr>
 		);
 	});
-
+	
+	// Unused ingredients are the ingredients that the user typed but the recipe didn't has.
 	const renderUnusedIngredients = unusedIngredients.map((unusedIngredient) => {
 		return (
 			<span className={styles.recipeIngredients} key={uuid()}>
-				{unusedIngredient.name} <span className='recipe__dash'>-</span>
+				{unusedIngredient.name} <span>-</span>
 			</span>
 		);
 	});
