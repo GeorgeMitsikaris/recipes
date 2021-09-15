@@ -27,7 +27,6 @@ function App() {
 	const dispatch = useDispatch();
 	const isModalOpen = useSelector((state) => state.recipes.isModalOpen);
 	const selectedRecipe = useSelector((state) => state.recipes.selectedRecipe);
-	const isUserLoggedIn = useSelector((state) => state.auth.isUserLoggedIn);
 	const userId = useSelector((state) => state.auth.userId);
 
 	// When we select a recipe by pressing the button 'Get Instructions' we store it in the global state (redux)
@@ -87,7 +86,6 @@ function App() {
 	// Firebase is configured to remember if the user is logged in. The following code checks that.
 	// We use the isUserLoggedIn flag to check only once if the user is logged in, because the onAuthStateChanged method 
 	// is running every time we call firebase.
-	if (!isUserLoggedIn) {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				dispatch(getUserIdAndEmail(user.uid, user.email));
@@ -95,7 +93,6 @@ function App() {
 				// console.log("Not logged in");
 			}
 		});
-	}
 
 	return (
 		// For more info about React Modal check the documentation -> https://reactcommunity.org/react-modal/

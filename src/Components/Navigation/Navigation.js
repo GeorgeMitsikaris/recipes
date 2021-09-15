@@ -21,6 +21,8 @@ function Navigation() {
 	const isSignedIn = useSelector((state) => state.auth.userId);
 	const userEmail = useSelector((state) => state.auth.userEmail);
 
+	// We render different links based on if the user is signed in 
+	// The hamburger menu button is showing/hiding with css 
 	return (
 		<div className={styles.nav}>
 			{!isSignedIn && (

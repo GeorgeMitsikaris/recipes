@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { STORE_RECIPE } from './actionTypes';
 import { GET_RECIPE, CLOSE_MODAL, RECIPE_TO_DELETE } from './actionTypes';
 
+//More info -> https://spoonacular.com/food-api/docs#Get-Recipe-Information
 export const fetchRecipe = (recipeId) => async (dispatch) => {
 	const { data } = await axios.get(
 		`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${process.env.REACT_APP_SPOONACULAR}`
@@ -19,6 +20,7 @@ export const fetchRecipe = (recipeId) => async (dispatch) => {
 		return step.step;
 	});
 
+	// We use lodash pick method to select only the data we need
 	const recipeData = _.pick(data, [
 		'extendedIngredients',
 		'title',
@@ -32,6 +34,7 @@ export const fetchRecipe = (recipeId) => async (dispatch) => {
 	dispatch({ type: GET_RECIPE, payload: recipe });
 };
 
+// More info -> https://firebase.google.com/docs/reference/js/v8/firebase.database.DataSnapshot#child
 export const storeRecipe = () => async (dispatch, getState) => {
 	const userId = getState().auth.userId;
 	database

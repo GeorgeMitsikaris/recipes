@@ -10,6 +10,7 @@ import {
 
 export const startRegister = (userName, password) => async (dispatch) => {
 	try {
+		// More info -> https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#createuserwithemailandpassword
 		const data = await firebase
 			.auth()
 			.createUserWithEmailAndPassword(userName, password)
@@ -21,6 +22,8 @@ export const startRegister = (userName, password) => async (dispatch) => {
       })
 		dispatch(getUserIdAndEmail(data.user.uid, data.user.email));
 	} catch (error) {
+		// The error codes are of type auth/account-exists-with-different-credential, auth/auth-domain-config-required etc.
+		// so with the following code we get a meaningful error message
 		dispatch(
 			setErrorMessage(
 				error?.code?.substring(error.code.indexOf('/') + 1).replaceAll('-', ' ')
@@ -29,6 +32,7 @@ export const startRegister = (userName, password) => async (dispatch) => {
 	}
 };
 
+// More info -> https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopup
 export const startLoginGoogle = () => async (dispatch) => {
 	const data = await firebase
 		.auth()
@@ -42,6 +46,7 @@ export const startLoginGoogle = () => async (dispatch) => {
 	dispatch(getUserIdAndEmail(data?.user.uid, data?.user.email));
 };
 
+// More info https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopup
 export const startLoginEmail = (userName, password) => async (dispatch) => {
 	try {
 		const data = await firebase

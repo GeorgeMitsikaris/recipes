@@ -11,7 +11,7 @@ import DeleteRecipeModal from "../../Modals/DeleteRecipeModal/DeleteRecipeModal"
 function MyRecipe({ recipe }) {
 	const dispatch = useDispatch();
 	// We render the ingredients
-	const ingredients = recipe.ingredients.map((ingredient) => {
+	const renderIngredients = recipe.ingredients.map((ingredient) => {
 		const amount = Math.round(100 * (ingredient.amount + Number.EPSILON)) / 100;
 		return (
 			<tr key={uuid()} className={styles.recipeIngredients}>
@@ -43,7 +43,7 @@ function MyRecipe({ recipe }) {
 							<th>Unit</th>
 						</tr>
 					</thead>
-					<tbody>{ingredients}</tbody>
+					<tbody>{renderIngredients}</tbody>
 				</table>
 				<div className={styles.steps}>
 					<div className={styles.headerWrap}>
@@ -55,6 +55,7 @@ function MyRecipe({ recipe }) {
 					{renderInstructions}
 				</div>
 				<div className={styles.actions}>
+					{/* We navigate to and open the recipeFormModal */}
 					<button className={styles.editButton} type="button">
 						<NavLink
 							to={{

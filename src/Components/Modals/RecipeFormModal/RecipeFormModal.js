@@ -24,6 +24,7 @@ function RecipeFormModal() {
 	const history = useHistory();
 	const dispatch = useDispatch();
 
+	// yup documentation -> https://github.com/jquense/yup
 	let schema = yup.object().shape({
 		title: yup.string().required("Recipe title is required"),
 		extendedIngredients: yup
@@ -46,11 +47,14 @@ function RecipeFormModal() {
 			.min(1, "Please add instructions"),
 	});
 
+	// We define the default values of the form based on if we are creating or editing
 	const defaultValues = () => {
 		if (state?.isEditMode) {
 			return {
 				title: state?.recipe?.title,
 				readyInMinutes: state?.recipe?.readyInMinutes,
+				// The instuctions is coming in the form of array of strings ['abc abc', 'xyz xyz'] but react-hook-form needs to be in the form of array of strings
+				// objects [{step:'abc abc'},{step: 'xyz xyz'}]
 				analyzedInstructions: state?.recipe?.steps.map((step, index) => {
 					return {
 						step,
@@ -71,6 +75,7 @@ function RecipeFormModal() {
 		}
 	};
 
+	// React hook form documentation -> https://react-hook-form.com/
 	const {
 		register,
 		control,
@@ -84,6 +89,7 @@ function RecipeFormModal() {
 		defaultValues: defaultValues(),
 	});
 
+	// We define the input fields arrray for the ingredients
 	const {
 		fields: ingredientFields,
 		append: ingredientAppend,
@@ -93,6 +99,7 @@ function RecipeFormModal() {
 		name: "extendedIngredients",
 	});
 
+	// We define the input fields arrray for the instructions
 	const {
 		fields: instructionFields,
 		append: instructionAppend,
@@ -103,6 +110,8 @@ function RecipeFormModal() {
 	});
 
 	const submitHandler = (data) => {
+		// We override the instructions because react-hook-form is creating an array of objects [{step: 'abc abc'}, {step: 'xyz xyz'}] but on firebase
+		// we store them as an array of strings ['abc abc', 'xyz xyz']
 		const instructions = data.analyzedInstructions.map((step) => step.step);
 		const recipe = { ...data, analyzedInstructions: instructions };
 		database
@@ -110,7 +119,7 @@ function RecipeFormModal() {
 			.child(recipe.id)
 			.update(recipe)
 			.then(() => {
-				if (state.isEditMode) {
+				if (state?.isEditMode) {
 					toast.success("Successfully updated recipe");
 				} else {
 					toast.success("Successfully created recipe");
@@ -121,19 +130,22 @@ function RecipeFormModal() {
 			});
 		reset();
 		dispatch(setRecipesFormModalState(false));
-		history.push("/search");
+		history.push("/myRecipes ");
 	};
 
+	// If there was an error about ingredients we want to clear it when we add a new input array of ingredients
 	const addIngredient = () => {
 		ingredientAppend({});
 		clearErrors("extendedIngredients");
 	};
 
+	// If there was an error about instructions we want to clear it when we add a new input array of instructions
 	const addInstructions = () => {
 		instructionAppend({});
 		clearErrors("analyzedInstructions");
 	};
 
+	// We change the html of the form based on the width of the screen to keep the page responsive
 	const renderIngredients =
 		window.innerWidth > 900 ? (
 			<div className={styles.tableWrap}>
@@ -152,6 +164,7 @@ function RecipeFormModal() {
 						</tr>
 					</thead>
 					<tbody>
+					{/* Transitions for adding-removing ingredients. More info on -> https://reactcommunity.org/react-transition-group/transition-group */}
 						<TransitionGroup component={null}>
 							{ingredientFields.map(({ id }, index) => (
 								<CSSTransition
@@ -224,6 +237,7 @@ function RecipeFormModal() {
 		) : (
 			<div className={styles.mobileIngredients}>
 				<label className={styles.labelIngredients}>Ingredients</label>
+				{/* Transitions for adding-removing ingredients. More info on -> https://reactcommunity.org/react-transition-group/transition-group */}
 				<TransitionGroup>
 					{ingredientFields.map(({ id }, index) => (
 						<CSSTransition
@@ -315,6 +329,7 @@ function RecipeFormModal() {
 						</tr>
 					</thead>
 					<tbody>
+					{/* Transitions for adding-removing instructions. More info on -> https://reactcommunity.org/react-transition-group/transition-group */}
 						<TransitionGroup component={null}>
 							{instructionFields.map(({ id }, index) => (
 								<CSSTransition
@@ -366,6 +381,7 @@ function RecipeFormModal() {
 		) : (
 			<div className={styles.mobileIngredients}>
 				<label className={styles.labelIngredients}>Instructions</label>
+				{/* Transitions for adding-removing ingredients. More info on -> https://reactcommunity.org/react-transition-group/transition-group */}
 				<TransitionGroup>
 					{instructionFields.map(({ id }, index) => (
 						<CSSTransition

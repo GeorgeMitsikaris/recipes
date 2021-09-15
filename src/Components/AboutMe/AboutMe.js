@@ -26,7 +26,7 @@ function AboutMe() {
 			</div>
 			<div className={styles.paragraph}>
 				<p>
-					Since January 2020 I am working in Dope Studio as a .NET Developer.
+					Since January 2020 I am working for Dope Studio as a .NET Developer.
 					There I had the opportunity to work in a project about the cart of
 					papaki.gr based on React and Typescript, and I realized that this is
 					the path that I wanted to pursue as developer.

@@ -22,7 +22,7 @@ function InitialPage() {
 					</a>
 				</span>
 				&nbsp; (about 140 http requests per day). After this, if the user is
-				registered he can store the recipe, create a new one, and edit or delete
+				registered they can store the recipe, create a new one, and edit or delete
 				an existing one.
 			</p>
 			<p className={styles.paragraph}>
