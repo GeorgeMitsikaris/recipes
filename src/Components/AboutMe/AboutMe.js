@@ -22,6 +22,7 @@ function AboutMe() {
 					In 2015 I made a conscious decision and started to learn C#, TSQL,
 					HTML/CSS and soon after Javascript and jQuery. I was studying about 6
 					hours per day for almoast three and a half years. In 2018 I started to learn React and in 2019 Angular.
+					Currently I am learning Next.js and GraphQL.
 				</p>
 			</div>
 			<div className={styles.paragraph}>
