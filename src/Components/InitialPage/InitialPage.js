@@ -13,26 +13,26 @@ function InitialPage() {
 				drinks using the free version of &nbsp;
 				<span>
 					<a
-						href='https://spoonacular.com/food-api'
-						target='_blank'
-						rel='noreferrer'
+						href="https://spoonacular.com/food-api"
+						target="_blank"
+						rel="noreferrer"
 						className={styles.link}
 					>
 						Spoonacular api
 					</a>
 				</span>
 				&nbsp; (about 140 http requests per day). After this, if the user is
-				registered they can store the recipe, create a new one, and edit or delete
-				an existing one.
+				registered they can store the recipe, create a new one, and edit or
+				delete an existing one.
 			</p>
 			<p className={styles.paragraph}>
 				The database used for storing the recipes and authenticate the users is
-				Google's realtime{' '}
+				Google's realtime{" "}
 				<span>
 					<a
-						href='https://firebase.google.com/'
-						target='_blank'
-						rel='noreferrer'
+						href="https://firebase.google.com/"
+						target="_blank"
+						rel="noreferrer"
 						className={styles.link}
 					>
 						Firebase
@@ -46,9 +46,9 @@ function InitialPage() {
 				<li className={styles.listItem}>
 					<span>
 						<a
-							href='https://react-redux.js.org/'
-							target='_blank'
-							rel='noreferrer'
+							href="https://react-redux.js.org/"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							React Redux
@@ -59,9 +59,9 @@ function InitialPage() {
 				<li className={styles.listItem}>
 					<span>
 						<a
-							href='https://github.com/reduxjs/redux-thunk'
-							target='_blank'
-							rel='noreferrer'
+							href="https://github.com/reduxjs/redux-thunk"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							Redux Thunk
@@ -72,9 +72,9 @@ function InitialPage() {
 				<li className={styles.listItem}>
 					<span>
 						<a
-							href='https://axios-http.com/docs/intro'
-							target='_blank'
-							rel='noreferrer'
+							href="https://axios-http.com/docs/intro"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							Axios
@@ -85,9 +85,9 @@ function InitialPage() {
 				<li className={styles.listItem}>
 					<span>
 						<a
-							href='https://react-hook-form.com/'
-							target='_blank'
-							rel='noreferrer'
+							href="https://react-hook-form.com/"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							React hook form
@@ -98,9 +98,9 @@ function InitialPage() {
 				<li className={styles.listItem}>
 					<span>
 						<a
-							href='https://github.com/jquense/yup'
-							target='_blank'
-							rel='noreferrer'
+							href="https://github.com/jquense/yup"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							Yup
@@ -111,9 +111,9 @@ function InitialPage() {
 				<li className={styles.listItem}>
 					<span>
 						<a
-							href='https://reactcommunity.org/react-modal/'
-							target='_blank'
-							rel='noreferrer'
+							href="https://reactcommunity.org/react-modal/"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							React Modal
@@ -124,9 +124,9 @@ function InitialPage() {
 				<li className={styles.listItem}>
 					<span>
 						<a
-							href='https://reactcommunity.org/react-transition-group/'
-							target='_blank'
-							rel='noreferrer'
+							href="https://reactcommunity.org/react-transition-group/"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							React Transition Group
@@ -137,9 +137,9 @@ function InitialPage() {
 				<li className={styles.listItem}>
 					<span>
 						<a
-							href='https://www.npmjs.com/package/react-toastify'
-							target='_blank'
-							rel='noreferrer'
+							href="https://www.npmjs.com/package/react-toastify"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							React Toastify
@@ -153,21 +153,21 @@ function InitialPage() {
 					Background photo by &nbsp;
 					<span>
 						<a
-							href='https://unsplash.com/photos/0JFveX0c778'
-							target='_blank'
-							rel='noreferrer'
+							href="https://unsplash.com/photos/0JFveX0c778"
+							target="_blank"
+							rel="noreferrer"
 							className={styles.link}
 						>
 							Andy Chilton
 						</a>
 					</span>
 				</p>
-				The github link is{' '}
+				The github link is{" "}
 				<span>
 					<a
-						href='https://github.com/GeorgeMitsikaris/recipes-react'
-						target='_blank'
-						rel='noreferrer'
+						href="https://github.com/GeorgeMitsikaris/recipes-react"
+						target="_blank"
+						rel="noreferrer"
 						className={styles.link}
 					>
 						here
@@ -185,13 +185,17 @@ function InitialPage() {
 					G_ENABLED_IDPS) and these are the only cookies used.
 				</p>
 				<p className={styles.paragraph}>
-					I am not responsible for any mistakes in the spelling of recipes of Spoonacular api
+					I am not responsible for any mistakes in the spelling of recipes of
+					Spoonacular api
+				</p>
+				<p className={styles.paragraph}>
+					Feel free to use a dummy email if you want to check out this app
 				</p>
 			</div>
 			<div
 				className={styles.button}
 				onClick={() => {
-					history.push('/search');
+					history.push("/search");
 				}}
 			>
 				Continue
