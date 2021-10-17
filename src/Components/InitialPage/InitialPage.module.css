@@ -1,9 +1,9 @@
 .container {
 	text-align: center;
   background-color: #444;
-  padding: 25px 50px;
+  padding: 0 50px 25px 50px;
   margin: 0 30px;
-  transform: translateY(120px);
+  transform: translateY(89px);
 }
 
 .container h1,
